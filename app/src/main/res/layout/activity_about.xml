@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License
+     as published by the Free Software Foundation; either version 3
+     of the License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+     MA  02110-1301, USA.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/app_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imageView"
+                android:gravity="center"
+                android:text="@string/ver"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/app_version"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/small_info"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView2"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/license3"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/textView3"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:text="@string/license4"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView4"
+                android:gravity="center"
+                android:paddingTop="25dp"
+                android:text="@string/license1"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView9"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center|top"
+                android:padding="8dp"
+                android:text="@string/license2"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

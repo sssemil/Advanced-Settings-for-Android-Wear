@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License
+     as published by the Free Software Foundation; either version 3
+     of the License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+     MA  02110-1301, USA.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.sssemil.advancedsettings.AppInfoActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/icon"
+                android:padding="5dp"
+                android:text="App name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/package_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignStart="@+id/app_name"
+                android:layout_below="@+id/app_name"
+                android:paddingLeft="5dp"
+                android:text="package.name"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignStart="@+id/package_name"
+                android:layout_below="@+id/package_name"
+                android:paddingLeft="5dp"
+                android:paddingTop="3dp"
+                android:text="v.E.R.S.I.O.N."
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Button
+                android:id="@+id/forse_stop_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignStart="@+id/icon"
+                android:layout_below="@id/version"
+                android:onClick="onForceStopClick"
+                android:text="@string/force_stop" />
+
+            <Button
+                android:id="@+id/uninstall_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/forse_stop_button"
+                android:onClick="onUninstallClick"
+                android:text="@string/uninstall" />
+
+            <TextView
+                android:id="@+id/launch_by_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/uninstall_button"
+                android:layout_alignStart="@+id/uninstall_button"
+                android:layout_below="@+id/uninstall_button"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/launch_by_default"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/launch_by_default_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/launch_by_default"
+                android:layout_centerHorizontal="true"
+                android:headerDividersEnabled="false"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/permissions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/launch_by_default"
+                android:layout_alignStart="@+id/launch_by_default"
+                android:layout_below="@+id/launch_by_default_list"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/permissions"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/permisisions_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/permissions"
+                android:layout_centerHorizontal="true"
+                android:headerDividersEnabled="false"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

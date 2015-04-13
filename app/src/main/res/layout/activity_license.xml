@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/toolbar"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp">
+
+            <TextView
+                android:id="@+id/license_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="8dp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

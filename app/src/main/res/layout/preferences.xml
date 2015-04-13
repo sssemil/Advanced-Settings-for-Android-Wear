@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License
+     as published by the Free Software Foundation; either version 3
+     of the License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+     MA  02110-1301, USA.
+-->
+
+<preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.DisplaySettingsActivity"
+        app:pref_icon="@mipmap/ic_display_settings"
+        app:pref_key="display_settings"
+        app:pref_title="@string/display" />
+
+    <preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.AppsSettingsActivity"
+        app:pref_icon="@mipmap/ic_apps"
+        app:pref_key="apps_settings"
+        app:pref_title="@string/apps" />
+
+    <!--<preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.LanguageInputSettingsActivity"
+        app:pref_icon="@mipmap/ic_language_and_input"
+        app:pref_key="input_settings"
+        app:pref_title="@string/lang_input" />-->
+
+    <preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.LicenseActivity"
+        app:pref_icon="@mipmap/ic_opensource"
+        app:pref_key="license_settings"
+        app:pref_title="@string/license" />
+
+    <preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.AboutActivity"
+        app:pref_icon="@mipmap/ic_information"
+        app:pref_key="about_settings"
+        app:pref_title="@string/about" />
+
+</preference.PreferenceScreen>

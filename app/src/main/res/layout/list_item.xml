@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License
+     as published by the Free Software Foundation; either version 3
+     of the License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+     MA  02110-1301, USA.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="5dip">
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="5dip"
+        android:scaleType="center" />
+
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvSize"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

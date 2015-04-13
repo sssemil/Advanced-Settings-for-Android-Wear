@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License
+     as published by the Free Software Foundation; either version 3
+     of the License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+     MA  02110-1301, USA.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sssemil.advancedsettings.pm.InstallAppActivity"
+    tools:deviceIds="wear_round">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <Button
+                android:id="@+id/uninstall"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/version"
+                android:onClick="onUninstallClick"
+                android:text="Uninstall" />
+
+            <Button
+                android:id="@+id/cancel"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/version"
+                android:onClick="onCancelClick"
+                android:text="Cancel" />
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="55dp"
+                android:text="----------------"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/ic_launcher"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/label"
+                android:layout_centerHorizontal="true"
+                android:text="-------------"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/uninstall">
+
+                <TextView
+                    android:id="@+id/log"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/version"
+                    android:layout_alignEnd="@+id/uninstall"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center_horizontal|top"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </ScrollView>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
