@@ -18,9 +18,7 @@
  */
 package com.sssemil.advancedsettings;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -44,7 +42,11 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                 String.valueOf(Settings.System.getInt(getContentResolver(),
                         Settings.System.SCREEN_OFF_TIMEOUT, 0))).apply();
 
-        try {
+        sharedPreferences.edit().putString("brightness_settings",
+                String.valueOf(Settings.System.getInt(getContentResolver(),
+                        Settings.System.SCREEN_BRIGHTNESS, 0))).apply();
+
+        /*try {
             Context myContext
                     = this.createPackageContext("com.google.android.wearable.app",
                     Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
@@ -52,7 +54,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
             Log.i("tilt_to_wake", String.valueOf(Utils.tiltToWakeEnabled(myContext)));
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -61,6 +63,12 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                 Settings.System.SCREEN_OFF_TIMEOUT, 0)
                 != Integer.parseInt(sharedPreferences.getString(key, null)))) {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
+                    Integer.parseInt(sharedPreferences.getString(key, null)));
+            Log.i("key", sharedPreferences.getString(key, null));
+        } else if (key.equals("brightness_settings") && (Settings.System.getInt(getContentResolver(),
+                Settings.System.SCREEN_BRIGHTNESS, 0)
+                != Integer.parseInt(sharedPreferences.getString(key, null)))) {
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                     Integer.parseInt(sharedPreferences.getString(key, null)));
             Log.i("key", sharedPreferences.getString(key, null));
         }

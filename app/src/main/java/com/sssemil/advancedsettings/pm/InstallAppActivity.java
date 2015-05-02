@@ -79,7 +79,7 @@ public class InstallAppActivity extends Activity {
 
             mLabel.setText(mPackageInfo.applicationInfo.loadLabel(pm));
             mIcon.setBackground(mPackageInfo.applicationInfo.loadIcon(pm));
-            mVersion.setText(getString(R.string.version) + mPackageInfo.versionName);
+            mVersion.setText(getString(R.string.ver) + " " + mPackageInfo.versionName);
         }
     }
 

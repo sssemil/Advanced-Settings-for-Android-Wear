@@ -19,10 +19,10 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:paddingBottom="50dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="50dp"
-            android:paddingBottom="50dp">
+            android:paddingTop="50dp">
 
             <TextView
                 android:id="@+id/license_text"

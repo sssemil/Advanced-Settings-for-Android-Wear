@@ -23,18 +23,15 @@
     <string name="default_summary_off">Off</string>
     <string name="action_settings">Settings</string>
     <string name="force_stop">FORCE STOP</string>
-    <string name="uninstall">UNINSTALL</string>
+    <string name="uninstallU">UNINSTALL</string>
     <string name="permissions">PERMISSIONS</string>
-    <string name="title_activity_language_input_settings">Language&amp;Input</string>
-    <string name="title_activity_install_app">Install</string>
-    <string name="title_activity_uninstall_app">Uninstall</string>
+    <string name="language_input_settings">Language&amp;Input</string>
     <string name="finish">FINISH</string>
     <string name="open">OPEN</string>
     <string name="failed">FAILED!</string>
     <string name="done">DONE!</string>
     <string name="no_perm">No permissions.</string>
     <string name="working">Working…\n</string>
-    <string name="version">"version "</string>
 
     <string name="license">License</string>
 
@@ -49,7 +46,11 @@
     <string name="display">Display</string>
     <string name="apps">Apps</string>
     <string name="about">About</string>
-    <string name="lang_input"><![CDATA[Language&input]]></string>
     <string name="launch_by_default">LAUNCH BY DEFAULT</string>
+    <string name="screen_timeout">Screen timeout</string>
+    <string name="brightness">Brightness</string>
+    <string name="install">Install</string>
+    <string name="cancel">Cancel</string>
+    <string name="uninstall">Uninstall</string>
 
 </resources>

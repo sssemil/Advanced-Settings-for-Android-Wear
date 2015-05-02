@@ -18,6 +18,7 @@
  */
 package com.sssemil.advancedsettings;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import preference.WearPreferenceActivity;
@@ -29,5 +30,7 @@ public class MainActivity extends WearPreferenceActivity {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.layout.preferences);
+
+        this.startService(new Intent(this, MainService.class));
     }
 }

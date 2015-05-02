@@ -30,7 +30,17 @@
         app:pref_entryValues="@array/values_screen_timeout"
         app:pref_icon="@mipmap/ic_timelapse"
         app:pref_key="screen_timeout_settings"
-        app:pref_title="Screen timeout" />
+        app:pref_title="@string/screen_timeout" />
+
+    <preference.ListPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_defaultValue="120"
+        app:pref_entries="@array/entries_brightness"
+        app:pref_entryValues="@array/entries_brightness"
+        app:pref_icon="@mipmap/ic_brightness"
+        app:pref_key="brightness_settings"
+        app:pref_title="@string/brightness" />
 
     <!--<preference.BooleanPreference
         android:layout_width="wrap_content"

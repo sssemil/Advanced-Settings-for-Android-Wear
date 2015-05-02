@@ -95,7 +95,7 @@ public class UninstallAppActivity extends Activity {
                             = mPackageManager.getApplicationInfo(mPackageName, 0);
                     mIcon.setBackground(mPackageManager.getApplicationIcon(mApplicationInfo));
                     mLabel.setText(mPackageManager.getApplicationLabel(mApplicationInfo));
-                    mVersion.setText(getString(R.string.version) + mPackageInfo.versionName);
+                    mVersion.setText(getString(R.string.ver) + " " + mPackageInfo.versionName);
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {

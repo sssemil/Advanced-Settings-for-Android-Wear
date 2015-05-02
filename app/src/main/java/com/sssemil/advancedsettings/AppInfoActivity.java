@@ -188,8 +188,7 @@ public class AppInfoActivity extends Activity {
             while (true) {
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (InterruptedException ignored) {
                 }
                 if (!isPackageInstalled(mPackageName, mContext)) {
                     runOnUiThread(new Runnable() {

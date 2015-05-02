@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Advanced Settings</string>
+    <string name="about">О программе</string>
+    <string name="action_settings">Настройки</string>
+    <string name="apps">Приложения</string>
+    <string name="brightness">Яркость</string>
+    <string name="cancel">Отменить</string>
+    <string name="default_summary_off">Выкл.</string>
+    <string name="default_summary_on">Вкл.</string>
+    <string name="display">Экран</string>
+    <string name="done">ЗАВЕРШЕНО!</string>
+    <string name="failed">НЕ ВЫШЛО!</string>
+    <string name="finish">ЗАКОНЧИТЬ</string>
+    <string name="force_stop">ЗАВЕРШИТЬ</string>
+    <string name="install">Установить</string>
+    <string name="launch_by_default">ЗАПУСК ПО УМОЛЧАНИЮ</string>
+    <string name="license">Лицензия</string>
+    <string name="license1">Copyright © 2015 Emil Suleymanov</string>
+    <string name="license2">Распространяется под GNU GPL v3</string>
+    <string name="license3">Исходный код доступен на https://github.com/sssemil/wear_AdvancedSettings .</string>
+    <string name="license4">Используется WearPreferenceActivity от Denley Bihari(@denley) (https://github.com/denley/WearPreferenceActivity).</string>
+    <string name="no_perm">Никаких привелегий.</string>
+    <string name="open">ОТКРЫТЬ</string>
+    <string name="screen_timeout">Время отключения экрана</string>
+    <string name="permissions">ПРИВЕЛЕГИИ</string>
+    <string name="small_info">Расширенные настройки для устройств на Android Wear.</string>
+    <string name="language_input_settings">Язык и ввод</string>
+    <string name="uninstall">Удалить</string>
+    <string name="uninstallU">УДАЛИТЬ</string>
+    <string name="ver">Версия</string>
+    <string name="working">Работаю…\n</string>
+</resources>
