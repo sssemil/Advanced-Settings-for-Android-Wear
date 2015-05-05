@@ -58,9 +58,7 @@ public class UninstallAppActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uninstall_app);
-        // Get intent information.
-        // We expect an intent with URI of the form package://<packageName>#<className>
-        // className is optional; if specified, it is the activity the user chose to uninstall
+
         final Intent intent = getIntent();
         mPackageURI = intent.getData();
         mPackageManager = this.getPackageManager();

@@ -52,5 +52,7 @@
     <string name="install">Install</string>
     <string name="cancel">Cancel</string>
     <string name="uninstall">Uninstall</string>
+    <string name="disable">DISABLE</string>
+    <string name="enable">ENABLE</string>
 
 </resources>

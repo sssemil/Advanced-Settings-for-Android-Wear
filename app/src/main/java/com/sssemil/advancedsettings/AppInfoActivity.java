@@ -37,7 +37,6 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.List;
 
-
 public class AppInfoActivity extends Activity {
 
     private String mPackageName;
@@ -56,6 +55,9 @@ public class AppInfoActivity extends Activity {
     private Thread mThread;
 
     private ActivityManager.RunningAppProcessInfo mProcess;
+
+    private boolean mIsSystemApp = false;
+    private String mEnable = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,16 @@ public class AppInfoActivity extends Activity {
                     = mPackageManager.getPackageInfo(mPackageName, 0);
             mApplicationInfo
                     = mPackageManager.getApplicationInfo(mPackageName, 0);
+            if ((mApplicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                if (mApplicationInfo.enabled) {
+                    mUninstallButton.setText(getString(R.string.disable));
+                    mEnable = "disable";
+                } else {
+                    mUninstallButton.setText(getString(R.string.enable));
+                    mEnable = "enable";
+                }
+                mIsSystemApp = true;
+            }
             mIcon.setBackground(mPackageManager.getApplicationIcon(mApplicationInfo));
             mAppNameView.setText(mPackageManager.getApplicationLabel(mApplicationInfo));
             mVersionView.setText("version " + mPackageInfo.versionName);
@@ -133,7 +145,7 @@ public class AppInfoActivity extends Activity {
     }
 
     public void onForceStopClick(View view) {
-        //TODO: Fix it
+        //TODO: Do it the right way
         android.os.Process.killProcess(mProcess.pid);
         Log.i("PID", mProcess.pid + " name: " + mProcess.processName);
         if (isAppRunning()) {
@@ -150,14 +162,17 @@ public class AppInfoActivity extends Activity {
     }
 
     public void onUninstallClick(View view) {
-        try {
+        if (!mIsSystemApp) {
             Intent intent = new Intent(Intent.ACTION_DELETE);
             intent.setData(Uri.parse("package:" + mPackageName));
             startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            try {
+                Runtime.getRuntime().exec("su -c pm " + mEnable + " " + mPackageName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     public boolean isAppRunning() {
@@ -190,6 +205,7 @@ public class AppInfoActivity extends Activity {
                     Thread.sleep(1000);
                 } catch (InterruptedException ignored) {
                 }
+
                 if (!isPackageInstalled(mPackageName, mContext)) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -198,12 +214,42 @@ public class AppInfoActivity extends Activity {
                         }
                     });
                 }
+
+                final boolean isAppRunning = isAppRunning();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mForceStopButton.setEnabled(isAppRunning());
+                        mForceStopButton.setEnabled(isAppRunning);
                     }
                 });
+
+                if (mIsSystemApp) {
+                    try {
+                        mApplicationInfo
+                                = mPackageManager.getApplicationInfo(mPackageName, 0);
+
+                        if (mApplicationInfo.enabled) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mUninstallButton.setText(getString(R.string.disable));
+                                }
+                            });
+                            mEnable = "disable";
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mUninstallButton.setText(getString(R.string.enable));
+                                }
+                            });
+                            mEnable = "enable";
+                        }
+
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }

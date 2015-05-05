@@ -172,8 +172,7 @@ public class AppsSettingsActivity extends Activity
             while (true) {
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (InterruptedException ignored) {
                 }
                 List listAppInfo = Utils.getInstalledApplication(mContext);
                 for (int n = 0; n < mListAppInfo.size(); n++) {

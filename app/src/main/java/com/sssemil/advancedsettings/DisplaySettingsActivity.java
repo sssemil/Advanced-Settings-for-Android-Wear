@@ -22,7 +22,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.util.Log;
 
 import preference.WearPreferenceActivity;
 
@@ -64,13 +63,11 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                 != Integer.parseInt(sharedPreferences.getString(key, null)))) {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
                     Integer.parseInt(sharedPreferences.getString(key, null)));
-            Log.i("key", sharedPreferences.getString(key, null));
         } else if (key.equals("brightness_settings") && (Settings.System.getInt(getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS, 0)
                 != Integer.parseInt(sharedPreferences.getString(key, null)))) {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                     Integer.parseInt(sharedPreferences.getString(key, null)));
-            Log.i("key", sharedPreferences.getString(key, null));
         }
     }
 }
