@@ -147,7 +147,9 @@ public class AppInfoActivity extends Activity {
     public void onForceStopClick(View view) {
         //TODO: Do it the right way
         android.os.Process.killProcess(mProcess.pid);
-        Log.i("PID", mProcess.pid + " name: " + mProcess.processName);
+        if(BuildConfig.DEBUG) {
+            Log.d("PID", mProcess.pid + " name: " + mProcess.processName);
+        }
         if (isAppRunning()) {
             try {
                 Runtime.getRuntime().exec("su -c killall " + mPackageName);

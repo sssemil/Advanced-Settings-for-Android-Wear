@@ -18,6 +18,7 @@
  */
 package com.sssemil.advancedsettings;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -58,7 +59,9 @@ public class Utils {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e("TAG", "That's odd package: " + packageName + " should be here but isn't");
+            if(BuildConfig.DEBUG) {
+                Log.e("TAG", "That's odd package: " + packageName + " should be here but isn't");
+            }
         }
         return retval;
     }
@@ -67,11 +70,26 @@ public class Utils {
         SharedPreferences localSharedPreferences = paramContext.getSharedPreferences("home_preferences", 0);
         boolean bool = tiltToWakeEnabled(paramContext);
         if (bool == paramBoolean) {
-            Log.w("Clockwork.Settings", "setTiltToWake to its old value: " + bool + " - ignoring!");
+            if(BuildConfig.DEBUG) {
+                Log.w("TAG", "setTiltToWake to its old value: " + bool + " - ignoring!");
+            }
             return;
         }
         SharedPreferences.Editor localEditor = localSharedPreferences.edit();
         localEditor.putBoolean("tilt_to_wake", paramBoolean);
         localEditor.apply();
+    }
+
+    public static boolean setBluetoothEnabled(boolean enable) {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        boolean isEnabled = bluetoothAdapter.isEnabled();
+        if (enable && !isEnabled) {
+            return bluetoothAdapter.enable();
+        }
+        else if(!enable && isEnabled) {
+            return bluetoothAdapter.disable();
+        }
+        // No need to change bluetooth state
+        return true;
     }
 }

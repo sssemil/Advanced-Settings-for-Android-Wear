@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sssemil.advancedsettings.BuildConfig;
 import com.sssemil.advancedsettings.R;
 
 import java.io.BufferedReader;
@@ -67,7 +68,7 @@ public class UninstallAppActivity extends Activity {
         mVersion = (TextView) findViewById(R.id.version);
         mLog = (TextView) findViewById(R.id.log);
 
-        mInstall = (Button) findViewById(R.id.uninstall);
+        mInstall = (Button) findViewById(R.id.install);
         mCancel = (Button) findViewById(R.id.cancel);
 
         mIcon = (ImageView) findViewById(R.id.icon);
@@ -87,7 +88,9 @@ public class UninstallAppActivity extends Activity {
                     mCancel.setText(getString(R.string.finish));
                     mCancel.setEnabled(true);
                 } else {
-                    Log.i(TAG, mPackageName);
+                    if(BuildConfig.DEBUG) {
+                        Log.i(TAG, mPackageName);
+                    }
                     mPackageInfo = mPackageManager.getPackageInfo(mPackageName, 0);
                     mApplicationInfo
                             = mPackageManager.getApplicationInfo(mPackageName, 0);

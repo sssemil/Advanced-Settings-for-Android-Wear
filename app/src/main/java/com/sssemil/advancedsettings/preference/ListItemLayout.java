@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package preference;
+package com.sssemil.advancedsettings.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;

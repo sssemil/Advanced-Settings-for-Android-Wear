@@ -60,7 +60,7 @@ public class InstallAppActivity extends Activity {
         mVersion = (TextView) findViewById(R.id.version);
         mLog = (TextView) findViewById(R.id.log);
 
-        mInstall = (Button) findViewById(R.id.uninstall);
+        mInstall = (Button) findViewById(R.id.install);
         mCancel = (Button) findViewById(R.id.cancel);
 
         mIcon = (ImageView) findViewById(R.id.icon);

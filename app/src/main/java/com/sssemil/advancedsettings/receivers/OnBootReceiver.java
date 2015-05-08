@@ -16,11 +16,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package com.sssemil.advancedsettings;
+package com.sssemil.advancedsettings.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.sssemil.advancedsettings.MainService;
 
 public class OnBootReceiver extends BroadcastReceiver {
 

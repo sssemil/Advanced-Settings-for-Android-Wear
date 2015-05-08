@@ -21,7 +21,7 @@ package com.sssemil.advancedsettings;
 import android.content.Intent;
 import android.os.Bundle;
 
-import preference.WearPreferenceActivity;
+import com.sssemil.advancedsettings.preference.WearPreferenceActivity;
 
 public class MainActivity extends WearPreferenceActivity {
 

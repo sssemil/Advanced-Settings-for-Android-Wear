@@ -1,4 +1,4 @@
-package preference;
+package com.sssemil.advancedsettings.preference;
 
 import android.content.Context;
 import android.util.AttributeSet;

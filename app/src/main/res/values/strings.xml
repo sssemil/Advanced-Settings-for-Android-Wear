@@ -22,12 +22,12 @@
     <string name="default_summary_on">On</string>
     <string name="default_summary_off">Off</string>
     <string name="action_settings">Settings</string>
-    <string name="force_stop">FORCE STOP</string>
-    <string name="uninstallU">UNINSTALL</string>
-    <string name="permissions">PERMISSIONS</string>
+    <string name="force_stop">Force stop</string>
+    <string name="uninstallU">Uninstall</string>
+    <string name="permissions">Permissions</string>
     <string name="language_input_settings">Language&amp;Input</string>
-    <string name="finish">FINISH</string>
-    <string name="open">OPEN</string>
+    <string name="finish">Finish</string>
+    <string name="open">Open</string>
     <string name="failed">FAILED!</string>
     <string name="done">DONE!</string>
     <string name="no_perm">No permissions.</string>
@@ -50,9 +50,15 @@
     <string name="screen_timeout">Screen timeout</string>
     <string name="brightness">Brightness</string>
     <string name="install">Install</string>
-    <string name="cancel">Cancel</string>
-    <string name="uninstall">Uninstall</string>
-    <string name="disable">DISABLE</string>
-    <string name="enable">ENABLE</string>
+    <string name="disable">Disable</string>
+    <string name="enable">Enable</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="off">Off</string>
+    <string name="turning_off">Turning off…</string>
+    <string name="on">On</string>
+    <string name="turning_on">Turning on…</string>
+    <string name="security">Security</string>
+    <string name="alert_on_disconnect">Alert on disconnect</string>
+    <string name="forgot_device">Forgot your device?</string>
 
 </resources>

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
      Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
 
      This program is free software; you can redistribute it and/or
@@ -17,12 +18,21 @@
      MA  02110-1301, USA.
 -->
 
-<preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sssemil.advancedsettings.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <preference.ButtonPreference
+    <com.sssemil.advancedsettings.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.BluetoothActivity"
+        app:pref_icon="@mipmap/ic_bluetooth"
+        app:pref_key="bluetooth_settings"
+        app:pref_title="@string/bluetooth" />
+
+    <com.sssemil.advancedsettings.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.DisplaySettingsActivity"
@@ -30,7 +40,15 @@
         app:pref_key="display_settings"
         app:pref_title="@string/display" />
 
-    <preference.ButtonPreference
+    <com.sssemil.advancedsettings.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.SecuritySettingsActivity"
+        app:pref_icon="@mipmap/ic_security"
+        app:pref_key="security_settings"
+        app:pref_title="@string/security" />
+
+    <com.sssemil.advancedsettings.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.AppsSettingsActivity"
@@ -38,7 +56,7 @@
         app:pref_key="apps_settings"
         app:pref_title="@string/apps" />
 
-    <!--<preference.ButtonPreference
+    <!--<com.sssemil.advancedsettings.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.LanguageInputSettingsActivity"
@@ -46,7 +64,7 @@
         app:pref_key="input_settings"
         app:pref_title="@string/lang_input" />-->
 
-    <preference.ButtonPreference
+    <com.sssemil.advancedsettings.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.LicenseActivity"
@@ -54,7 +72,7 @@
         app:pref_key="license_settings"
         app:pref_title="@string/license" />
 
-    <preference.ButtonPreference
+    <com.sssemil.advancedsettings.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.AboutActivity"
@@ -62,4 +80,4 @@
         app:pref_key="about_settings"
         app:pref_title="@string/about" />
 
-</preference.PreferenceScreen>
+</com.sssemil.advancedsettings.preference.PreferenceScreen>

@@ -23,7 +23,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 
-import preference.WearPreferenceActivity;
+import com.sssemil.advancedsettings.preference.WearPreferenceActivity;
 
 
 public class DisplaySettingsActivity extends WearPreferenceActivity

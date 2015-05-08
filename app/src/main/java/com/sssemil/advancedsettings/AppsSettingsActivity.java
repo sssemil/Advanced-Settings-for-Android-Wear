@@ -92,7 +92,9 @@ public class AppsSettingsActivity extends Activity
     @Override
     public void onClick(WearableListView.ViewHolder v) {
         ApplicationInfo appInfo = (ApplicationInfo) mListAppInfo.get(v.getPosition());
-        Log.i("TAG", appInfo.packageName);
+        if(BuildConfig.DEBUG) {
+            Log.i("TAG", appInfo.packageName);
+        }
 
         Intent myIntent = new Intent(mContext, AppInfoActivity.class);
         myIntent.putExtra("packageName", appInfo.packageName);

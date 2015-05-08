@@ -18,20 +18,35 @@
  */
 package com.sssemil.advancedsettings;
 
+import android.app.NotificationManager;
 import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.hardware.display.DisplayManager;
 import android.os.IBinder;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Display;
 
 import java.io.IOException;
 
 public class MainService extends Service implements DisplayManager.DisplayListener {
+
     private static final String TAG = "MainService";
+
     private DisplayManager mDisplayManager;
+
+    private SharedPreferences mSharedPreferences;
+
+    private NotificationManager mNotificationManager;
 
     public MainService() {
     }
@@ -40,9 +55,47 @@ public class MainService extends Service implements DisplayManager.DisplayListen
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, "STARTED!!!");
+
+        mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
         mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
         mDisplayManager.registerDisplayListener(this, null);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+        registerReceiver(mReceiver, filter);
     }
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if(BuildConfig.DEBUG) {
+                Log.i("BLUETOOTH", action);
+            }
+            if(mSharedPreferences.contains("alert_on_disconnect")
+                    && mSharedPreferences.getBoolean("alert_on_disconnect", true)) {
+                if(action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
+                    NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(MainService.this)
+                                .setSmallIcon(R.mipmap.ic_cloud_outline)
+                                .setContentTitle(getString(R.string.forgot_device));
+                    Vibrator v = (Vibrator) MainService.this.getApplicationContext()
+                                    .getSystemService(Context.VIBRATOR_SERVICE);
+                    long[] pattern = {100, 600, 100, 600};
+                    v.vibrate(pattern, -1);
+                    mNotificationManager.notify(R.mipmap.ic_cloud_outline, mBuilder.build());
+                } else if(action.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
+                    mNotificationManager.cancel(R.mipmap.ic_cloud_outline);
+                }
+
+            }
+        }
+    };
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -68,7 +121,7 @@ public class MainService extends Service implements DisplayManager.DisplayListen
                 try {
                     Thread.sleep(2);
                     int brightness = Settings.System.getInt(getContentResolver(),
-                            Settings.System.SCREEN_BRIGHTNESS, 0) - 20;
+                            Settings.System.SCREEN_BRIGHTNESS, 0) - 25;
                     if (brightness < 10) {
                         brightness = 10;
                     }
