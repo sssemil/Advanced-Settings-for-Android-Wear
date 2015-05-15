@@ -38,4 +38,7 @@
     <string name="security">Безопасность</string>
     <string name="turning_off">Вылкючается...</string>
     <string name="turning_on">Включается...</string>
+    <string name="screen_saver_brightness">Яркость экрана заставки</string>
+    <string name="vibration_intensity">Интенсивность вибрации</string>
+    <string name="vibrator">Вибрация</string>
 </resources>

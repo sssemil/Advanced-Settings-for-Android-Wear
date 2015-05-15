@@ -82,9 +82,12 @@
                 <data android:scheme="package" />
             </intent-filter>
         </activity>
+
         <activity android:name=".AboutActivity" />
         <activity android:name=".LicenseActivity" />
         <activity android:name=".BluetoothActivity" />
+        <activity android:name=".SecuritySettingsActivity" />
+        <activity android:name=".VibratorActivity"/>
 
         <receiver
             android:name=".receivers.OnBootReceiver"
@@ -101,8 +104,6 @@
             android:name=".MainService"
             android:enabled="true"
             android:exported="true" />
-
-        <activity android:name=".SecuritySettingsActivity" />
     </application>
 
 </manifest>

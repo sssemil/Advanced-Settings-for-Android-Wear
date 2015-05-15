@@ -19,7 +19,7 @@ public class BluetoothReceiver extends BroadcastReceiver {
         if (action.equals(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED)) {
             final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
                     BluetoothAdapter.ERROR);
-            if(BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 Log.i("BLUETOOTH", String.valueOf(state));
             }
         }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device>
+    <product>lenok</product>
+    <brand>lge</brand>
+    <model>G Watch R</model>
+    <has_wlan>0</has_wlan>
+    <has_bluetooth>1</has_bluetooth>
+    <has_vibro>1</has_vibro>
+    <has_vibro_intencity>1</has_vibro_intencity>
+    <has_sound>0</has_sound>
+    <has_gsm>0</has_gsm>
+    <has_3g>0</has_3g>
+    <has_lte>0</has_lte>
+    <has_usb>1</has_usb>
+    <has_usb_otg>0</has_usb_otg>
+    <brightness_path>/sys/class/leds/lcd-backlight/brightness</brightness_path>
+    <vibro_intencity_path_1>/sys/class/timed_output/vibrator/amp</vibro_intencity_path_1>
+    <vibro_intencity_path_2>/sys/class/timed_output/vibrator/driving_ms</vibro_intencity_path_2>
+    <brightness_min>10</brightness_min>
+    <brightness_max>254</brightness_max>
+    <vibro_intencity_1_min>80</vibro_intencity_1_min>
+    <vibro_intencity_1_max>100</vibro_intencity_1_max>
+    <vibro_intencity_2_min>20</vibro_intencity_2_min>
+    <vibro_intencity_2_max>200</vibro_intencity_2_max>
+</device>

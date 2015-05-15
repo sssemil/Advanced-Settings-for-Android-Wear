@@ -88,7 +88,7 @@ public class UninstallAppActivity extends Activity {
                     mCancel.setText(getString(R.string.finish));
                     mCancel.setEnabled(true);
                 } else {
-                    if(BuildConfig.DEBUG) {
+                    if (BuildConfig.DEBUG) {
                         Log.i(TAG, mPackageName);
                     }
                     mPackageInfo = mPackageManager.getPackageInfo(mPackageName, 0);
@@ -100,7 +100,9 @@ public class UninstallAppActivity extends Activity {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -177,7 +179,9 @@ public class UninstallAppActivity extends Activity {
                             });
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        if (BuildConfig.DEBUG) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }).start();

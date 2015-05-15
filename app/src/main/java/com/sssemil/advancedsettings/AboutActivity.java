@@ -47,7 +47,9 @@ public class AboutActivity extends Activity {
         try {
             versionS = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace();
+            }
         }
 
         version.setText(getString(R.string.ver) + " " + versionS);

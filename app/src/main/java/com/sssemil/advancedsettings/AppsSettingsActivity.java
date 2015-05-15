@@ -32,6 +32,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sssemil.advancedsettings.util.Utils;
+
 import java.util.List;
 
 
@@ -92,7 +94,7 @@ public class AppsSettingsActivity extends Activity
     @Override
     public void onClick(WearableListView.ViewHolder v) {
         ApplicationInfo appInfo = (ApplicationInfo) mListAppInfo.get(v.getPosition());
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Log.i("TAG", appInfo.packageName);
         }
 

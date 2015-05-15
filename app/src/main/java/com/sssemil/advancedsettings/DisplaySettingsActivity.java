@@ -52,18 +52,20 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
             Log.i("tilt_to_wake", String.valueOf(myContext.getApplicationInfo()));
             Log.i("tilt_to_wake", String.valueOf(Utils.tiltToWakeEnabled(myContext)));
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            if(BuildConfig.DEBUG) {                         e.printStackTrace();                     }
         }*/
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("screen_timeout_settings") && (Settings.System.getInt(getContentResolver(),
+        if (key.equals("screen_timeout_settings")
+                && (Settings.System.getInt(getContentResolver(),
                 Settings.System.SCREEN_OFF_TIMEOUT, 0)
                 != Integer.parseInt(sharedPreferences.getString(key, null)))) {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
                     Integer.parseInt(sharedPreferences.getString(key, null)));
-        } else if (key.equals("brightness_settings") && (Settings.System.getInt(getContentResolver(),
+        } else if (key.equals("brightness_settings")
+                && (Settings.System.getInt(getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS, 0)
                 != Integer.parseInt(sharedPreferences.getString(key, null)))) {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,

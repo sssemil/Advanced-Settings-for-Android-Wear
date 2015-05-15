@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sssemil.advancedsettings.BuildConfig;
 import com.sssemil.advancedsettings.R;
 
 import java.io.BufferedReader;
@@ -159,7 +160,9 @@ public class InstallAppActivity extends Activity {
                             });
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        if (BuildConfig.DEBUG) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }).start();

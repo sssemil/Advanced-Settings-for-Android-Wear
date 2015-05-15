@@ -34,6 +34,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sssemil.advancedsettings.util.Utils;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -58,6 +60,7 @@ public class AppInfoActivity extends Activity {
 
     private boolean mIsSystemApp = false;
     private String mEnable = "";
+    private ActivityManager mActivityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,8 @@ public class AppInfoActivity extends Activity {
         setContentView(R.layout.activity_app_info);
 
         mContext = getApplicationContext();
+
+        mActivityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
         mForceStopButton = (Button) findViewById(R.id.forse_stop_button);
         mUninstallButton = (Button) findViewById(R.id.uninstall_button);
@@ -116,7 +121,9 @@ public class AppInfoActivity extends Activity {
                 permissions_list.append(getString(R.string.no_perm));
             }
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -147,7 +154,7 @@ public class AppInfoActivity extends Activity {
     public void onForceStopClick(View view) {
         //TODO: Do it the right way
         android.os.Process.killProcess(mProcess.pid);
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Log.d("PID", mProcess.pid + " name: " + mProcess.processName);
         }
         if (isAppRunning()) {
@@ -158,7 +165,9 @@ public class AppInfoActivity extends Activity {
                 Runtime.getRuntime().exec("su -c killall " + mPackageName);
                 Runtime.getRuntime().exec("su -c killall " + mPackageName);
             } catch (IOException e) {
-                e.printStackTrace();
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -172,7 +181,9 @@ public class AppInfoActivity extends Activity {
             try {
                 Runtime.getRuntime().exec("su -c pm " + mEnable + " " + mPackageName);
             } catch (IOException e) {
-                e.printStackTrace();
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -249,7 +260,9 @@ public class AppInfoActivity extends Activity {
                         }
 
                     } catch (PackageManager.NameNotFoundException e) {
-                        e.printStackTrace();
+                        if (BuildConfig.DEBUG) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

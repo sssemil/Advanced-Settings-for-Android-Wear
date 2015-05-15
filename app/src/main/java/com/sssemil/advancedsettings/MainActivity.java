@@ -18,10 +18,17 @@
  */
 package com.sssemil.advancedsettings;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.sssemil.advancedsettings.preference.WearPreferenceActivity;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class MainActivity extends WearPreferenceActivity {
 

@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package com.sssemil.advancedsettings;
+package com.sssemil.advancedsettings.util;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -26,10 +26,17 @@ import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.util.Log;
 
+import com.sssemil.advancedsettings.BuildConfig;
+
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
+    private static final String TAG = "A.S. Utils";
 
     public static boolean tiltToWakeEnabled(Context paramContext) {
         return paramContext.getSharedPreferences("home_preferences", 0).getBoolean("tilt_to_wake", false);
@@ -59,18 +66,30 @@ public class Utils {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            if(BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 Log.e("TAG", "That's odd package: " + packageName + " should be here but isn't");
             }
         }
         return retval;
     }
 
+    public static boolean setBluetoothEnabled(boolean enable) {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        boolean isEnabled = bluetoothAdapter.isEnabled();
+        if (enable && !isEnabled) {
+            return bluetoothAdapter.enable();
+        } else if (!enable && isEnabled) {
+            return bluetoothAdapter.disable();
+        }
+        // No need to change bluetooth state
+        return true;
+    }
+
     private void setTiltToWake(boolean paramBoolean, Context paramContext) {
         SharedPreferences localSharedPreferences = paramContext.getSharedPreferences("home_preferences", 0);
         boolean bool = tiltToWakeEnabled(paramContext);
         if (bool == paramBoolean) {
-            if(BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 Log.w("TAG", "setTiltToWake to its old value: " + bool + " - ignoring!");
             }
             return;
@@ -80,16 +99,47 @@ public class Utils {
         localEditor.apply();
     }
 
-    public static boolean setBluetoothEnabled(boolean enable) {
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        boolean isEnabled = bluetoothAdapter.isEnabled();
-        if (enable && !isEnabled) {
-            return bluetoothAdapter.enable();
+    /**
+     * Reads the first line of text from the given file
+     */
+    public static String readOneLine(String fileName) {
+        String line = null;
+        BufferedReader reader = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(fileName), 512);
+            line = reader.readLine();
+        } catch (IOException e) {
+            Log.e(TAG, "Could not read from file " + fileName, e);
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                // ignored, not much we can do anyway
+            }
         }
-        else if(!enable && isEnabled) {
-            return bluetoothAdapter.disable();
+
+        return line;
+    }
+
+    /**
+     * Writes the given value into the given file
+     *
+     * @return true on success, false on failure
+     */
+    public static boolean writeLine(String fileName, String value) {
+        try {
+            FileOutputStream fos = new FileOutputStream(fileName);
+            fos.write(value.getBytes());
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            Log.e(TAG, "Could not write to file " + fileName, e);
+            return false;
         }
-        // No need to change bluetooth state
+
         return true;
     }
 }

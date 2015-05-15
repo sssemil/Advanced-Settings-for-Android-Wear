@@ -60,5 +60,7 @@
     <string name="security">Security</string>
     <string name="alert_on_disconnect">Alert on disconnect</string>
     <string name="forgot_device">Forgot your device?</string>
-
+    <string name="screen_saver_brightness">Screen saver brightness</string>
+    <string name="vibrator">Vibration</string>
+    <string name="vibration_intensity">Vibration intensity</string>
 </resources>

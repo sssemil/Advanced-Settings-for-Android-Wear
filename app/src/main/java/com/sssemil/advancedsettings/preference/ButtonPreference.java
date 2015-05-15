@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
 
+import com.sssemil.advancedsettings.BuildConfig;
+
 
 public class ButtonPreference extends Preference {
 
@@ -29,7 +31,9 @@ public class ButtonPreference extends Preference {
                                 Class.forName(String.valueOf(super.getActivity()))));
             }
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace();
+            }
         }
 
     }
