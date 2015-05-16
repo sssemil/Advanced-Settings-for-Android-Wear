@@ -23,7 +23,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 
-import com.sssemil.advancedsettings.preference.WearPreferenceActivity;
+import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
 
 
 public class DisplaySettingsActivity extends WearPreferenceActivity
@@ -52,7 +52,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
             Log.i("tilt_to_wake", String.valueOf(myContext.getApplicationInfo()));
             Log.i("tilt_to_wake", String.valueOf(Utils.tiltToWakeEnabled(myContext)));
         } catch (PackageManager.NameNotFoundException e) {
-            if(BuildConfig.DEBUG) {                         e.printStackTrace();                     }
+            if(BuildConfig.DEBUG) {                         Log.d(TAG, "catch " + e.toString() + " hit in run", e);                     }
         }*/
     }
 

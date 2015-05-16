@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package com.sssemil.advancedsettings;
+package com.sssemil.advancedsettings.pm;
 
 import android.app.Activity;
 import android.content.Context;
@@ -32,12 +32,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sssemil.advancedsettings.R;
 import com.sssemil.advancedsettings.util.Utils;
 
 import java.util.List;
 
 
-public class AppsSettingsActivity extends Activity
+public class SystemAppsSettingsActivity extends Activity
         implements WearableListView.ClickListener {
 
     public List mListAppInfo;
@@ -55,7 +56,7 @@ public class AppsSettingsActivity extends Activity
         // Get the list component from the layout of the activity
         mListView =
                 (WearableListView) findViewById(R.id.wearable_list);
-        mListAppInfo = Utils.getInstalledApplication(this);
+        mListAppInfo = Utils.getSystemApps(this);
         // Assign an adapter to the list
         mListView.setAdapter(new Adapter(this, mListAppInfo, getPackageManager()));
 
@@ -94,9 +95,8 @@ public class AppsSettingsActivity extends Activity
     @Override
     public void onClick(WearableListView.ViewHolder v) {
         ApplicationInfo appInfo = (ApplicationInfo) mListAppInfo.get(v.getPosition());
-        if (BuildConfig.DEBUG) {
-            Log.i("TAG", appInfo.packageName);
-        }
+
+        Log.i("TAG", appInfo.packageName);
 
         Intent myIntent = new Intent(mContext, AppInfoActivity.class);
         myIntent.putExtra("packageName", appInfo.packageName);
@@ -178,7 +178,7 @@ public class AppsSettingsActivity extends Activity
                     Thread.sleep(1000);
                 } catch (InterruptedException ignored) {
                 }
-                List listAppInfo = Utils.getInstalledApplication(mContext);
+                List listAppInfo = Utils.getSystemApps(mContext);
                 for (int n = 0; n < mListAppInfo.size(); n++) {
                     if (!((ApplicationInfo) mListAppInfo.get(n)).packageName.equals(
                             ((ApplicationInfo) listAppInfo.get(n)).packageName)) {

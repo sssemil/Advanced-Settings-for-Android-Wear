@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textSize="18dp" />
+            android:textSize="12dp" />
 
     </LinearLayout>
 

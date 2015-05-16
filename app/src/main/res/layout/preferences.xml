@@ -17,12 +17,12 @@
      MA  02110-1301, USA.
 -->
 
-<com.sssemil.advancedsettings.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sssemil.advancedsettings.util.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.sssemil.advancedsettings.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.BluetoothActivity"
@@ -30,7 +30,7 @@
         app:pref_key="bluetooth_settings"
         app:pref_title="@string/bluetooth" />
 
-    <com.sssemil.advancedsettings.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.DisplaySettingsActivity"
@@ -38,7 +38,7 @@
         app:pref_key="display_settings"
         app:pref_title="@string/display" />
 
-    <com.sssemil.advancedsettings.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.VibratorActivity"
@@ -46,7 +46,7 @@
         app:pref_key="vibrator_settings"
         app:pref_title="@string/vibrator" />
 
-    <com.sssemil.advancedsettings.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.SecuritySettingsActivity"
@@ -54,15 +54,15 @@
         app:pref_key="security_settings"
         app:pref_title="@string/security" />
 
-    <com.sssemil.advancedsettings.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pref_activity="com.sssemil.advancedsettings.AppsSettingsActivity"
+        app:pref_activity="com.sssemil.advancedsettings.pm.AppsSettingsActivity"
         app:pref_icon="@mipmap/ic_apps"
         app:pref_key="apps_settings"
         app:pref_title="@string/apps" />
 
-    <!--<com.sssemil.advancedsettings.preference.ButtonPreference
+    <!--<com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.LanguageInputSettingsActivity"
@@ -70,7 +70,7 @@
         app:pref_key="input_settings"
         app:pref_title="@string/lang_input" />-->
 
-    <com.sssemil.advancedsettings.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.LicenseActivity"
@@ -78,7 +78,7 @@
         app:pref_key="license_settings"
         app:pref_title="@string/license" />
 
-    <com.sssemil.advancedsettings.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.AboutActivity"
@@ -86,4 +86,4 @@
         app:pref_key="about_settings"
         app:pref_title="@string/about" />
 
-</com.sssemil.advancedsettings.preference.PreferenceScreen>
+</com.sssemil.advancedsettings.util.preference.PreferenceScreen>

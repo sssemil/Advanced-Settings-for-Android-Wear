@@ -17,12 +17,12 @@
      MA  02110-1301, USA.
 -->
 
-<com.sssemil.advancedsettings.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sssemil.advancedsettings.util.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.sssemil.advancedsettings.preference.ListPreference
+    <com.sssemil.advancedsettings.util.preference.ListPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_defaultValue="10000"
@@ -32,7 +32,7 @@
         app:pref_key="screen_timeout_settings"
         app:pref_title="@string/screen_timeout" />
 
-    <com.sssemil.advancedsettings.preference.ListPreference
+    <com.sssemil.advancedsettings.util.preference.ListPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_defaultValue="120"
@@ -42,7 +42,7 @@
         app:pref_key="brightness_settings"
         app:pref_title="@string/brightness" />
 
-    <com.sssemil.advancedsettings.preference.ListPreference
+    <com.sssemil.advancedsettings.util.preference.ListPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_defaultValue="100"
@@ -52,7 +52,7 @@
         app:pref_key="screen_saver_brightness_settings"
         app:pref_title="@string/screen_saver_brightness" />
 
-    <!--<com.sssemil.advancedsettings.preference.BooleanPreference
+    <!--<com.sssemil.advancedsettings.util.preference.BooleanPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_defaultValue="true"
@@ -64,4 +64,4 @@
         app:pref_summaryOn="On"
         app:pref_title="Tilt to wake screen" />-->
 
-</com.sssemil.advancedsettings.preference.PreferenceScreen>
+</com.sssemil.advancedsettings.util.preference.PreferenceScreen>

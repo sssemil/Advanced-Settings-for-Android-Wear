@@ -31,7 +31,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sssemil.advancedsettings.BuildConfig;
 import com.sssemil.advancedsettings.R;
 
 import java.io.BufferedReader;
@@ -88,9 +87,6 @@ public class UninstallAppActivity extends Activity {
                     mCancel.setText(getString(R.string.finish));
                     mCancel.setEnabled(true);
                 } else {
-                    if (BuildConfig.DEBUG) {
-                        Log.i(TAG, mPackageName);
-                    }
                     mPackageInfo = mPackageManager.getPackageInfo(mPackageName, 0);
                     mApplicationInfo
                             = mPackageManager.getApplicationInfo(mPackageName, 0);
@@ -100,9 +96,7 @@ public class UninstallAppActivity extends Activity {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace();
-            }
+            Log.d(TAG, "catch " + e.toString() + " hit in run", e);
         }
     }
 
@@ -179,9 +173,7 @@ public class UninstallAppActivity extends Activity {
                             });
                         }
                     } catch (IOException e) {
-                        if (BuildConfig.DEBUG) {
-                            e.printStackTrace();
-                        }
+                        Log.d(TAG, "catch " + e.toString() + " hit in run", e);
                     }
                 }
             }).start();

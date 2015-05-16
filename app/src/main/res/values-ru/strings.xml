@@ -41,4 +41,8 @@
     <string name="screen_saver_brightness">Яркость экрана заставки</string>
     <string name="vibration_intensity">Интенсивность вибрации</string>
     <string name="vibrator">Вибрация</string>
+    <string name="all_apps">Все </string>
+    <string name="running_services">Запущенные</string>
+    <string name="sys_apps">Системные</string>
+    <string name="usr_apps">Установленные</string>
 </resources>

@@ -18,22 +18,29 @@
  */
 package com.sssemil.advancedsettings.util;
 
+import android.app.ActivityManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
+import android.os.Build;
 import android.util.Log;
 
-import com.sssemil.advancedsettings.BuildConfig;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Utils {
     private static final String TAG = "A.S. Utils";
@@ -47,8 +54,45 @@ public class Utils {
      * @param   c   Context of application
      * @return  list of installed applications
      */
-    public static List getInstalledApplication(Context c) {
-        return c.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
+    public static List getAllApps(Context context) {
+        return context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
+    }
+
+    public static List getRunningServices(Context context) {
+        return ((ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE))
+                .getRunningServices(100);
+    }
+
+    public static List getSystemApps(Context context) {
+        List<ApplicationInfo> list
+                = context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
+        List<ApplicationInfo> list_out = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            ApplicationInfo entry = list.get(i);
+            if ((entry.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                list_out.add(list.get(i));
+            }
+        }
+
+        return list_out;
+    }
+
+    public static List getInstalledApps(Context context) {
+        List<ApplicationInfo> list
+                = context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
+        List<ApplicationInfo> list_out = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            ApplicationInfo entry = list.get(i);
+            if (((entry.flags & ApplicationInfo.FLAG_INSTALLED) != 0)
+                    && ((entry.flags & ApplicationInfo.FLAG_SYSTEM) == 0)) {
+                list_out.add(list.get(i));
+            }
+        }
+
+        return list_out;
     }
 
     public static Iterable<PermissionInfo> getPermissionsForPackage(PackageManager pm, String packageName) {
@@ -66,9 +110,7 @@ public class Utils {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            if (BuildConfig.DEBUG) {
-                Log.e("TAG", "That's odd package: " + packageName + " should be here but isn't");
-            }
+            Log.e("TAG", "That's odd package: " + packageName + " should be here but isn't");
         }
         return retval;
     }
@@ -85,61 +127,68 @@ public class Utils {
         return true;
     }
 
+    public static DeviceCfg getDeviceCfg(Context context) {
+        try {
+            String product = Build.PRODUCT;
+
+            XmlPullParserFactory pullParserFactory;
+            pullParserFactory = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = pullParserFactory.newPullParser();
+
+            InputStream in_s = context.getAssets().open(product + "_cfg.xml");
+            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+            parser.setInput(in_s, null);
+
+            DeviceCfg cfg = new DeviceCfg();
+            int eventType = parser.getEventType();
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_TAG:
+                        String name = parser.getName();
+                        if (Objects.equals(name, "product")) {
+                            cfg.product = parser.nextText();
+                        } else if (Objects.equals(name, "brand")) {
+                            cfg.brand = parser.nextText();
+                        } else if (Objects.equals(name, "model")) {
+                            cfg.model = parser.nextText();
+                        } else if (Objects.equals(name, "has_vibro_intensity")) {
+                            cfg.hasVibroIntensety = !Objects.equals(parser.nextText(), "0");
+                        } else if (Objects.equals(name, "vibro_intensity_path")) {
+                            cfg.vibroIntensetyPath = parser.nextText();
+                        } else if (Objects.equals(name, "vibro_intensity_min")) {
+                            cfg.vibroIntensetyMin = Integer.parseInt(parser.nextText());
+                        } else if (Objects.equals(name, "vibro_intensity_max")) {
+                            cfg.vibroIntensetyMax = Integer.parseInt(parser.nextText());
+                        } else if (Objects.equals(name, "vibro_intensity_default")) {
+                            cfg.vibroIntensetyDefault = Integer.parseInt(parser.nextText());
+                        } else if (Objects.equals(name, "brightness_path")) {
+                            cfg.brightnessPath = parser.nextText();
+                        } else if (Objects.equals(name, "brightness_min")) {
+                            cfg.brightnessMin = Integer.parseInt(parser.nextText());
+                        } else if (Objects.equals(name, "brightness_max")) {
+                            cfg.brightnessMax = Integer.parseInt(parser.nextText());
+                        }
+                        break;
+                }
+                eventType = parser.next();
+            }
+            return cfg;
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+            return new DeviceCfg();
+        }
+    }
+
     private void setTiltToWake(boolean paramBoolean, Context paramContext) {
         SharedPreferences localSharedPreferences = paramContext.getSharedPreferences("home_preferences", 0);
         boolean bool = tiltToWakeEnabled(paramContext);
         if (bool == paramBoolean) {
-            if (BuildConfig.DEBUG) {
-                Log.w("TAG", "setTiltToWake to its old value: " + bool + " - ignoring!");
-            }
+            Log.w("TAG", "setTiltToWake to its old value: " + bool + " - ignoring!");
             return;
         }
         SharedPreferences.Editor localEditor = localSharedPreferences.edit();
         localEditor.putBoolean("tilt_to_wake", paramBoolean);
         localEditor.apply();
-    }
-
-    /**
-     * Reads the first line of text from the given file
-     */
-    public static String readOneLine(String fileName) {
-        String line = null;
-        BufferedReader reader = null;
-
-        try {
-            reader = new BufferedReader(new FileReader(fileName), 512);
-            line = reader.readLine();
-        } catch (IOException e) {
-            Log.e(TAG, "Could not read from file " + fileName, e);
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                // ignored, not much we can do anyway
-            }
-        }
-
-        return line;
-    }
-
-    /**
-     * Writes the given value into the given file
-     *
-     * @return true on success, false on failure
-     */
-    public static boolean writeLine(String fileName, String value) {
-        try {
-            FileOutputStream fos = new FileOutputStream(fileName);
-            fos.write(value.getBytes());
-            fos.flush();
-            fos.close();
-        } catch (IOException e) {
-            Log.e(TAG, "Could not write to file " + fileName, e);
-            return false;
-        }
-
-        return true;
     }
 }

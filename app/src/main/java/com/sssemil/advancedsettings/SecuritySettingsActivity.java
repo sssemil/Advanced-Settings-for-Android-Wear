@@ -2,7 +2,7 @@ package com.sssemil.advancedsettings;
 
 import android.os.Bundle;
 
-import com.sssemil.advancedsettings.preference.WearPreferenceActivity;
+import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
 
 public class SecuritySettingsActivity extends WearPreferenceActivity {
 

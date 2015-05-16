@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package com.sssemil.advancedsettings;
+package com.sssemil.advancedsettings.pm;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -34,12 +34,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sssemil.advancedsettings.R;
 import com.sssemil.advancedsettings.util.Utils;
 
 import java.io.IOException;
 import java.util.List;
 
 public class AppInfoActivity extends Activity {
+
+    private static final String TAG = "Advanced Settings";
 
     private String mPackageName;
 
@@ -121,9 +124,7 @@ public class AppInfoActivity extends Activity {
                 permissions_list.append(getString(R.string.no_perm));
             }
         } catch (PackageManager.NameNotFoundException e) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace();
-            }
+            Log.d(TAG, "catch " + e.toString() + " hit in run", e);
         }
     }
 
@@ -154,9 +155,9 @@ public class AppInfoActivity extends Activity {
     public void onForceStopClick(View view) {
         //TODO: Do it the right way
         android.os.Process.killProcess(mProcess.pid);
-        if (BuildConfig.DEBUG) {
-            Log.d("PID", mProcess.pid + " name: " + mProcess.processName);
-        }
+
+        Log.d("PID", mProcess.pid + " name: " + mProcess.processName);
+
         if (isAppRunning()) {
             try {
                 Runtime.getRuntime().exec("su -c killall " + mPackageName);
@@ -165,9 +166,7 @@ public class AppInfoActivity extends Activity {
                 Runtime.getRuntime().exec("su -c killall " + mPackageName);
                 Runtime.getRuntime().exec("su -c killall " + mPackageName);
             } catch (IOException e) {
-                if (BuildConfig.DEBUG) {
-                    e.printStackTrace();
-                }
+                Log.d(TAG, "catch " + e.toString() + " hit in run", e);
             }
         }
     }
@@ -181,9 +180,7 @@ public class AppInfoActivity extends Activity {
             try {
                 Runtime.getRuntime().exec("su -c pm " + mEnable + " " + mPackageName);
             } catch (IOException e) {
-                if (BuildConfig.DEBUG) {
-                    e.printStackTrace();
-                }
+                Log.d(TAG, "catch " + e.toString() + " hit in run", e);
             }
         }
     }
@@ -260,9 +257,7 @@ public class AppInfoActivity extends Activity {
                         }
 
                     } catch (PackageManager.NameNotFoundException e) {
-                        if (BuildConfig.DEBUG) {
-                            e.printStackTrace();
-                        }
+                        Log.d(TAG, "catch " + e.toString() + " hit in run", e);
                     }
                 }
             }

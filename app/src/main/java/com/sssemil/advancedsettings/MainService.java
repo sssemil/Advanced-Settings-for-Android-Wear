@@ -28,13 +28,14 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.hardware.display.DisplayManager;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Display;
+
+import com.sssemil.advancedsettings.util.Utils;
 
 import java.io.IOException;
 
@@ -51,9 +52,6 @@ public class MainService extends Service implements DisplayManager.DisplayListen
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            if (BuildConfig.DEBUG) {
-                Log.i("BLUETOOTH", action);
-            }
             if (mSharedPreferences.contains("alert_on_disconnect")
                     && mSharedPreferences.getBoolean("alert_on_disconnect", true)) {
                 if (action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
@@ -98,6 +96,23 @@ public class MainService extends Service implements DisplayManager.DisplayListen
                         .getString("screen_timeout_settings",
                                 String.valueOf(Settings.System.getInt(getContentResolver(),
                                         Settings.System.SCREEN_OFF_TIMEOUT, 0)))));
+        try {
+            int amp = Integer.parseInt(
+                    mSharedPreferences.getString("vibration_intensity",
+                            String.valueOf(
+                                    Utils.getDeviceCfg(MainService.this).vibroIntensetyDefault)));
+            ProcessBuilder pb
+                    = new ProcessBuilder("su", "-c", "echo",
+                    amp + ">",
+                    Utils.getDeviceCfg(MainService.this).vibroIntensetyPath);
+            pb.start().waitFor();
+
+            Vibrator v = (Vibrator) MainService.this.getApplicationContext()
+                    .getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(1500);
+        } catch (InterruptedException | IOException | NullPointerException e) {
+            Log.d(TAG, "catch " + e.toString() + " hit in run", e);
+        }
     }
 
     @Override
@@ -129,11 +144,11 @@ public class MainService extends Service implements DisplayManager.DisplayListen
                     ProcessBuilder pb
                             = new ProcessBuilder("su", "-c", "echo",
                             brightness + ">",
-                            "/sys/class/leds/lcd-backlight/brightness");
+                            Utils.getDeviceCfg(MainService.this).brightnessPath);
                     pb.start();
                 } catch (IOException | InterruptedException e) {
                     if (BuildConfig.DEBUG) {
-                        e.printStackTrace();
+                        Log.d(TAG, "catch " + e.toString() + " hit in run", e);
                     }
                 }
                 break;

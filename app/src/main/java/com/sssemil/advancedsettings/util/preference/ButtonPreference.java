@@ -1,14 +1,14 @@
-package com.sssemil.advancedsettings.preference;
+package com.sssemil.advancedsettings.util.preference;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
-
-import com.sssemil.advancedsettings.BuildConfig;
+import android.util.Log;
 
 
 public class ButtonPreference extends Preference {
 
+    private static final String TAG = "Advanced Settings";
     private Context mContext;
 
     public ButtonPreference(Context context, AttributeSet attrs) {
@@ -31,9 +31,7 @@ public class ButtonPreference extends Preference {
                                 Class.forName(String.valueOf(super.getActivity()))));
             }
         } catch (ClassNotFoundException e) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace();
-            }
+            Log.d(TAG, "catch " + e.toString() + " hit in run", e);
         }
 
     }

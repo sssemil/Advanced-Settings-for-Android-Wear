@@ -44,10 +44,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".DisplaySettingsActivity" />
-        <activity android:name=".preference.ListChooserActivity" />
-        <activity android:name=".AppsSettingsActivity" />
-        <activity android:name=".AppInfoActivity" />
         <activity android:name=".LanguageInputSettingsActivity" />
+        <activity android:name=".util.preference.ListChooserActivity" />
+        <activity android:name=".pm.AppsSettingsActivity" />
+        <activity android:name=".pm.AllAppsSettingsActivity" />
+        <activity android:name=".pm.SystemAppsSettingsActivity" />
+        <activity android:name=".pm.UserAppsSettingsActivity" />
+        <activity android:name=".pm.AppInfoActivity" />
+        <activity android:name=".pm.RunningServicesActivity"/>
         <activity android:name=".pm.InstallAppActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -82,12 +86,11 @@
                 <data android:scheme="package" />
             </intent-filter>
         </activity>
-
         <activity android:name=".AboutActivity" />
         <activity android:name=".LicenseActivity" />
         <activity android:name=".BluetoothActivity" />
         <activity android:name=".SecuritySettingsActivity" />
-        <activity android:name=".VibratorActivity"/>
+        <activity android:name=".VibratorActivity" />
 
         <receiver
             android:name=".receivers.OnBootReceiver"

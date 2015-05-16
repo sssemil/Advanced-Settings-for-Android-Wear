@@ -63,4 +63,8 @@
     <string name="screen_saver_brightness">Screen saver brightness</string>
     <string name="vibrator">Vibration</string>
     <string name="vibration_intensity">Vibration intensity</string>
+    <string name="sys_apps">System</string>
+    <string name="usr_apps">Installed</string>
+    <string name="all_apps">All</string>
+    <string name="running_services">Running</string>
 </resources>

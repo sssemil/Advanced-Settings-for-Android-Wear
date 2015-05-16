@@ -1,4 +1,4 @@
-package com.sssemil.advancedsettings.preference;
+package com.sssemil.advancedsettings.util.preference;
 
 import android.content.Context;
 import android.content.Intent;

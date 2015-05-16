@@ -22,11 +22,14 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.regex.Pattern;
 
 public class AboutActivity extends Activity {
+
+    private static final String TAG = "Advanced Settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,7 @@ public class AboutActivity extends Activity {
         try {
             versionS = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace();
-            }
+            Log.d(TAG, "catch " + e.toString() + " hit in run", e);
         }
 
         version.setText(getString(R.string.ver) + " " + versionS);

@@ -24,12 +24,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sssemil.advancedsettings.BuildConfig;
 import com.sssemil.advancedsettings.R;
 
 import java.io.BufferedReader;
@@ -38,6 +38,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class InstallAppActivity extends Activity {
+
+    private static final String TAG = "Advanced Settings";
 
     private Uri mPackageURI;
 
@@ -160,9 +162,7 @@ public class InstallAppActivity extends Activity {
                             });
                         }
                     } catch (IOException e) {
-                        if (BuildConfig.DEBUG) {
-                            e.printStackTrace();
-                        }
+                        Log.d(TAG, "catch " + e.toString() + " hit in run", e);
                     }
                 }
             }).start();

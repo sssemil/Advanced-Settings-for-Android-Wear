@@ -17,18 +17,19 @@
      MA  02110-1301, USA.
 -->
 
-<com.sssemil.advancedsettings.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sssemil.advancedsettings.util.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.sssemil.advancedsettings.preference.ListPreference
+    <com.sssemil.advancedsettings.util.preference.ListPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pref_defaultValue="20"
+        app:pref_icon="@mipmap/ic_amp"
+        app:pref_defaultValue="80"
         app:pref_entries="@array/entries_vibration_intensity"
         app:pref_entryValues="@array/entries_vibration_intensity"
         app:pref_key="vibration_intensity"
         app:pref_title="@string/vibration_intensity" />
 
-</com.sssemil.advancedsettings.preference.PreferenceScreen>
+</com.sssemil.advancedsettings.util.preference.PreferenceScreen>
