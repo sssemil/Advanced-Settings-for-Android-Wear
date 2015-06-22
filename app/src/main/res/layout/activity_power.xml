@@ -22,36 +22,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.Button2Preference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pref_activity="com.sssemil.advancedsettings.pm.AllAppsSettingsActivity"
-        app:pref_icon="@mipmap/ic_apps"
-        app:pref_key="all_apps"
-        app:pref_title="@string/all_apps" />
+        app:pref_activity="su -c reboot -p"
+        app:pref_icon="@mipmap/ic_power"
+        app:pref_key="power_off"
+        app:pref_title="@string/poweroff" />
 
-    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.Button2Preference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pref_activity="com.sssemil.advancedsettings.pm.SystemAppsSettingsActivity"
-        app:pref_icon="@mipmap/ic_apps"
-        app:pref_key="sys_apps"
-        app:pref_title="@string/sys_apps" />
+        app:pref_activity="su -c reboot"
+        app:pref_icon="@mipmap/ic_reboot"
+        app:pref_key="power_off"
+        app:pref_title="@string/reboot" />
 
-    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.Button2Preference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pref_activity="com.sssemil.advancedsettings.pm.UserAppsSettingsActivity"
-        app:pref_icon="@mipmap/ic_apps"
-        app:pref_key="usr_apps"
-        app:pref_title="@string/usr_apps" />
+        app:pref_activity="su -c reboot recovery"
+        app:pref_icon="@mipmap/ic_reboot"
+        app:pref_key="power_off"
+        app:pref_title="@string/recovery" />
 
-    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+    <com.sssemil.advancedsettings.util.preference.Button2Preference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pref_activity="com.sssemil.advancedsettings.pm.RunningServicesActivity"
-        app:pref_icon="@mipmap/ic_apps"
-        app:pref_key="running_services"
-        app:pref_title="@string/running_services" />
+        app:pref_activity="su -c reboot bootloader"
+        app:pref_icon="@mipmap/ic_reboot"
+        app:pref_key="power_off"
+        app:pref_title="@string/bootloader" />
 
 </com.sssemil.advancedsettings.util.preference.PreferenceScreen>

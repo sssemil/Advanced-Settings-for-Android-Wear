@@ -21,6 +21,8 @@ public abstract class Preference extends View {
 
     protected final String defaultValue;
 
+    protected boolean visibility;
+
     public Preference(Context context, AttributeSet attrs) {
         super(context, attrs);
 

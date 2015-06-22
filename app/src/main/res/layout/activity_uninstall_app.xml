@@ -35,7 +35,8 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="100dp">
 
             <Button
                 android:id="@+id/install"
@@ -43,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/version"
+                android:layout_below="@+id/warning"
                 android:onClick="onUninstallClick"
                 android:text="@string/uninstallU" />
 
@@ -53,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/version"
+                android:layout_below="@+id/warning"
                 android:onClick="onCancelClick"
                 android:text="@android:string/cancel" />
 
@@ -64,6 +65,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="55dp"
+                android:text="App"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <ImageView
@@ -81,14 +83,26 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/label"
                 android:layout_centerHorizontal="true"
+                android:text="v11111"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/version"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="@string/normal_uninstall_warning"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red" />
 
             <TextView
                 android:id="@+id/log"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
+                android:layout_alignEnd="@+id/install"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/install"
                 android:gravity="center_horizontal|top"

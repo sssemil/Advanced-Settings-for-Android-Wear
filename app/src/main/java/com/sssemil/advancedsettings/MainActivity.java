@@ -19,17 +19,52 @@
 package com.sssemil.advancedsettings;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 
+import com.sssemil.advancedsettings.util.Utils;
+import com.sssemil.advancedsettings.util.preference.Preference;
+import com.sssemil.advancedsettings.util.preference.PreferenceScreen;
 import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends WearPreferenceActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.layout.preferences);
+        final View prefsRoot = inflater.inflate(R.layout.preferences, null);
+
+        if (!(prefsRoot instanceof PreferenceScreen)) {
+            throw new IllegalArgumentException("Preferences resource must use preference.PreferenceScreen as its root element");
+        }
+
+        final List<Preference> loadedPreferences = new ArrayList<>();
+        for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
+            if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
+                    .equals("wifi_settings")) {
+                if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+                    loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+                }
+            } else if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
+                    .equals("bluetooth_setting")) {
+                if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)) {
+                    loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+                }
+            } else if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
+                    .equals("power_settings")) {
+                if (Utils.isDeviceRooted()) {
+                    loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+                }
+            } else {
+                loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+            }
+        }
+        addPreferences(loadedPreferences);
 
         this.startService(new Intent(this, MainService.class));
     }

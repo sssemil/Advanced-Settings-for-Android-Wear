@@ -7,7 +7,7 @@
         <attr name="pref_title" format="string" />
         <attr name="pref_summary" format="string" />
         <attr name="pref_activity" format="string" />
-        <attr name="pref_defaultValue" format="string" />
+        <attr name="pref_defaultValue" format="string" />/>
     </declare-styleable>
 
     <declare-styleable name="ListPreference">

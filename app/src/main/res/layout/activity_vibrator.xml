@@ -25,10 +25,10 @@
     <com.sssemil.advancedsettings.util.preference.ListPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pref_icon="@mipmap/ic_amp"
         app:pref_defaultValue="80"
         app:pref_entries="@array/entries_vibration_intensity"
         app:pref_entryValues="@array/entries_vibration_intensity"
+        app:pref_icon="@mipmap/ic_amp"
         app:pref_key="vibration_intensity"
         app:pref_title="@string/vibration_intensity" />
 

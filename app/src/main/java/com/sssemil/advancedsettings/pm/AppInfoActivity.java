@@ -47,7 +47,7 @@ public class AppInfoActivity extends Activity {
     private String mPackageName;
 
     private TextView mAppNameView, mPackageNameView, mVersionView;
-    private Button mForceStopButton, mUninstallButton;
+    private Button mForceStopButton, mUninstallButton, mUninstallSys;
     private ImageView mIcon;
 
     private PackageInfo mPackageInfo;
@@ -76,6 +76,7 @@ public class AppInfoActivity extends Activity {
 
         mForceStopButton = (Button) findViewById(R.id.forse_stop_button);
         mUninstallButton = (Button) findViewById(R.id.uninstall_button);
+        mUninstallSys = (Button) findViewById(R.id.uninstall_sys_button);
         mForceStopButton.setEnabled(isAppRunning());
 
         mPackageName = getIntent().getStringExtra("packageName");
@@ -109,6 +110,7 @@ public class AppInfoActivity extends Activity {
                     mEnable = "enable";
                 }
                 mIsSystemApp = true;
+                mUninstallSys.setVisibility(View.VISIBLE);
             }
             mIcon.setBackground(mPackageManager.getApplicationIcon(mApplicationInfo));
             mAppNameView.setText(mPackageManager.getApplicationLabel(mApplicationInfo));
@@ -183,6 +185,12 @@ public class AppInfoActivity extends Activity {
                 Log.d(TAG, "catch " + e.toString() + " hit in run", e);
             }
         }
+    }
+
+    public void onUninstallSysClick(View view) {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        intent.setData(Uri.parse("package:" + mPackageName));
+        startActivity(intent);
     }
 
     public boolean isAppRunning() {

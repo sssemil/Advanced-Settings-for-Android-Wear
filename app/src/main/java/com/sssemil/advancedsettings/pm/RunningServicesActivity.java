@@ -26,7 +26,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.wearable.view.WearableListView;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,9 +36,6 @@ import android.widget.TextView;
 import com.sssemil.advancedsettings.R;
 import com.sssemil.advancedsettings.util.Utils;
 
-
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 

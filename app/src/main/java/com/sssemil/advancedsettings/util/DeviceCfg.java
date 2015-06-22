@@ -12,5 +12,6 @@ public class DeviceCfg {
     public int vibroIntensetyDefault = 80;
     public int vibroIntensetyMax = 100;
     public int brightnessMin = 10;
+    public int brightnessDefault = 120;
     public int brightnessMax = 254;
 }

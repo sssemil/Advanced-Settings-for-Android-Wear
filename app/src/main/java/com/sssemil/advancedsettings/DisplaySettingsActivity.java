@@ -22,17 +22,42 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.view.View;
 
+import com.sssemil.advancedsettings.util.Utils;
+import com.sssemil.advancedsettings.util.preference.Preference;
+import com.sssemil.advancedsettings.util.preference.PreferenceScreen;
 import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DisplaySettingsActivity extends WearPreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.layout.activity_display_settings);
+
+        final View prefsRoot = inflater.inflate(R.layout.activity_display_settings, null);
+
+        if (!(prefsRoot instanceof PreferenceScreen)) {
+            throw new IllegalArgumentException("Preferences resource must use preference.PreferenceScreen as its root element");
+        }
+
+        final List<Preference> loadedPreferences = new ArrayList<>();
+        for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
+            if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
+                    .equals("screen_saver_brightness_settings")) {
+                if (Utils.isDeviceRooted()) {
+                    loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+                }
+            } else {
+                loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+            }
+        }
+        addPreferences(loadedPreferences);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);

@@ -45,4 +45,15 @@
     <string name="running_services">Запущенные</string>
     <string name="sys_apps">Системные</string>
     <string name="usr_apps">Установленные</string>
+    <string name="wait_till_sys">Дождитесь обновления списка приложений и вы увидите изменения</string>
+    <string name="system_uninstall_warning">ВЫ СОБИРАЕТЕСЬ УДАЛИТЬ СИСТЕМНОЕ ПРИЛОЖЕНИЕ! ЭТО МОЖЕТ ПРИВЕСТИ К СЕРЬЕЗНЫМ ПОВРЕЖДЕНИЯМ И НЕ МОЖЕТ БЫТЬ ОТМЕНЕНО! ВАС ПРЕДУПРЕДИЛИ!</string>
+    <string name="normal_uninstall_warning">ВЫ СОБИРАЕТЕСЬ УДАЛИТЬ ПРИЛОЖЕНИЕ! ЭТО ДЕЙСТВИЕ НЕ МОЖЕТ БЫТЬ ОТМЕНЕНО! ВАС ПРЕДУПРЕДИЛИ!</string>
+    <string name="bootloader">Загрузчик ядра</string>
+    <string name="power_menu">Меню питания</string>
+    <string name="poweroff">Отключить</string>
+    <string name="reboot">Перезапустить</string>
+    <string name="recovery">Рекавери</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="dev_options">Настройки разработчика</string>
+
 </resources>

@@ -106,10 +106,6 @@ public class MainService extends Service implements DisplayManager.DisplayListen
                     amp + ">",
                     Utils.getDeviceCfg(MainService.this).vibroIntensetyPath);
             pb.start().waitFor();
-
-            Vibrator v = (Vibrator) MainService.this.getApplicationContext()
-                    .getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(1500);
         } catch (InterruptedException | IOException | NullPointerException e) {
             Log.d(TAG, "catch " + e.toString() + " hit in run", e);
         }
@@ -137,9 +133,10 @@ public class MainService extends Service implements DisplayManager.DisplayListen
             case Display.STATE_DOZE_SUSPEND:
             case Display.STATE_DOZE:
                 try {
-                    Thread.sleep(2);
+                    Thread.sleep(3);
                     int brightness = Integer.parseInt(
-                            mSharedPreferences.getString("screen_saver_brightness_settings", null));
+                            mSharedPreferences.getString("screen_saver_brightness_settings",
+                                    String.valueOf(Utils.getDeviceCfg(MainService.this).brightnessDefault)));
 
                     ProcessBuilder pb
                             = new ProcessBuilder("su", "-c", "echo",

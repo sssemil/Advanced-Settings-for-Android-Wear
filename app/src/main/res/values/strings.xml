@@ -67,4 +67,14 @@
     <string name="usr_apps">Installed</string>
     <string name="all_apps">All</string>
     <string name="running_services">Running</string>
+    <string name="system_uninstall_warning">YOU ARE GOING TO UNINSTALL A SYSTEM APP! THIS COULD CAUSE SERIOUS DAMAGE AND CANNOT BE UNDONE! YOU\'VE BEEN WARNED!</string>
+    <string name="normal_uninstall_warning">YOU ARE GOING TO UNINSTALL AN APP! THIS ACTION CANNOT BE UNDONE! YOU\'VE BEEN WARNED!</string>
+    <string name="wait_till_sys">Wait a bit till system updates apps list to see changes</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="power_menu">Power menu</string>
+    <string name="dev_options">Developer options</string>
+    <string name="poweroff">Power off</string>
+    <string name="reboot">Reboot</string>
+    <string name="recovery">Recovery</string>
+    <string name="bootloader">Bootloader</string>
 </resources>

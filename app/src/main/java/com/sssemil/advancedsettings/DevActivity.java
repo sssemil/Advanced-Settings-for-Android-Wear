@@ -16,19 +16,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package com.sssemil.advancedsettings.pm;
+package com.sssemil.advancedsettings;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 
-import com.sssemil.advancedsettings.R;
-import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
-
-
-public class AppsSettingsActivity extends WearPreferenceActivity {
+public class DevActivity extends Activity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.layout.activity_apps_settings_first);
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
+        this.startActivity(intent);
+        finish();
     }
 }

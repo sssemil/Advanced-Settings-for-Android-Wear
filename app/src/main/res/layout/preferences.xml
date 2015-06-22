@@ -25,6 +25,14 @@
     <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.WiFiActivity"
+        app:pref_icon="@mipmap/ic_wifi"
+        app:pref_key="wifi_settings"
+        app:pref_title="@string/wifi" />
+
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.BluetoothActivity"
         app:pref_icon="@mipmap/ic_bluetooth"
         app:pref_key="bluetooth_settings"
@@ -61,6 +69,22 @@
         app:pref_icon="@mipmap/ic_apps"
         app:pref_key="apps_settings"
         app:pref_title="@string/apps" />
+
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.PowerActivity"
+        app:pref_icon="@mipmap/ic_power_settings"
+        app:pref_key="power_settings"
+        app:pref_title="@string/power_menu" />
+
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.DevActivity"
+        app:pref_icon="@mipmap/ic_dev"
+        app:pref_key="dev_settings"
+        app:pref_title="@string/dev_options" />
 
     <!--<com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"

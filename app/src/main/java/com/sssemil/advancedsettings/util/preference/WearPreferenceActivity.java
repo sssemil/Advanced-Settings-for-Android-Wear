@@ -15,14 +15,14 @@ import java.util.List;
 
 public abstract class WearPreferenceActivity extends Activity implements WearableListView.ClickListener {
 
-    LayoutInflater inflater;
+    public LayoutInflater inflater;
 
     WearableListView list;
 
     List<Preference> preferences = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         inflater = LayoutInflater.from(this);
 
@@ -35,7 +35,7 @@ public abstract class WearPreferenceActivity extends Activity implements Wearabl
      *
      * @param prefsResId The resource ID of the preferences xml file.
      */
-    protected void addPreferencesFromResource(@LayoutRes int prefsResId) {
+    public void addPreferencesFromResource(@LayoutRes int prefsResId) {
         final View prefsRoot = inflater.inflate(prefsResId, null);
 
         if (!(prefsRoot instanceof PreferenceScreen)) {
@@ -45,7 +45,16 @@ public abstract class WearPreferenceActivity extends Activity implements Wearabl
         addPreferencesFromPreferenceScreen((PreferenceScreen) prefsRoot);
     }
 
-    private void addPreferencesFromPreferenceScreen(PreferenceScreen preferenceScreen) {
+    public void addPreferencesFromView(View prefsRoot) {
+
+        if (!(prefsRoot instanceof PreferenceScreen)) {
+            throw new IllegalArgumentException("Preferences resource must use preference.PreferenceScreen as its root element");
+        }
+
+        addPreferencesFromPreferenceScreen((PreferenceScreen) prefsRoot);
+    }
+
+    public void addPreferencesFromPreferenceScreen(PreferenceScreen preferenceScreen) {
         final List<Preference> loadedPreferences = new ArrayList<>();
         for (int i = 0; i < preferenceScreen.getChildCount(); i++) {
             loadedPreferences.add(parsePreference(preferenceScreen.getChildAt(i)));
@@ -53,13 +62,13 @@ public abstract class WearPreferenceActivity extends Activity implements Wearabl
         addPreferences(loadedPreferences);
     }
 
-    private void addPreferences(List<Preference> newPreferences) {
+    public void addPreferences(List<Preference> newPreferences) {
         preferences = newPreferences;
         list.setAdapter(new SettingsAdapter());
         list.setClickListener(this);
     }
 
-    private Preference parsePreference(View preferenceView) {
+    public Preference parsePreference(View preferenceView) {
         if (preferenceView instanceof Preference) {
             return (Preference) preferenceView;
         }

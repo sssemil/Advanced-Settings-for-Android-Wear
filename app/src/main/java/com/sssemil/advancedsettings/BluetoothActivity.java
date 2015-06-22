@@ -73,6 +73,7 @@ public class BluetoothActivity extends Activity {
             case BluetoothAdapter.STATE_OFF:
                 mState.setText(getString(R.string.off));
                 mEnable.setEnabled(true);
+                mEnable.setChecked(false);
                 break;
             case BluetoothAdapter.STATE_TURNING_OFF:
                 mState.setText(getString(R.string.turning_off));
@@ -81,6 +82,11 @@ public class BluetoothActivity extends Activity {
             case BluetoothAdapter.STATE_ON:
                 mState.setText(getString(R.string.on));
                 mEnable.setEnabled(true);
+                mEnable.setChecked(true);
+                break;
+            case BluetoothAdapter.STATE_TURNING_ON:
+                mState.setText(getString(R.string.turning_on));
+                mEnable.setEnabled(false);
                 break;
         }
     }

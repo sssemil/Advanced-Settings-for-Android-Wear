@@ -34,7 +34,6 @@ import android.widget.TextView;
 import com.sssemil.advancedsettings.R;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -43,8 +42,8 @@ public class UninstallAppActivity extends Activity {
     private static final String TAG = "UninstallAppActivity";
     private Uri mPackageURI;
 
-    private TextView mLabel, mVersion, mLog;
-    private Button mInstall, mCancel;
+    private TextView mLabel, mVersion, mLog, mWarning;
+    private Button mUninstall, mCancel;
     private ImageView mIcon;
 
     private boolean mSucceed = false;
@@ -52,6 +51,7 @@ public class UninstallAppActivity extends Activity {
     private String mPackageName;
     private PackageManager mPackageManager;
     private PackageInfo mPackageInfo;
+    private boolean mIsSystemApp = false;
 
 
     @Override
@@ -66,14 +66,14 @@ public class UninstallAppActivity extends Activity {
         mLabel = (TextView) findViewById(R.id.label);
         mVersion = (TextView) findViewById(R.id.version);
         mLog = (TextView) findViewById(R.id.log);
+        mWarning = (TextView) findViewById(R.id.warning);
 
-        mInstall = (Button) findViewById(R.id.install);
+        mUninstall = (Button) findViewById(R.id.install);
         mCancel = (Button) findViewById(R.id.cancel);
 
         mIcon = (ImageView) findViewById(R.id.icon);
 
         try {
-
             if (mPackageURI == null) {
                 System.err.println("No package URI in intent");
                 mLog.append("No package URI in intent");
@@ -81,15 +81,23 @@ public class UninstallAppActivity extends Activity {
                 mCancel.setEnabled(true);
             } else {
                 mPackageName = mPackageURI.getEncodedSchemeSpecificPart();
+                mPackageInfo = mPackageManager.getPackageInfo(mPackageName, 0);
+                mApplicationInfo = mPackageManager.getApplicationInfo(mPackageName, 0);
+
+                if ((mApplicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                    mIsSystemApp = true;
+                    mWarning.setText(R.string.system_uninstall_warning);
+                } else {
+                    mIsSystemApp = false;
+                    mWarning.setText(R.string.normal_uninstall_warning);
+                }
+
                 if (mPackageName == null) {
                     System.err.println("Invalid package name in URI: " + mPackageURI);
                     mLog.append("Invalid package name in URI: " + mPackageURI);
                     mCancel.setText(getString(R.string.finish));
                     mCancel.setEnabled(true);
                 } else {
-                    mPackageInfo = mPackageManager.getPackageInfo(mPackageName, 0);
-                    mApplicationInfo
-                            = mPackageManager.getApplicationInfo(mPackageName, 0);
                     mIcon.setBackground(mPackageManager.getApplicationIcon(mApplicationInfo));
                     mLabel.setText(mPackageManager.getApplicationLabel(mApplicationInfo));
                     mVersion.setText(getString(R.string.ver) + " " + mPackageInfo.versionName);
@@ -102,56 +110,112 @@ public class UninstallAppActivity extends Activity {
 
     public void onUninstallClick(View v) {
         if (mSucceed) {
-            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(mPackageName);
-            startActivity(launchIntent);
+            finish();
         } else {
+            mSucceed = true;
             mLog.append(getString(R.string.working));
-            mInstall.setVisibility(View.INVISIBLE);
+            mUninstall.setVisibility(View.INVISIBLE);
             mCancel.setEnabled(false);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        ProcessBuilder pb
-                                = new ProcessBuilder("su", "-c", "pm", "uninstall", mPackageName);
-                        pb.directory(new File("/"));
-                        Process proc = pb.start();
+                        if (!mIsSystemApp) {
+                            ProcessBuilder pb = new ProcessBuilder("su", "-c", "pm", "uninstall", mPackageName);
+                            Process proc = pb.start();
 
-                        BufferedReader stdInput = new BufferedReader(new
-                                InputStreamReader(proc.getInputStream()));
+                            BufferedReader stdInput = new BufferedReader(new
+                                    InputStreamReader(proc.getInputStream()));
 
-                        BufferedReader stdError = new BufferedReader(new
-                                InputStreamReader(proc.getErrorStream()));
+                            BufferedReader stdError = new BufferedReader(new
+                                    InputStreamReader(proc.getErrorStream()));
 
-                        String log = "";
-                        String s;
-                        while ((s = stdInput.readLine()) != null) {
-                            System.out.println(s);
-                            final String finalS = s;
-                            log += s + "\n";
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mLog.append(finalS + "\n");
-                                }
-                            });
-                        }
+                            String log = "";
+                            String s;
+                            while ((s = stdInput.readLine()) != null) {
+                                System.out.println(s);
+                                final String finalS = s;
+                                log += s + "\n";
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mLog.append(finalS + "\n");
+                                    }
+                                });
+                            }
 
-                        while ((s = stdError.readLine()) != null) {
-                            System.out.println(s);
-                            final String finalS = s;
-                            log += s + "\n";
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mLog.append(finalS + "\n");
-                                }
-                            });
-                        }
-                        if (log.contains("Failure")) {
-                            mSucceed = false;
-                        } else if (log.contains("Success")) {
-                            mSucceed = true;
+                            while ((s = stdError.readLine()) != null) {
+                                System.out.println(s);
+                                final String finalS = s;
+                                log += s + "\n";
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mLog.append(finalS + "\n");
+                                    }
+                                });
+                            }
+                            if (log.contains("Failure")) {
+                                mSucceed = false;
+                            } else if (log.contains("Success")) {
+                                mSucceed = true;
+                            }
+                        } else {
+                            ProcessBuilder pb0 = new ProcessBuilder(
+                                    "su", "-c", "mount", "-o", "remount,rw", "/system");
+                            Process proc0 = pb0.start();
+
+                            BufferedReader stdInput0 = new BufferedReader(new
+                                    InputStreamReader(proc0.getInputStream()));
+
+                            BufferedReader stdError0 = new BufferedReader(new
+                                    InputStreamReader(proc0.getErrorStream()));
+
+                            String s0;
+                            while ((s0 = stdInput0.readLine()) != null) {
+                                System.out.println(s0);
+                            }
+
+                            while ((s0 = stdError0.readLine()) != null) {
+                                System.out.println(s0);
+                            }
+
+                            ProcessBuilder pb = new ProcessBuilder(
+                                    "su", "-c", "rm", "-rf", mApplicationInfo.sourceDir);
+                            Process proc = pb.start();
+
+                            BufferedReader stdInput = new BufferedReader(new
+                                    InputStreamReader(proc.getInputStream()));
+
+                            BufferedReader stdError = new BufferedReader(new
+                                    InputStreamReader(proc.getErrorStream()));
+
+                            String log = "";
+                            String s;
+                            while ((s = stdInput.readLine()) != null) {
+                                System.out.println(s);
+                                final String finalS = s;
+                                log += s + "\n";
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mLog.append(finalS + "\n");
+                                    }
+                                });
+                            }
+
+                            while ((s = stdError.readLine()) != null) {
+                                System.out.println(s);
+                                final String finalS = s;
+                                log += s + "\n";
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mLog.append(finalS + "\n");
+                                    }
+                                });
+                                mSucceed = false;
+                            }
                         }
                         if (!mSucceed) {
                             runOnUiThread(new Runnable() {
@@ -166,7 +230,8 @@ public class UninstallAppActivity extends Activity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mLog.append(getString(R.string.done));
+                                    mLog.append(getString(R.string.done) + "\n");
+                                    mLog.append(getString(R.string.wait_till_sys));
                                     mCancel.setText(getString(R.string.finish));
                                     mCancel.setEnabled(true);
                                 }

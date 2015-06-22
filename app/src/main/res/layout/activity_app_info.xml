@@ -100,13 +100,26 @@
                 android:onClick="onUninstallClick"
                 android:text="@string/uninstallU" />
 
+            <Button
+                android:id="@+id/uninstall_sys_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/uninstall_button"
+                android:onClick="onUninstallSysClick"
+                android:text="@string/uninstallU"
+                android:textColor="@color/red"
+                android:visibility="invisible" />
+
             <TextView
                 android:id="@+id/launch_by_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/uninstall_button"
-                android:layout_alignStart="@+id/uninstall_button"
-                android:layout_below="@+id/uninstall_button"
+                android:layout_alignEnd="@+id/uninstall_sys_button"
+                android:layout_alignStart="@+id/uninstall_sys_button"
+                android:layout_below="@+id/uninstall_sys_button"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/launch_by_default"

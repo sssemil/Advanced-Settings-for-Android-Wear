@@ -74,6 +74,7 @@ public class InstallAppActivity extends Activity {
             mCancel.setText(getString(R.string.finish));
             mCancel.setEnabled(true);
         } else {
+            Log.i(TAG, mPackageURI.getPath());
             PackageManager pm = getPackageManager();
             mPackageInfo = pm.getPackageArchiveInfo(mPackageURI.getPath(), 0);
 

@@ -18,7 +18,7 @@ public class VibratorActivity extends WearPreferenceActivity
     private static final String TAG = "Advanced Settings";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.layout.activity_vibrator);
 
