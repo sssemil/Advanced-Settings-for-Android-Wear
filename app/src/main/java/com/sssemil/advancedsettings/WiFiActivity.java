@@ -82,13 +82,6 @@ public class WiFiActivity extends Activity implements WearableListView.ClickList
         }
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        cleanUp();
-    }
-
     protected void onPause() {
         cleanUp();
         super.onPause();

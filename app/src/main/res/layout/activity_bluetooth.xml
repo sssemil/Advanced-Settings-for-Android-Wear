@@ -9,7 +9,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:id="@+id/relativeLayout"
+        android:layout_marginBottom="-10dp">
 
         <TextView
             android:id="@+id/title"
@@ -41,13 +43,31 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textSize="12sp" />
 
-        <ListView
-            android:id="@+id/list"
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/enable"
+            android:text="Discoverable"
+            android:id="@+id/visible"
+            android:layout_below="@+id/state"
             android:layout_alignStart="@+id/state"
-            android:layout_below="@+id/state" />
+            android:layout_marginLeft="-6dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="onVisibilityClick" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="More..."
+            android:id="@+id/button"
+            android:onClick="onMoreClick"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginRight="-10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="-10dp" />
 
     </RelativeLayout>
 

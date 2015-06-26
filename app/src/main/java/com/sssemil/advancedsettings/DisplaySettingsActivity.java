@@ -24,21 +24,31 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.View;
 
+import com.sssemil.advancedsettings.util.DeviceCfg;
 import com.sssemil.advancedsettings.util.Utils;
 import com.sssemil.advancedsettings.util.preference.Preference;
 import com.sssemil.advancedsettings.util.preference.PreferenceScreen;
 import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class DisplaySettingsActivity extends WearPreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    public DeviceCfg mCfg;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mCfg = Utils.getDeviceCfg(this);
 
         final View prefsRoot = inflater.inflate(R.layout.activity_display_settings, null);
 
@@ -50,9 +60,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
         for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
             if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
                     .equals("screen_saver_brightness_settings")) {
-                if (Utils.isDeviceRooted()) {
-                    loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
-                }
+                loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
             } else {
                 loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
             }
@@ -70,6 +78,9 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                 String.valueOf(Settings.System.getInt(getContentResolver(),
                         Settings.System.SCREEN_BRIGHTNESS, 0))).apply();
 
+        sharedPreferences.edit().putBoolean("touch_to_wake_screen",
+                isTouchToWakeEnabled()).apply();
+
         /*try {
             Context myContext
                     = this.createPackageContext("com.google.android.wearable.app",
@@ -77,8 +88,81 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
             Log.i("tilt_to_wake", String.valueOf(myContext.getApplicationInfo()));
             Log.i("tilt_to_wake", String.valueOf(Utils.tiltToWakeEnabled(myContext)));
         } catch (PackageManager.NameNotFoundException e) {
-            if(BuildConfig.DEBUG) {                         Log.d(TAG, "catch " + e.toString() + " hit in run", e);                     }
+            if(BuildConfig.DEBUG) {
+                  Log.d(TAG, "catch " + e.toString() + " hit in run", e);
+                                       }
         }*/
+    }
+
+    public boolean isTouchToWakeEnabled() {
+        try {
+            File idc = new File(mCfg.getTouchIdcPath());
+            if (idc.exists() && idc.canRead()) {
+                Scanner scanner = new Scanner(idc);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    if (line.contains("touch.wake = 1")) {
+                        return true;
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void setTouchToWake(final boolean enable) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String touch_idc_path = mCfg.getTouchIdcPath();
+                try {
+                    if (isTouchToWakeEnabled() != enable) {
+                        Runtime.getRuntime().exec("su -c mount -o remount,rw /system").waitFor();
+                        Runtime.getRuntime().exec("su -c cp " + touch_idc_path
+                                + " /sdcard/backup.idc").waitFor();
+
+                        File idc = new File("/sdcard/backup.idc");
+                        if (idc.exists()) {
+                            PrintWriter writer = new PrintWriter("/sdcard/tmp.idc", "UTF-8");
+                            Scanner scanner = new Scanner(idc);
+                            while (scanner.hasNextLine()) {
+                                String line = scanner.nextLine();
+                                if (line.contains("touch.wake =")) {
+                                    if (enable) {
+                                        writer.println("touch.wake = 1");
+                                    } else {
+                                        writer.println("touch.wake = 0");
+                                    }
+                                } else {
+                                    writer.println(line);
+                                }
+                            }
+                            writer.close();
+                            Runtime.getRuntime().exec("su -c rm -rf " + touch_idc_path).waitFor();
+                            Runtime.getRuntime().exec("su -c cp /sdcard/tmp.idc " + touch_idc_path).waitFor();
+                            Runtime.getRuntime().exec("su -c chmod 644 " + touch_idc_path).waitFor();
+                            Runtime.getRuntime().exec("su -c sync").waitFor();
+                            if (!(new File(mCfg.getTouchIdcPath()).exists())) {
+                                Runtime.getRuntime().exec("su -c cp /sdcard/backup.idc " + touch_idc_path).waitFor();
+                            }
+                            Runtime.getRuntime().exec("su -c reboot").waitFor();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    try {
+                        Runtime.getRuntime().exec("su -c rm -rf " + touch_idc_path).waitFor();
+                        Runtime.getRuntime().exec("su -c cp /sdcard/backup.idc " + touch_idc_path).waitFor();
+                    } catch (IOException | InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -95,6 +179,8 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                 != Integer.parseInt(sharedPreferences.getString(key, null)))) {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                     Integer.parseInt(sharedPreferences.getString(key, null)));
+        } else if (key.equals("touch_to_wake_screen")) {
+            setTouchToWake(sharedPreferences.getBoolean("touch_to_wake_screen", true));
         }
     }
 }

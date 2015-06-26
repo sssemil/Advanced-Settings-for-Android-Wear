@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -15,8 +17,10 @@ import com.sssemil.advancedsettings.util.Utils;
 
 public class BluetoothActivity extends Activity {
 
-    public Switch mEnable, mVisible;
+    public Switch mEnable;
+    public CheckBox mVisible;
     public TextView mState;
+
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -39,14 +43,14 @@ public class BluetoothActivity extends Activity {
         registerReceiver(mReceiver, filter);
 
         mEnable = (Switch) findViewById(R.id.enable);
-        //mVisible = (Switch) findViewById(R.id.visible);
+        mVisible = (CheckBox) findViewById(R.id.visible);
 
         mState = (TextView) findViewById(R.id.state);
 
         mEnable.setChecked(BluetoothAdapter.getDefaultAdapter().isEnabled());
         switchState(BluetoothAdapter.getDefaultAdapter().getState());
 
-        //mVisible.setChecked(BluetoothAdapter.getDefaultAdapter().isDiscovering());
+        mVisible.setChecked(BluetoothAdapter.getDefaultAdapter().isDiscovering());
     }
 
     @Override
@@ -59,8 +63,13 @@ public class BluetoothActivity extends Activity {
         Utils.setBluetoothEnabled(((Switch) view).isChecked());
     }
 
+    public void onMoreClick(View view) {
+        Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+        this.startActivity(intent);
+    }
+
     public void onVisibilityClick(View view) {
-        if (((Switch) view).isChecked()) {
+        if (((CheckBox) view).isChecked()) {
             Intent discoverableIntent = new
                     Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);

@@ -7,8 +7,8 @@ android {
         applicationId "com.sssemil.advancedsettings"
         minSdkVersion 20
         targetSdkVersion 22
-        versionCode 9
-        versionName "1.5"
+        versionCode 11
+        versionName "1.6"
     }
     buildTypes {
         release {
@@ -17,6 +17,12 @@ android {
         }
         debug {
         }
+    }
+
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
 

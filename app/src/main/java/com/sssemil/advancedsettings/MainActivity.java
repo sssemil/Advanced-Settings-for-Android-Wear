@@ -18,6 +18,7 @@
  */
 package com.sssemil.advancedsettings;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -57,9 +58,7 @@ public class MainActivity extends WearPreferenceActivity {
                 }
             } else if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
                     .equals("power_settings")) {
-                if (Utils.isDeviceRooted()) {
-                    loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
-                }
+                loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
             } else {
                 loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
             }
@@ -67,5 +66,12 @@ public class MainActivity extends WearPreferenceActivity {
         addPreferences(loadedPreferences);
 
         this.startService(new Intent(this, MainService.class));
+
+        if (!Utils.isDeviceRooted()) {
+            Dialog dialog = new Dialog(this);
+            dialog.setTitle("Warning");
+            dialog.setContentView(R.layout.warning);
+            dialog.show();
+        }
     }
 }

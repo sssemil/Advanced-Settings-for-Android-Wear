@@ -168,6 +168,8 @@ public class Utils {
                             cfg.brightnessMin = Integer.parseInt(parser.nextText());
                         } else if (Objects.equals(name, "brightness_max")) {
                             cfg.brightnessMax = Integer.parseInt(parser.nextText());
+                        } else if (Objects.equals(name, "touch_idc_path")) {
+                            cfg.setTouchIdcPath(parser.nextText());
                         }
                         break;
                 }
@@ -207,8 +209,7 @@ public class Utils {
         try {
             process = Runtime.getRuntime().exec(new String[]{"/system/xbin/which", "su"});
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            if (in.readLine() != null) return true;
-            return false;
+            return in.readLine() != null;
         } catch (Throwable t) {
             return false;
         } finally {

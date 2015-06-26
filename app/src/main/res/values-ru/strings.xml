@@ -55,5 +55,7 @@
     <string name="recovery">Рекавери</string>
     <string name="wifi">Wi-Fi</string>
     <string name="dev_options">Настройки разработчика</string>
+    <string name="warn_no_root">Похоже что ваши часы не рутированны. Права суперпользователя необходимы для работы некоторых функций.</string>
+    <string name="touch_to_wake">Прикосновение для разблокировки</string>
 
 </resources>
