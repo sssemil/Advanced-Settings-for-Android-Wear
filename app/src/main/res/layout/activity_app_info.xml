@@ -90,13 +90,24 @@
                 android:text="@string/force_stop" />
 
             <Button
+                android:id="@+id/clear_data_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignStart="@+id/icon"
+                android:layout_below="@id/forse_stop_button"
+                android:onClick="onClearDataClick"
+                android:text="@string/clear_data" />
+
+            <Button
                 android:id="@+id/uninstall_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/forse_stop_button"
+                android:layout_below="@+id/clear_data_button"
                 android:onClick="onUninstallClick"
                 android:text="@string/uninstallU" />
 

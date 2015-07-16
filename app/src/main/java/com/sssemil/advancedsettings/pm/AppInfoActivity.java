@@ -63,7 +63,6 @@ public class AppInfoActivity extends Activity {
 
     private boolean mIsSystemApp = false;
     private String mEnable = "";
-    private ActivityManager mActivityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +70,6 @@ public class AppInfoActivity extends Activity {
         setContentView(R.layout.activity_app_info);
 
         mContext = getApplicationContext();
-
-        mActivityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
         mForceStopButton = (Button) findViewById(R.id.forse_stop_button);
         mUninstallButton = (Button) findViewById(R.id.uninstall_button);
@@ -119,7 +116,12 @@ public class AppInfoActivity extends Activity {
                     = Utils.getPermissionsForPackage(mPackageManager, mPackageName);
             boolean did = false;
             for (PermissionInfo permission : permissions) {
-                permissions_list.append(permission.name + "\n");
+                if(permission.name.contains("android.permission")) {
+                    permissions_list.append(
+                            (permission.name.split("android.permission.")[1]).replace("_", " ")+ "\n");
+                } else {
+                    permissions_list.append(permission.name + "\n");
+                }
                 did = true;
             }
             if (!did) {
@@ -191,6 +193,26 @@ public class AppInfoActivity extends Activity {
         Intent intent = new Intent(Intent.ACTION_DELETE);
         intent.setData(Uri.parse("package:" + mPackageName));
         startActivity(intent);
+    }
+
+    public void onClearDataClick(final View view) {
+        view.setEnabled(false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Runtime.getRuntime().exec("su -c pm clear " + mPackageName).waitFor();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.setEnabled(true);
+                        }
+                    });
+                } catch (IOException | InterruptedException e) {
+                    Log.d(TAG, "catch " + e.toString() + " hit in run", e);
+                }
+            }
+        }).start();
     }
 
     public boolean isAppRunning() {

@@ -79,4 +79,5 @@
     <string name="bootloader">Bootloader</string>
     <string name="warn_no_root">Looks like your watch is not rooted. Root access is required for some features to work.</string>
     <string name="touch_to_wake">Touch to wake screen</string>
+    <string name="clear_data">Clear data</string>
 </resources>

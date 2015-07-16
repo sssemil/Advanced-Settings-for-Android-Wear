@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Advanced Settings</string>
+    <string name="app_name">Расширенные Настройки</string>
     <string name="about">О программе</string>
     <string name="action_settings">Настройки</string>
     <string name="apps">Приложения</string>
@@ -57,5 +57,6 @@
     <string name="dev_options">Настройки разработчика</string>
     <string name="warn_no_root">Похоже что ваши часы не рутированны. Права суперпользователя необходимы для работы некоторых функций.</string>
     <string name="touch_to_wake">Прикосновение для разблокировки</string>
+    <string name="clear_data">Очистить</string>
 
 </resources>

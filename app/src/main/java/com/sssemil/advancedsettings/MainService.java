@@ -34,20 +34,16 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.sssemil.advancedsettings.util.Utils;
 
 import java.io.IOException;
 
-public class MainService extends Service implements DisplayManager.DisplayListener {
+public class MainService extends Service
+        implements DisplayManager.DisplayListener, View.OnTouchListener {
 
-    private static final String TAG = "MainService";
-
-    private DisplayManager mDisplayManager;
-
-    private SharedPreferences mSharedPreferences;
-
-    private NotificationManager mNotificationManager;
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -71,7 +67,26 @@ public class MainService extends Service implements DisplayManager.DisplayListen
         }
     };
 
+    private static final String TAG = "MainService";
+
+    private DisplayManager mDisplayManager;
+
+    private SharedPreferences mSharedPreferences;
+
+    private NotificationManager mNotificationManager;
+
     public MainService() {
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        Log.i("Touch", "Clicked");
+        return false;
     }
 
     @Override
@@ -129,28 +144,34 @@ public class MainService extends Service implements DisplayManager.DisplayListen
     @Override
     public void onDisplayChanged(int displayId) {
         //TODO: Make it less disgusting
-        switch (mDisplayManager.getDisplay(displayId).getState()) {
-            case Display.STATE_DOZE_SUSPEND:
-            case Display.STATE_DOZE:
-                try {
-                    Thread.sleep(3);
-                    int brightness = Integer.parseInt(
-                            mSharedPreferences.getString("screen_saver_brightness_settings",
-                                    String.valueOf(Utils.getDeviceCfg(MainService.this).brightnessDefault)));
+        try {
+            mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
+            mDisplayManager.registerDisplayListener(MainService.this, null);
+            switch (mDisplayManager.getDisplay(displayId).getState()) {
+                case Display.STATE_DOZE_SUSPEND:
+                case Display.STATE_DOZE:
+                    try {
+                        Thread.sleep(3);
+                        int brightness = Integer.parseInt(
+                                mSharedPreferences.getString("screen_saver_brightness_settings",
+                                        String.valueOf(Utils.getDeviceCfg(MainService.this).brightnessDefault)));
 
-                    ProcessBuilder pb
-                            = new ProcessBuilder("su", "-c", "echo",
-                            brightness + ">",
-                            Utils.getDeviceCfg(MainService.this).brightnessPath);
-                    pb.start();
-                } catch (IOException | InterruptedException e) {
-                    if (BuildConfig.DEBUG) {
-                        Log.d(TAG, "catch " + e.toString() + " hit in run", e);
+                        ProcessBuilder pb
+                                = new ProcessBuilder("su", "-c", "echo",
+                                brightness + ">",
+                                Utils.getDeviceCfg(MainService.this).brightnessPath);
+                        pb.start();
+                    } catch (IOException | InterruptedException e) {
+                        if (BuildConfig.DEBUG) {
+                            Log.d(TAG, "catch " + e.toString() + " hit in run", e);
+                        }
                     }
-                }
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
+            }
+        } catch (NullPointerException e){
+            e.printStackTrace();
         }
     }
 }
