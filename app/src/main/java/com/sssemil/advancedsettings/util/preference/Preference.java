@@ -15,13 +15,12 @@ public abstract class Preference extends View {
     protected final String key;
     @DrawableRes
     protected final int icon;
+    protected final boolean icon_vis;
     protected final String title;
     protected final String summary;
     protected final String activity;
 
     protected final String defaultValue;
-
-    protected boolean visibility;
 
     public Preference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -30,6 +29,7 @@ public abstract class Preference extends View {
         try {
             key = array.getString(R.styleable.Preference_pref_key);
             icon = array.getResourceId(R.styleable.Preference_pref_icon, 0);
+            icon_vis = array.getBoolean(R.styleable.Preference_pref_icon_vis, true);
             title = array.getString(R.styleable.Preference_pref_title);
             summary = array.getString(R.styleable.Preference_pref_summary);
             activity = array.getString(R.styleable.Preference_pref_activity);
@@ -67,6 +67,10 @@ public abstract class Preference extends View {
     @DrawableRes
     public int getIcon() {
         return icon;
+    }
+
+    public boolean getIconVis() {
+        return icon_vis;
     }
 
     public CharSequence getActivity() {

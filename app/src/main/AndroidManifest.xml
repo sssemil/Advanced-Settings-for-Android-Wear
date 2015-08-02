@@ -100,6 +100,7 @@
         <activity android:name=".VibratorActivity" />
         <activity android:name=".PowerActivity" />
         <activity android:name=".DevActivity" />
+        <activity android:name=".DateTimeSettingsActivity" />
 
         <receiver
             android:name=".receivers.OnBootReceiver"

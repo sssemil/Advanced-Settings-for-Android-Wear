@@ -96,7 +96,7 @@ public class ListChooserActivity extends Activity implements WearableListView.Cl
         @Override
         public void onBindViewHolder(WearableListView.ViewHolder holder, int position) {
             final ListItemLayout itemView = (ListItemLayout) holder.itemView;
-            itemView.bindView(icon, entries[position], null);
+            itemView.bindView(icon, true, entries[position], null);
             itemView.onNonCenterPosition(false);
         }
 

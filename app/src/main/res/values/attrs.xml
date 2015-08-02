@@ -4,6 +4,7 @@
     <declare-styleable name="Preference">
         <attr name="pref_key" format="string" />
         <attr name="pref_icon" format="reference" />
+        <attr name="pref_icon_vis" format="boolean" />
         <attr name="pref_title" format="string" />
         <attr name="pref_summary" format="string" />
         <attr name="pref_activity" format="string" />

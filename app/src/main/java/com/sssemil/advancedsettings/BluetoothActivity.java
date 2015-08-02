@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Switch;
@@ -33,6 +34,7 @@ public class BluetoothActivity extends Activity {
             }
         }
     };
+    private BluetoothAdapter mBluetoothAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +44,17 @@ public class BluetoothActivity extends Activity {
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
 
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         mEnable = (Switch) findViewById(R.id.enable);
         mVisible = (CheckBox) findViewById(R.id.visible);
 
         mState = (TextView) findViewById(R.id.state);
 
-        mEnable.setChecked(BluetoothAdapter.getDefaultAdapter().isEnabled());
-        switchState(BluetoothAdapter.getDefaultAdapter().getState());
+        mEnable.setChecked(mBluetoothAdapter.isEnabled());
+        switchState(mBluetoothAdapter.getState());
 
-        mVisible.setChecked(BluetoothAdapter.getDefaultAdapter().isDiscovering());
+        mVisible.setChecked(mBluetoothAdapter.isDiscovering());
     }
 
     @Override
@@ -73,8 +77,21 @@ public class BluetoothActivity extends Activity {
             Intent discoverableIntent = new
                     Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);
+            startActivityForResult(discoverableIntent, 1);
+        } else {
+            mVisible.setChecked((mBluetoothAdapter.getScanMode()
+                    == BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE));
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("onActivityResult",
+                String.valueOf((mBluetoothAdapter.getScanMode()
+                        == BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE)));
+
+        mVisible.setChecked((mBluetoothAdapter.getScanMode()
+                == BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE));
     }
 
     public void switchState(int state) {

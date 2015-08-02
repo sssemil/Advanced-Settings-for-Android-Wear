@@ -58,5 +58,12 @@
     <string name="warn_no_root">Похоже что ваши часы не рутированны. Права суперпользователя необходимы для работы некоторых функций.</string>
     <string name="touch_to_wake">Прикосновение для разблокировки</string>
     <string name="clear_data">Очистить</string>
+    <string name="datetime">Дата и время</string>
+    <string name="day">День</string>
+    <string name="hour">Час</string>
+    <string name="minute">Минута</string>
+    <string name="month">Месяц</string>
+    <string name="secs">Секунда</string>
+    <string name="year">Год</string>
 
 </resources>

@@ -169,14 +169,19 @@ public class ListItemLayout extends FrameLayout implements WearableListView.OnCe
     }
 
     private void bindPreferenceView(@NonNull final Preference preference) {
-        bindView(preference.getIcon(), preference.getTitle(), preference.getSummary());
+        bindView(preference.getIcon(), preference.getIconVis(),
+                preference.getTitle(), preference.getSummary());
     }
 
     public void bindView(@DrawableRes final int iconId,
+                         final boolean iconVis,
                          @Nullable final CharSequence titleText,
                          @Nullable final CharSequence summaryText) {
         if (icon != null) {
             icon.setImageResource(iconId);
+        }
+        if(icon != null && !iconVis) {
+            icon.setVisibility(GONE);
         }
         if (title != null) {
             title.setText(titleText);

@@ -80,4 +80,11 @@
     <string name="warn_no_root">Looks like your watch is not rooted. Root access is required for some features to work.</string>
     <string name="touch_to_wake">Touch to wake screen</string>
     <string name="clear_data">Clear data</string>
+    <string name="datetime"><![CDATA[Date & time]]></string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="day">Day</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
+    <string name="secs">Second</string>
 </resources>
