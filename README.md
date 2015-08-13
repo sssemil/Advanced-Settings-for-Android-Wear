@@ -1,2 +1,2 @@
-# wear_AdvancedSettings
+# AdvancedSettings
 Advanced Settings for android wear devices
