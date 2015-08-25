@@ -39,7 +39,10 @@ import android.view.View;
 
 import com.sssemil.advancedsettings.util.Utils;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class MainService extends Service
         implements DisplayManager.DisplayListener, View.OnTouchListener {
@@ -106,11 +109,29 @@ public class MainService extends Service
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
         registerReceiver(mReceiver, filter);
 
-        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
-                Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this)
+        int timeout = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this)
+                .getString("screen_timeout_settings",
+                        String.valueOf(Settings.System.getInt(getContentResolver(),
+                                Settings.System.SCREEN_OFF_TIMEOUT, 0))));
+
+        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, timeout);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(MainService.this)
                         .getString("screen_timeout_settings",
                                 String.valueOf(Settings.System.getInt(getContentResolver(),
                                         Settings.System.SCREEN_OFF_TIMEOUT, 0)))));
+
+            }
+        }).start();
+
         try {
             int amp = Integer.parseInt(
                     mSharedPreferences.getString("vibration_intensity",
@@ -143,7 +164,6 @@ public class MainService extends Service
 
     @Override
     public void onDisplayChanged(int displayId) {
-        //TODO: Make it less disgusting
         try {
             mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
             mDisplayManager.registerDisplayListener(MainService.this, null);
@@ -151,16 +171,43 @@ public class MainService extends Service
                 case Display.STATE_DOZE_SUSPEND:
                 case Display.STATE_DOZE:
                     try {
+                        //TODO: Need to fix screen_saver_brightness_settings. SELinux problems?
                         Thread.sleep(3);
                         int brightness = Integer.parseInt(
                                 mSharedPreferences.getString("screen_saver_brightness_settings",
                                         String.valueOf(Utils.getDeviceCfg(MainService.this).brightnessDefault)));
 
-                        ProcessBuilder pb
-                                = new ProcessBuilder("su", "-c", "echo",
-                                brightness + ">",
+                        Process p = Runtime.getRuntime().exec("su");
+                        DataOutputStream os = new DataOutputStream(p.getOutputStream());
+                        os.writeBytes("echo \"" +
+                                brightness + "\" > " +
                                 Utils.getDeviceCfg(MainService.this).brightnessPath);
-                        pb.start();
+                        os.writeBytes("exit\n");
+                        os.flush();
+
+                        Log.i(TAG, "echo \"" +
+                                brightness + "\" > " +
+                                Utils.getDeviceCfg(MainService.this).brightnessPath);
+
+                        Runtime rt = Runtime.getRuntime();
+                        String[] commands = {"su","-v", "echo \"" +
+                                brightness + "\" > " +
+                                Utils.getDeviceCfg(MainService.this).brightnessPath};
+                        Process proc = rt.exec(commands);
+
+                        BufferedReader stdInput = new BufferedReader(new
+                                InputStreamReader(proc.getInputStream()));
+
+                        BufferedReader stdError = new BufferedReader(new
+                                InputStreamReader(proc.getErrorStream()));
+
+                        String s;
+                        while ((s = stdInput.readLine()) != null) {
+                            System.out.println(s);
+                        }
+                        while ((s = stdError.readLine()) != null) {
+                            System.out.println(s);
+                        }
                     } catch (IOException | InterruptedException e) {
                         if (BuildConfig.DEBUG) {
                             Log.d(TAG, "catch " + e.toString() + " hit in run", e);

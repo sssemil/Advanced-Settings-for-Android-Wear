@@ -78,13 +78,6 @@ public class DateTimeSettingsActivity extends WearPreferenceActivity
 
         mCalendar = Calendar.getInstance();
 
-        /*changeSystemTime(String.valueOf(mCalendar.get(Calendar.YEAR)),
-                String.valueOf(mCalendar.get(Calendar.MONTH) + 1),
-                String.valueOf(mCalendar.get(Calendar.DAY_OF_MONTH)),
-                String.valueOf(mCalendar.get(Calendar.HOUR_OF_DAY)),
-                String.valueOf(mCalendar.get(Calendar.MINUTE)),
-                String.valueOf(mCalendar.get(Calendar.SECOND)));
-
         sharedPreferences.edit().putString("year_settings",
                 String.valueOf(mCalendar.get(Calendar.YEAR))).apply();
         sharedPreferences.edit().putString("month_settings",
@@ -100,11 +93,11 @@ public class DateTimeSettingsActivity extends WearPreferenceActivity
             sharedPreferences.edit().putString("hour12ampm_settings",
                     String.valueOf(calendar.get(Calendar.AM_PM))).apply();
 
-        }*
+        }*/
         sharedPreferences.edit().putString("minute_settings",
                 String.valueOf(mCalendar.get(Calendar.MINUTE))).apply();
         sharedPreferences.edit().putString("seconds_settings",
-                String.valueOf(mCalendar.get(Calendar.SECOND))).apply();*/
+                String.valueOf(mCalendar.get(Calendar.SECOND))).apply();
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }

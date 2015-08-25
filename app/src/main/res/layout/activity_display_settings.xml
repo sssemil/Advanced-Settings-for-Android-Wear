@@ -33,7 +33,23 @@
         app:pref_key="screen_timeout_settings"
         app:pref_title="@string/screen_timeout" />
 
-    <com.sssemil.advancedsettings.util.preference.ListPreference
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.BrightnessActivity"
+        app:pref_icon="@mipmap/ic_brightness"
+        app:pref_key="brightness_settings"
+        app:pref_title="@string/brightness" />
+
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.ScreenSaverBrightnessActivity"
+        app:pref_icon="@mipmap/ic_brightness"
+        app:pref_key="screen_saver_brightness_settings"
+        app:pref_title="@string/screen_saver_brightness" />
+
+    <!--<com.sssemil.advancedsettings.util.preference.ListPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:pref_defaultValue="120"
@@ -51,7 +67,7 @@
         app:pref_entryValues="@array/entries_brightness"
         app:pref_icon="@mipmap/ic_brightness"
         app:pref_key="screen_saver_brightness_settings"
-        app:pref_title="@string/screen_saver_brightness" />
+        app:pref_title="@string/screen_saver_brightness" />-->
 
     <com.sssemil.advancedsettings.util.preference.BooleanPreference
         android:layout_width="wrap_content"

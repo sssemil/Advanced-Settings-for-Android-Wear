@@ -22,6 +22,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 
 import com.sssemil.advancedsettings.util.Utils;

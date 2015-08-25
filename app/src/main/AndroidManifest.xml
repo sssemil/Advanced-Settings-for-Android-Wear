@@ -18,8 +18,7 @@
      MA  02110-1301, USA.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sssemil.advancedsettings"
-    android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+    package="com.sssemil.advancedsettings" >
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -39,10 +38,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,7 +57,7 @@
         <activity android:name=".pm.UserAppsSettingsActivity" />
         <activity android:name=".pm.AppInfoActivity" />
         <activity android:name=".pm.RunningServicesActivity" />
-        <activity android:name=".pm.InstallAppActivity">
+        <activity android:name=".pm.InstallAppActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.INSTALL_PACKAGE" />
@@ -82,7 +81,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".pm.UninstallAppActivity">
+        <activity android:name=".pm.UninstallAppActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.DELETE" />
                 <action android:name="android.intent.action.UNINSTALL_PACKAGE" />
@@ -105,7 +104,7 @@
         <receiver
             android:name=".receivers.OnBootReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 
@@ -117,6 +116,10 @@
             android:name=".MainService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".BrightnessActivity" />
+        <activity android:name=".ScreenSaverBrightnessActivity" />
+
     </application>
 
 </manifest>
