@@ -46,6 +46,16 @@
         app:pref_key="display_settings"
         app:pref_title="@string/display" />
 
+    <com.sssemil.advancedsettings.util.preference.ListPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_defaultValue="English, US (en_US)"
+        app:pref_entries="@array/entries_language"
+        app:pref_entryValues="@array/values_language"
+        app:pref_icon="@mipmap/ic_language_and_input"
+        app:pref_key="system_language"
+        app:pref_title="@string/lang_input" />
+
     <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,14 +103,6 @@
         app:pref_icon="@mipmap/ic_dev"
         app:pref_key="dev_settings"
         app:pref_title="@string/dev_options" />
-
-    <!--<com.sssemil.advancedsettings.util.preference.ButtonPreference
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:pref_activity="com.sssemil.advancedsettings.LanguageInputSettingsActivity"
-        app:pref_icon="@mipmap/ic_language_and_input"
-        app:pref_key="input_settings"
-        app:pref_title="@string/lang_input" />-->
 
     <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"

@@ -19,6 +19,7 @@
 package com.sssemil.advancedsettings.util;
 
 import android.app.ActivityManager;
+import android.app.backup.BackupManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,8 +27,20 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
+import android.os.RemoteException;
+import android.os.UserManager;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.android.app.IActivityManager;
+import com.sssemil.advancedsettings.R;
+import com.sssemil.advancedsettings.locale.ActivityManagerNative;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -40,9 +53,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
-public class Utils {
+public abstract class Utils {
     private static final String TAG = "A.S. Utils";
 
     public static boolean tiltToWakeEnabled(Context paramContext) {
@@ -227,5 +241,32 @@ public class Utils {
         SharedPreferences.Editor localEditor = localSharedPreferences.edit();
         localEditor.putBoolean("tilt_to_wake", paramBoolean);
         localEditor.apply();
+    }
+
+    /**
+     * Requests the system to update the system locale. Note that the system looks halted
+     * for a while during the Locale migration, so the caller need to take care of it.
+     */
+    public static void updateLocale(Locale locale) {
+        try {
+            IActivityManager am = ActivityManagerNative.getDefault();
+
+            Configuration config = am.getConfiguration();
+
+            // Will set userSetLocale to indicate this isn't some passing default - the user
+            // wants this remembered
+            config.setLocale(locale);
+
+            am.updateConfiguration(config);
+            // Trigger the dirty bit for the Settings Provider.
+            BackupManager.dataChanged("com.android.providers.settings");
+        } catch (RemoteException e) {
+            // Intentionally left blank
+        }
+    }
+
+    public static void forcePrepareCustomPreferencesList(ListView list) {
+        list.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+        list.setClipToPadding(false);
     }
 }

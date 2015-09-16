@@ -87,4 +87,6 @@
     <string name="hour">Hour</string>
     <string name="minute">Minute</string>
     <string name="secs">Second</string>
+    <string name="will_reboot_now">Will reboot now…</string>
+    <string name="lang_input">System language</string>
 </resources>

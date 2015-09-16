@@ -17,7 +17,8 @@
      MA  02110-1301, USA.
 -->
 
-<com.sssemil.advancedsettings.util.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sssemil.advancedsettings.util.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         app:pref_defaultValue="false"
         app:pref_icon="@mipmap/ic_cloud_outline"
-        app:pref_iconOff="@mipmap/ic_cloud_outline"
+        app:pref_iconOff="@mipmap/ic_cloud_outline_grey600"
         app:pref_iconOn="@mipmap/ic_cloud_outline"
         app:pref_key="alert_on_disconnect"
         app:pref_summaryOff="@string/off"

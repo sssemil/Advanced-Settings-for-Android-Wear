@@ -65,5 +65,7 @@
     <string name="month">Месяц</string>
     <string name="secs">Секунда</string>
     <string name="year">Год</string>
+    <string name="will_reboot_now">Перезапускаюсь…</string>
+    <string name="lang_input">Язык системы</string>
 
 </resources>

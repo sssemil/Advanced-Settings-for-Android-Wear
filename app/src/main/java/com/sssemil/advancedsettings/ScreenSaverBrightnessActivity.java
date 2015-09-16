@@ -4,39 +4,127 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.sssemil.advancedsettings.util.CircularSeekBar;
 import com.sssemil.advancedsettings.util.DeviceCfg;
+import com.sssemil.advancedsettings.util.Utils;
 
-public class ScreenSaverBrightnessActivity extends Activity {
+public class ScreenSaverBrightnessActivity extends Activity
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private int mCurrentBrightness;
+    private TextView mNum;
+    private int maxBrightness;
+    private int minBrightness;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brightness);
 
-        final TextView num = (TextView) findViewById(R.id.num);
-        final CircularSeekBar circularSeekBar = (CircularSeekBar) findViewById(R.id.circularSeekbar);
+        mNum = (TextView) findViewById(R.id.num);
 
-        final int maxBrightness = (new DeviceCfg()).brightnessMax;
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final DeviceCfg deviceCfg = Utils.getDeviceCfg(this);
 
-        int currentBrightness = Integer.parseInt(sharedPreferences.getString("screen_saver_brightness_settings", "120"));
+        maxBrightness = deviceCfg.brightnessMax;
+        minBrightness = deviceCfg.brightnessMin;
 
-        circularSeekBar.setMaxProgress(maxBrightness);
-        circularSeekBar.setProgress(currentBrightness);
+        final SharedPreferences sharedPreferences
+                = PreferenceManager.getDefaultSharedPreferences(this);
 
-        num.setText(currentBrightness + "/" + maxBrightness);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-        circularSeekBar.setSeekBarChangeListener(new CircularSeekBar.OnSeekChangeListener() {
+        mCurrentBrightness = Integer.parseInt(
+                sharedPreferences.getString(
+                        "screen_saver_brightness_settings",
+                        String.valueOf(deviceCfg.brightnessDefault)));
+
+        mNum.setText(mCurrentBrightness + "/" + maxBrightness);
+
+        final ImageButton up = (ImageButton) findViewById(R.id.up);
+        final ImageButton down = (ImageButton) findViewById(R.id.down);
+
+        up.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onProgressChange(CircularSeekBar view, int newProgress) {
-                num.setText(view.getProgress() + "/" + maxBrightness);
-                sharedPreferences.edit().putString("screen_saver_brightness_settings",
-                        String.valueOf(view.getProgress())).apply();
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    up.setPressed(true);
+                    v.playSoundEffect(android.view.SoundEffectConstants.CLICK);
+                    Thread t = new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                while (up.isPressed()) {
+                                    if (mCurrentBrightness < maxBrightness) {
+                                        set(mCurrentBrightness + 1, sharedPreferences);
+                                        mCurrentBrightness = Integer.parseInt(
+                                                sharedPreferences.getString(
+                                                        "screen_saver_brightness_settings",
+                                                        String.valueOf(deviceCfg.brightnessDefault)));
+                                        sleep(50);
+                                    }
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    t.start();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    up.setPressed(false);
+                    v.playSoundEffect(android.view.SoundEffectConstants.CLICK);
+                }
+                return true;
             }
         });
+
+        down.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    down.setPressed(true);
+                    v.playSoundEffect(android.view.SoundEffectConstants.CLICK);
+                    Thread t = new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                while (down.isPressed()) {
+                                    if (mCurrentBrightness > minBrightness) {
+                                        set(mCurrentBrightness - 1, sharedPreferences);
+                                        mCurrentBrightness = Integer.parseInt(
+                                                sharedPreferences.getString(
+                                                        "screen_saver_brightness_settings",
+                                                        String.valueOf(deviceCfg.brightnessDefault)));
+                                        sleep(50);
+                                    }
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    t.start();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    down.setPressed(false);
+                    v.playSoundEffect(android.view.SoundEffectConstants.CLICK);
+                }
+                return true;
+            }
+        });
+    }
+
+    private void set(int value, SharedPreferences sharedPreferences) {
+        sharedPreferences.edit().putString("screen_saver_brightness_settings",
+                String.valueOf(value)).apply();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals("screen_saver_brightness_settings")) {
+            mNum.setText(mCurrentBrightness + "/" + maxBrightness);
+        }
     }
 }

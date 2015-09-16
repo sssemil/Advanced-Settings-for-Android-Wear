@@ -40,13 +40,16 @@ import android.view.View;
 import com.sssemil.advancedsettings.util.Utils;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainService extends Service
         implements DisplayManager.DisplayListener, View.OnTouchListener {
 
+    private static final String TAG = "MainService";
+    private DisplayManager mDisplayManager;
+    private SharedPreferences mSharedPreferences;
+    private NotificationManager mNotificationManager;
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -69,14 +72,6 @@ public class MainService extends Service
             }
         }
     };
-
-    private static final String TAG = "MainService";
-
-    private DisplayManager mDisplayManager;
-
-    private SharedPreferences mSharedPreferences;
-
-    private NotificationManager mNotificationManager;
 
     public MainService() {
     }
@@ -176,37 +171,33 @@ public class MainService extends Service
                         int brightness = Integer.parseInt(
                                 mSharedPreferences.getString("screen_saver_brightness_settings",
                                         String.valueOf(Utils.getDeviceCfg(MainService.this).brightnessDefault)));
+                        boolean do_brightness =
+                                mSharedPreferences.getBoolean("manage_screen_saver_brightness_settings", false);
 
-                        Process p = Runtime.getRuntime().exec("su");
-                        DataOutputStream os = new DataOutputStream(p.getOutputStream());
-                        os.writeBytes("echo \"" +
-                                brightness + "\" > " +
-                                Utils.getDeviceCfg(MainService.this).brightnessPath);
-                        os.writeBytes("exit\n");
-                        os.flush();
+                        if (do_brightness) {
+                            Log.i(TAG, "echo \"" +
+                                    brightness + "\" > " +
+                                    Utils.getDeviceCfg(MainService.this).brightnessPath);
 
-                        Log.i(TAG, "echo \"" +
-                                brightness + "\" > " +
-                                Utils.getDeviceCfg(MainService.this).brightnessPath);
+                            Runtime rt = Runtime.getRuntime();
+                            String[] commands = {"su", "-c", "echo \"" +
+                                    brightness + "\" > " +
+                                    Utils.getDeviceCfg(MainService.this).brightnessPath};
+                            Process proc = rt.exec(commands);
 
-                        Runtime rt = Runtime.getRuntime();
-                        String[] commands = {"su","-v", "echo \"" +
-                                brightness + "\" > " +
-                                Utils.getDeviceCfg(MainService.this).brightnessPath};
-                        Process proc = rt.exec(commands);
+                            BufferedReader stdInput = new BufferedReader(new
+                                    InputStreamReader(proc.getInputStream()));
 
-                        BufferedReader stdInput = new BufferedReader(new
-                                InputStreamReader(proc.getInputStream()));
+                            BufferedReader stdError = new BufferedReader(new
+                                    InputStreamReader(proc.getErrorStream()));
 
-                        BufferedReader stdError = new BufferedReader(new
-                                InputStreamReader(proc.getErrorStream()));
-
-                        String s;
-                        while ((s = stdInput.readLine()) != null) {
-                            System.out.println(s);
-                        }
-                        while ((s = stdError.readLine()) != null) {
-                            System.out.println(s);
+                            String s;
+                            while ((s = stdInput.readLine()) != null) {
+                                System.out.println(s);
+                            }
+                            while ((s = stdError.readLine()) != null) {
+                                System.out.println(s);
+                            }
                         }
                     } catch (IOException | InterruptedException e) {
                         if (BuildConfig.DEBUG) {
@@ -217,8 +208,29 @@ public class MainService extends Service
                 default:
                     break;
             }
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
+        }
+    }
+
+    //Useful stuff for feature stuff :P
+    public static void grandPermissions(Context context) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        String package_name = context.getPackageName();
+        String[] commands = {"su", "-c", "\"pm", "grant", package_name + " android.permission.CHANGE_CONFIGURATION\""};        Process proc = rt.exec(commands);
+
+        BufferedReader stdInput = new BufferedReader(new
+                InputStreamReader(proc.getInputStream()));
+
+        BufferedReader stdError = new BufferedReader(new
+                InputStreamReader(proc.getErrorStream()));
+
+        String s;
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
         }
     }
 }

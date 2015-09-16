@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23"
+    buildToolsVersion "23.0.1"
     defaultConfig {
         applicationId "com.sssemil.advancedsettings"
         minSdkVersion 20
         targetSdkVersion 23
-        versionCode 18
-        versionName "1.6.5"
+        versionCode 21
+        versionName "1.6.6"
     }
     buildTypes {
         release {

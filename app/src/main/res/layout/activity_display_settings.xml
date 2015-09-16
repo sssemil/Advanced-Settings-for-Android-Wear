@@ -41,6 +41,18 @@
         app:pref_key="brightness_settings"
         app:pref_title="@string/brightness" />
 
+    <com.sssemil.advancedsettings.util.preference.BooleanPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_defaultValue="true"
+        app:pref_icon="@mipmap/ic_brightness"
+        app:pref_iconOff="@mipmap/ic_brightness_low"
+        app:pref_iconOn="@mipmap/ic_brightness"
+        app:pref_key="manage_screen_saver_brightness_settings"
+        app:pref_summaryOff="Off"
+        app:pref_summaryOn="On"
+        app:pref_title="Manage screen saver brightness" />
+
     <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,7 +86,7 @@
         android:layout_height="wrap_content"
         app:pref_defaultValue="true"
         app:pref_icon="@mipmap/ic_watch_import"
-        app:pref_iconOff="@mipmap/ic_watch_import"
+        app:pref_iconOff="@mipmap/ic_watch_import_grey600"
         app:pref_iconOn="@mipmap/ic_watch_import"
         app:pref_key="touch_to_wake_screen"
         app:pref_summaryOff="Off"

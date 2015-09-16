@@ -20,7 +20,9 @@ package com.sssemil.advancedsettings;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -32,14 +34,24 @@ import com.sssemil.advancedsettings.util.preference.Preference;
 import com.sssemil.advancedsettings.util.preference.PreferenceScreen;
 import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class MainActivity extends WearPreferenceActivity {
+public class MainActivity extends WearPreferenceActivity
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        sharedPreferences.edit().putString("system_language",
+                Locale.getDefault().getLanguage().toLowerCase() + "-" + Locale.getDefault().getCountry().toUpperCase()).apply();
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         final View prefsRoot = inflater.inflate(R.layout.preferences, null);
 
@@ -75,6 +87,28 @@ public class MainActivity extends WearPreferenceActivity {
             dialog.setTitle("Warning");
             dialog.setContentView(R.layout.warning);
             dialog.show();
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
+        if (key.equals("system_language")) {
+            new  Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String[] line = sharedPreferences.getString(key, "").split("-");
+                    String lang = line[0].toLowerCase();
+                    Locale locale;
+                    if(line.length>1) {
+                        String cont = line[1].toUpperCase();
+                        locale = new Locale(lang, cont);
+                    } else {
+                        locale = new Locale(lang);
+                    }
+                    Locale.setDefault(locale);
+                    Utils.updateLocale(locale);
+                }
+            }).start();
         }
     }
 }

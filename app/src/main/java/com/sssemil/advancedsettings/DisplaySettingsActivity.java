@@ -18,12 +18,13 @@
  */
 package com.sssemil.advancedsettings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.sssemil.advancedsettings.util.DeviceCfg;
 import com.sssemil.advancedsettings.util.Utils;
@@ -43,7 +44,8 @@ import java.util.Scanner;
 public class DisplaySettingsActivity extends WearPreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    public DeviceCfg mCfg;
+    private DeviceCfg mCfg;
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,24 +53,33 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
 
         mCfg = Utils.getDeviceCfg(this);
 
+        mContext = this;
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         final View prefsRoot = inflater.inflate(R.layout.activity_display_settings, null);
 
         if (!(prefsRoot instanceof PreferenceScreen)) {
-            throw new IllegalArgumentException("Preferences resource must use preference.PreferenceScreen as its root element");
+            throw new IllegalArgumentException("Preferences resource must use" +
+                    " preference.PreferenceScreen as its root element");
         }
 
         final List<Preference> loadedPreferences = new ArrayList<>();
         for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
             if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
                     .equals("screen_saver_brightness_settings")) {
-                loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+                if (sharedPreferences.getBoolean(
+                        "manage_screen_saver_brightness_settings", false)) {
+                    loadedPreferences.add(parsePreference(((PreferenceScreen)
+                            prefsRoot).getChildAt(i)));
+                }
             } else {
-                loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+                loadedPreferences.add(parsePreference(((PreferenceScreen)
+                        prefsRoot).getChildAt(i)));
             }
         }
         addPreferences(loadedPreferences);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         sharedPreferences.edit().putString("screen_timeout_settings",
@@ -148,6 +159,13 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                             if (!(new File(mCfg.getTouchIdcPath()).exists())) {
                                 Runtime.getRuntime().exec("su -c cp /sdcard/backup.idc " + touch_idc_path).waitFor();
                             }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mContext, R.string.will_reboot_now, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            Thread.sleep(3000);
                             Runtime.getRuntime().exec("su -c reboot").waitFor();
                         }
                     }
@@ -182,6 +200,28 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                     Integer.parseInt(sharedPreferences.getString(key, null)));
         } else if (key.equals("touch_to_wake_screen")) {
             setTouchToWake(sharedPreferences.getBoolean("touch_to_wake_screen", true));
+        } else if (key.equals("manage_screen_saver_brightness_settings")) {
+            final View prefsRoot = inflater.inflate(R.layout.activity_display_settings, null);
+
+            if (!(prefsRoot instanceof PreferenceScreen)) {
+                throw new IllegalArgumentException("Preferences resource must use" +
+                        " preference.PreferenceScreen as its root element");
+            }
+
+            final List<Preference> loadedPreferences = new ArrayList<>();
+            for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
+                if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
+                        .equals("screen_saver_brightness_settings")) {
+                    if (sharedPreferences.getBoolean(key, false)) {
+                        loadedPreferences.add(parsePreference(((PreferenceScreen)
+                                prefsRoot).getChildAt(i)));
+                    }
+                } else {
+                    loadedPreferences.add(parsePreference(((PreferenceScreen)
+                            prefsRoot).getChildAt(i)));
+                }
+            }
+            addPreferences(loadedPreferences);
         }
     }
 }

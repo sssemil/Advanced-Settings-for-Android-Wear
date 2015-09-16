@@ -15,3 +15,4 @@ Advanced Settings for android wear devices. Root access is required for some fea
 + Wi-Fi settings(if supported)
 + Wake on touch changing (R)
 + Date & time settings (R)
++ System language changing
