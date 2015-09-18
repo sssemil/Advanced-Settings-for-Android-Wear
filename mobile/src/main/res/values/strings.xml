@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Advanced Settings</string>
+    <string name="welcome">Welcome</string>
+    <string name="text">Check your watch for app. If it\'s not there yet, then just wait a bit for synchronisation to finish. Thanks :)</string>
+    <string name="donate">DONATE</string>
+    <string name="rate">RATE</string>
+    <string name="regular">Regular donation 1$</string>
+    <string name="great">Great donation 3$</string>
+    <string name="giant">Giant(!) donation 7$</string>
+    <string name="btc_donation">Bitcoin donation</string>
+    <string name="hide">Hide phone side icon</string>
+</resources>

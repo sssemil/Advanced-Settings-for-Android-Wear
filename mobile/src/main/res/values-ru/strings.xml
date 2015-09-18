@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">Добро пожаловать</string>
+    <string name="text">Проверьте часы на наличие приложения. Если его там нет, то просто дождитесь завершения синхронизации. Спасибо :)</string>
+    <string name="app_name">Расширенные Настройки</string>
+    <string name="donate">ПОЖЕРТВОВАТЬ</string>
+    <string name="rate">ОЦЕНИТЬ </string>
+    <string name="giant">Гигантское(!) пожертвование 7$ </string>
+    <string name="regular">Нормальное пожертвование 1$</string>
+    <string name="great">Великое пожертвование $3</string>
+    <string name="btc_donation">Пожертвование биткоинами</string>
+    <string name="hide">Спрятать иконку </string>
+
+</resources>

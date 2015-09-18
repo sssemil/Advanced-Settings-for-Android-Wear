@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">LanguageSettingsProvider</string>
+    <string name="lang_input">System language</string>
+    <string name="default_summary_on">On</string>
+    <string name="default_summary_off">Off</string>
+</resources>

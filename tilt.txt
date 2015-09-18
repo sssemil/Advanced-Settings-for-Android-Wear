@@ -1,2 +1,0 @@
-busybox sed "s/name=\"tilt_to_wake\" value=\"true\"/name=\"tilt_to_wake\" value=\"false\"/g" /data/data/com.google.android.wearable.app/shared_prefs/home_preferences.xml > /data/data/com.google.android.wearable.app/shared_prefs/home_preferences.xml.2
-mv /data/data/com.google.android.wearable.app/shared_prefs/home_preferences.xml.2 /data/data/com.google.android.wearable.app/shared_prefs/home_preferences.xml

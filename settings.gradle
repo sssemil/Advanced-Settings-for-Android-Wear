@@ -1,1 +1,1 @@
-include ':app'
+include ':mobile', ':wear', ':wear_languagesettingsprovider'
