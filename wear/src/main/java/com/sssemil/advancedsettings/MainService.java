@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.hardware.display.DisplayManager;
 import android.os.Environment;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -43,7 +44,6 @@ import com.sssemil.advancedsettings.util.Utils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -80,6 +80,28 @@ public class MainService extends Service
     };
 
     public MainService() {
+    }
+
+    //Useful stuff for feature stuff :P
+    public static void grandPermissions(Context context) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        String package_name = context.getPackageName();
+        String[] commands = {"su", "-c", "\"pm", "grant", package_name + " android.permission.CHANGE_CONFIGURATION\""};
+        Process proc = rt.exec(commands);
+
+        BufferedReader stdInput = new BufferedReader(new
+                InputStreamReader(proc.getInputStream()));
+
+        BufferedReader stdError = new BufferedReader(new
+                InputStreamReader(proc.getErrorStream()));
+
+        String s;
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
+        }
     }
 
     @Override
@@ -139,34 +161,38 @@ public class MainService extends Service
             public void run() {
                 try {
                     if (!Utils.isPackageInstalled("sssemil.com.languagesettingsprovider",
-                            MainService.this)) {
+                            MainService.this, 2)) {
                         File apk = new File(Environment.getExternalStorageDirectory(),
                                 "wear_languagesettingsprovider-release.apk");
+
                         if (apk.exists()) {
                             Log.i(TAG, "apk exists");
-                        } else {
-                            InputStream inputStream = getAssets().open(
-                                    "wear_languagesettingsprovider-release.apk");
-
-                            FileOutputStream file = new FileOutputStream(apk);
-                            byte buf[] = new byte[4096];
-
-                            int len = inputStream.read(buf);
-                            while (len > 0) {
-                                file.write(buf, 0, len);
-                                len = inputStream.read(buf);
-                            }
-                            file.close();
+                            apk.delete();
                         }
 
-                        if(apk.exists()) {
+                        InputStream inputStream = getAssets().open(
+                                "wear_languagesettingsprovider-release.apk");
+
+                        FileOutputStream file = new FileOutputStream(apk);
+                        byte buf[] = new byte[4096];
+
+                        int len = inputStream.read(buf);
+                        while (len > 0) {
+                            file.write(buf, 0, len);
+                            len = inputStream.read(buf);
+                        }
+                        file.close();
+
+
+                        if (apk.exists()) {
                             Log.i(TAG, "installing....");
                             ShellUtils.CommandResult result = ShellUtils.execCommand(
-                                    "su -c pm install " + apk.getPath(), true);
-                            Log.i(TAG, result.successMsg);
-                            Log.i(TAG, result.errorMsg);
-                            Log.i(TAG, String.valueOf(result.result));
-                            Log.i(TAG, "done");
+                                    "su -c pm install -r " + apk.getPath(), true);
+                            if (result.errorMsg == null) {
+                                Log.i(TAG, "done");
+                            } else {
+                                Log.e(TAG, "failed?");
+                            }
                         }
                     }
                 } catch (IOException e) {
@@ -252,34 +278,17 @@ public class MainService extends Service
                             Log.d(TAG, "catch " + e.toString() + " hit in run", e);
                         }
                     }
+
+                    PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                            "WakeLock");
+                    wakeLock.acquire();
                     break;
                 default:
                     break;
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
-    }
-
-    //Useful stuff for feature stuff :P
-    public static void grandPermissions(Context context) throws IOException {
-        Runtime rt = Runtime.getRuntime();
-        String package_name = context.getPackageName();
-        String[] commands = {"su", "-c", "\"pm", "grant", package_name + " android.permission.CHANGE_CONFIGURATION\""};
-        Process proc = rt.exec(commands);
-
-        BufferedReader stdInput = new BufferedReader(new
-                InputStreamReader(proc.getInputStream()));
-
-        BufferedReader stdError = new BufferedReader(new
-                InputStreamReader(proc.getErrorStream()));
-
-        String s;
-        while ((s = stdInput.readLine()) != null) {
-            System.out.println(s);
-        }
-        while ((s = stdError.readLine()) != null) {
-            System.out.println(s);
         }
     }
 }

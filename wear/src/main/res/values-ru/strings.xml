@@ -36,8 +36,8 @@
     <string name="off">Выкл.</string>
     <string name="on">Вкл.</string>
     <string name="security">Безопасность</string>
-    <string name="turning_off">Вылкючается...</string>
-    <string name="turning_on">Включается...</string>
+    <string name="turning_off">Вылкючается…</string>
+    <string name="turning_on">Включается…</string>
     <string name="screen_saver_brightness">Яркость экрана заставки</string>
     <string name="vibration_intensity">Интенсивность вибрации</string>
     <string name="vibrator">Вибрация</string>
@@ -67,5 +67,7 @@
     <string name="year">Год</string>
     <string name="will_reboot_now">Перезапускаюсь…</string>
     <string name="lang_input">Язык системы</string>
+    <string name="screen_saver_timeout">Время отключения экрана заставки</string>
+    <string name="unpair">Разъединить</string>
 
 </resources>

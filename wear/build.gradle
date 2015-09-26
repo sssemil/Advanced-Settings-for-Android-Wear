@@ -5,12 +5,17 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
+    lintOptions {
+        abortOnError false
+        disable 'MissingTranslation'
+    }
+
     defaultConfig {
         applicationId "com.sssemil.advancedsettings"
         minSdkVersion 20
         targetSdkVersion 23
-        versionCode 23
-        versionName "1.6.7"
+        versionCode 28
+        versionName "1.6.7.5"
     }
     buildTypes {
         release {

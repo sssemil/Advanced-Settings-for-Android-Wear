@@ -35,4 +35,13 @@
         app:pref_summaryOn="@string/on"
         app:pref_title="@string/alert_on_disconnect" />
 
+    <com.sssemil.advancedsettings.util.preference.ButtonAppPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_package_name="sssemil.com.screensavertimeoutplugin"
+        app:pref_activity="sssemil.com.screensavertimeoutplugin.UnpairActivity"
+        app:pref_icon="@mipmap/ic_disconnect"
+        app:pref_key="unpair_settings"
+        app:pref_title="@string/unpair"/>
+
 </com.sssemil.advancedsettings.util.preference.PreferenceScreen>

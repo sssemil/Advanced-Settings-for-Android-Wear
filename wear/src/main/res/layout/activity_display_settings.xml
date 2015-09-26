@@ -33,6 +33,15 @@
         app:pref_key="screen_timeout_settings"
         app:pref_title="@string/screen_timeout" />
 
+    <com.sssemil.advancedsettings.util.preference.ButtonAppPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_package_name="sssemil.com.screensavertimeoutplugin"
+        app:pref_activity="sssemil.com.screensavertimeoutplugin.MainActivity"
+        app:pref_icon="@mipmap/ic_timelapse"
+        app:pref_key="screen_saver_timeout_settings"
+        app:pref_title="@string/screen_saver_timeout"/>
+
     <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

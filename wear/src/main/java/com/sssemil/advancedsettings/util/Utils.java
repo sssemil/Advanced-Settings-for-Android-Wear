@@ -267,11 +267,11 @@ public abstract class Utils {
         }
     }
 
-    public static boolean isPackageInstalled(String packageName, Context context) {
+    public static boolean isPackageInstalled(String packageName, Context context, int version) {
         PackageManager pm = context.getPackageManager();
         try {
-            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-            return true;
+            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            return pi.versionCode >= version;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }

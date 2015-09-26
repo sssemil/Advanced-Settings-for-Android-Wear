@@ -56,10 +56,6 @@ public class MainActivity extends WearPreferenceActivity
 
         final View prefsRoot = inflater.inflate(R.layout.preferences, null);
 
-        if (!(prefsRoot instanceof PreferenceScreen)) {
-            throw new IllegalArgumentException("Preferences resource must use preference.PreferenceScreen as its root element");
-        }
-
         final List<Preference> loadedPreferences = new ArrayList<>();
         for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
             if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
@@ -77,7 +73,7 @@ public class MainActivity extends WearPreferenceActivity
                 loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
             } else if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
                     .equals("system_language")) {
-                if(Utils.isPackageInstalled("sssemil.com.languagesettingsprovider", this)) {
+                if(Utils.isPackageInstalled("sssemil.com.languagesettingsprovider", this, 1)) {
                     loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
                 }
             } else {
