@@ -161,7 +161,7 @@ public class MainService extends Service
             public void run() {
                 try {
                     if (!Utils.isPackageInstalled("sssemil.com.languagesettingsprovider",
-                            MainService.this, 2)) {
+                            MainService.this, 3)) {
                         File apk = new File(Environment.getExternalStorageDirectory(),
                                 "wear_languagesettingsprovider-release.apk");
 

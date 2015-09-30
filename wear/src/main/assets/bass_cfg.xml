@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device>
+    <product>bass</product>
+    <brand>lge</brand>
+    <model>LG Watch Urbane</model>
+    <has_vibro_intensity>1</has_vibro_intensity>
+    <vibro_intensity_path>/sys/class/timed_output/vibrator/amp</vibro_intensity_path>
+    <vibro_intensity_min>10</vibro_intensity_min>
+    <vibro_intensity_default>80</vibro_intensity_default>
+    <vibro_intensity_max>100</vibro_intensity_max>
+    <brightness_path>/sys/class/leds/lcd-backlight/brightness</brightness_path>
+    <brightness_min>0</brightness_min>
+    <brightness_max>254</brightness_max>
+    <touch_idc_path>/system/usr/idc/synaptics_rmi4_i2c.idc</touch_idc_path>
+</device>

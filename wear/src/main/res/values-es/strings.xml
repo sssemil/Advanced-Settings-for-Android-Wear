@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License
+     as published by the Free Software Foundation; either version 3
+     of the License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+     MA  02110-1301, USA.
+-->
+<resources>
+    <string name="app_name">Advanced Settings</string>
+
+    <string name="default_summary_on">On</string>
+    <string name="default_summary_off">Off</string>
+    <string name="action_settings">Configuración</string>
+    <string name="force_stop">Detener</string>
+    <string name="uninstallU">Desinstalar</string>
+    <string name="permissions">Permisos</string>
+    <string name="language_input_settings">Idioma y entrada</string>
+    <string name="finish">Acabar</string>
+    <string name="open">Abrir</string>
+    <string name="failed">¡NO SE PUDO!</string>
+    <string name="done">¡HECHO!</string>
+    <string name="no_perm">Sin permisos.</string>
+    <string name="working">Trabajando…\n</string>
+
+    <string name="license">Licencia</string>
+
+    <string name="license1">Copyright © 2015 Emil Suleymanov</string>
+    <string name="license2">Distribuido bajo GNU GPL v3</string>
+    <string name="license3">El código fuente se puede descargar en https://github.com/sssemil/wear_AdvancedSettings .</string>
+    <string name="license4">Usa WearPreferenceActivity desarrollado por Denley Bihari(@denley) (https://github.com/denley/WearPreferenceActivity).</string>
+
+    <string name="small_info">Configuración avanzada para dispositivos con Android Wear</string>
+
+    <string name="ver">Versión</string>
+    <string name="display">Pantalla</string>
+    <string name="apps">Apps</string>
+    <string name="about">Acerca de</string>
+    <string name="launch_by_default">LANZAMIENTO POR DEFECTO</string>
+    <string name="screen_timeout">Tiempo de espera</string>
+    <string name="brightness">Brillo</string>
+    <string name="install">Instalar</string>
+    <string name="disable">Desabilitar</string>
+    <string name="enable">Habilitar</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="off">Off</string>
+    <string name="turning_off">Apagando…</string>
+    <string name="on">On</string>
+    <string name="turning_on">Encendiendo…</string>
+    <string name="security">Seguridad</string>
+    <string name="alert_on_disconnect">Alartar si se desconecta</string>
+    <string name="forgot_device">¿Ha olvidado su dispositivo?</string>
+    <string name="screen_saver_brightness">Brillo del protector de pantalla</string>
+    <string name="vibrator">Vibración</string>
+    <string name="vibration_intensity">Intensidad de la vibración</string>
+    <string name="sys_apps">Sistema</string>
+    <string name="usr_apps">Instaladas</string>
+    <string name="all_apps">Todas</string>
+    <string name="running_services">En ejecución</string>
+    <string name="system_uninstall_warning">SE VA A DESINSTALAR UNA APLICACIÓN DE SISTEMA. ESTO PUEDE PROVOCAR GRAVES DAÑOS Y NO SE PUEDE DESHACER. ¡NO DIGAS QUE NO TE HEMOS AVISADO!</string>
+    <string name="normal_uninstall_warning">SE VA A DESINSTALAR UNA APLICACIÓN. ESTA ACCIÓN NO SE PUEDE DESHACER. ¡NO DIGAS QUE NO TE HEMOS AVISADO!</string>
+    <string name="wait_till_sys">Espere un poco hasta que el sistema actualice la lista de aplicaciones</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="power_menu">Menu de encendido</string>
+    <string name="dev_options">Opciones de desarrollo</string>
+    <string name="poweroff">Apagar</string>
+    <string name="reboot">Reiniciar</string>
+    <string name="recovery">Recovery</string>
+    <string name="bootloader">Bootloader</string>
+    <string name="warn_no_root">Parece que el dispositivo no está rooteado. Algunas de las características sólo funcionan en dispositivos rooteados</string>
+    <string name="touch_to_wake">Toque para despertar</string>
+    <string name="clear_data">Borrar datos</string>
+    <string name="datetime"><![CDATA[Fecha y hora]]></string>
+    <string name="year">Año</string>
+    <string name="month">Mes</string>
+    <string name="day">Día</string>
+    <string name="hour">Hora</string>
+    <string name="minute">Minuto</string>
+    <string name="secs">Segundo</string>
+    <string name="will_reboot_now">Se reiniciará ahora…</string>
+    <string name="lang_input">Idioma del sistema</string>
+    <string name="screen_saver_timeout">Tiempo de espera del protector de pantalla</string>
+    <string name="unpair">Desenparejar</string>
+</resources>

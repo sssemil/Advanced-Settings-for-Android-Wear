@@ -48,6 +48,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -190,7 +191,15 @@ public abstract class Utils {
                 eventType = parser.next();
             }
             return cfg;
-        } catch (XmlPullParserException | IOException e) {
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+            return new DeviceCfg();
+        } catch (FileNotFoundException e) {
+            //e.printStackTrace();
+            //configuration not found, using default values
+            Log.d(TAG, Build.PRODUCT + " configuration not found, using default values");
+            return new DeviceCfg();
+        } catch (IOException e) {
             e.printStackTrace();
             return new DeviceCfg();
         }
