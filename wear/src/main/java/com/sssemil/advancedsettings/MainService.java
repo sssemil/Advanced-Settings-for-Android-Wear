@@ -26,6 +26,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.display.DisplayManager;
 import android.os.Environment;
 import android.os.IBinder;
@@ -60,20 +65,23 @@ public class MainService extends Service
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
+            int id = R.mipmap.ic_cloud_outline_off_black_48dp;
             if (mSharedPreferences.contains("alert_on_disconnect")
                     && mSharedPreferences.getBoolean("alert_on_disconnect", true)) {
                 if (action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(MainService.this)
-                                    .setSmallIcon(R.mipmap.ic_cloud_outline)
-                                    .setContentTitle(getString(R.string.forgot_device));
+                                    .setSmallIcon(id)
+                                    .setContentText(getString(R.string.forgot_device))
+                                    .setLargeIcon(BitmapFactory.decodeResource(
+                                            getResources(), R.drawable.notif_background));
                     Vibrator v = (Vibrator) MainService.this.getApplicationContext()
                             .getSystemService(Context.VIBRATOR_SERVICE);
                     long[] pattern = {100, 600, 100, 600};
                     v.vibrate(pattern, -1);
-                    mNotificationManager.notify(R.mipmap.ic_cloud_outline, mBuilder.build());
+                    mNotificationManager.notify(id, mBuilder.build());
                 } else if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
-                    mNotificationManager.cancel(R.mipmap.ic_cloud_outline);
+                    mNotificationManager.cancel(id);
                 }
             }
         }
@@ -86,7 +94,8 @@ public class MainService extends Service
     public static void grandPermissions(Context context) throws IOException {
         Runtime rt = Runtime.getRuntime();
         String package_name = context.getPackageName();
-        String[] commands = {"su", "-c", "\"pm", "grant", package_name + " android.permission.CHANGE_CONFIGURATION\""};
+        String[] commands = {"su", "-c", "\"pm", "grant", package_name
+                + " android.permission.CHANGE_CONFIGURATION\""};
         Process proc = rt.exec(commands);
 
         BufferedReader stdInput = new BufferedReader(new
