@@ -208,6 +208,7 @@ public class MainService extends Service
             }
         }).start();
 
+        //vibration intensity stuff
         try {
             int amp = Integer.parseInt(
                     mSharedPreferences.getString("vibration_intensity",

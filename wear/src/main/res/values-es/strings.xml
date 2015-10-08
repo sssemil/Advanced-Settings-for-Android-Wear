@@ -91,4 +91,6 @@
     <string name="lang_input">Idioma del sistema</string>
     <string name="screen_saver_timeout">Tiempo de espera del protector de pantalla</string>
     <string name="unpair">Desenparejar</string>
+    <string name="dis_apps">Desactivado</string>
+    <string name="noapps">No hay apps</string>
 </resources>

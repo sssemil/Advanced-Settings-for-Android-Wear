@@ -91,4 +91,6 @@
     <string name="lang_input">System language</string>
     <string name="screen_saver_timeout">Screen saver timeout</string>
     <string name="unpair">Unpair</string>
+    <string name="dis_apps">Disabled</string>
+    <string name="noapps">No apps here</string>
 </resources>

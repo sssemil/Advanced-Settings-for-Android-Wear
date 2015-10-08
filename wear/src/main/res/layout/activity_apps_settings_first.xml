@@ -41,6 +41,14 @@
     <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.pm.DisabledAppsSettingsActivity"
+        app:pref_icon="@mipmap/ic_apps"
+        app:pref_key="dis_apps"
+        app:pref_title="@string/dis_apps" />
+
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.pm.UserAppsSettingsActivity"
         app:pref_icon="@mipmap/ic_apps"
         app:pref_key="usr_apps"

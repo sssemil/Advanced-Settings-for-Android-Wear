@@ -19,7 +19,6 @@
 package com.sssemil.advancedsettings.util;
 
 import android.app.ActivityManager;
-import android.app.backup.BackupManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,11 +26,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
-import android.content.res.Configuration;
 import android.os.Build;
-import android.os.RemoteException;
 import android.util.Log;
-
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -45,7 +41,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public abstract class Utils {
@@ -70,14 +65,14 @@ public abstract class Utils {
                 .getRunningServices(1000);
         List<ActivityManager.RunningServiceInfo> listNew = new ArrayList<>();
 
-        for(int i = 0; i<listInitial.size(); i++) {
+        for (int i = 0; i < listInitial.size(); i++) {
             boolean do_add = true;
-            for(int n = 0; n<listNew.size(); n++) {
-                if(listNew.get(n).service.getPackageName().equals(listInitial.get(i).service.getPackageName())) {
+            for (int n = 0; n < listNew.size(); n++) {
+                if (listNew.get(n).service.getPackageName().equals(listInitial.get(i).service.getPackageName())) {
                     do_add = false;
                 }
             }
-            if(do_add) {
+            if (do_add) {
                 listNew.add(listInitial.get(i));
             }
         }
@@ -93,6 +88,21 @@ public abstract class Utils {
         for (int i = 0; i < list.size(); i++) {
             ApplicationInfo entry = list.get(i);
             if ((entry.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                list_out.add(list.get(i));
+            }
+        }
+
+        return list_out;
+    }
+
+    public static List getDisabledSystemApps(Context context) {
+        List<ApplicationInfo> list
+                = context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
+        List<ApplicationInfo> list_out = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            ApplicationInfo entry = list.get(i);
+            if ((entry.flags & ApplicationInfo.FLAG_SYSTEM) != 0 && !entry.enabled) {
                 list_out.add(list.get(i));
             }
         }

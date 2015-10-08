@@ -67,4 +67,6 @@
     <string name="lang_input">Systemsprache</string>
     <string name="screen_saver_timeout">Verzögerung für Bildschirmschoner</string>
     <string name="unpair">Trennen</string>
+    <string name="dis_apps">Deaktiviert</string>
+    <string name="noapps">Keine Apps hier</string>
 </resources>

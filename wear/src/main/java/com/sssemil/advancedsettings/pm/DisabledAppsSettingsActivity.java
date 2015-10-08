@@ -37,8 +37,7 @@ import com.sssemil.advancedsettings.util.Utils;
 
 import java.util.List;
 
-
-public class UserAppsSettingsActivity extends Activity
+public class DisabledAppsSettingsActivity extends Activity
         implements WearableListView.ClickListener {
 
     public List mListAppInfo;
@@ -57,9 +56,8 @@ public class UserAppsSettingsActivity extends Activity
         mNoAppsView = (TextView) findViewById(R.id.noapps);
 
         // Get the list component from the layout of the activity
-        mListView =
-                (WearableListView) findViewById(R.id.wearable_list);
-        mListAppInfo = Utils.getInstalledApps(this);
+        mListView = (WearableListView) findViewById(R.id.wearable_list);
+        mListAppInfo = Utils.getDisabledSystemApps(this);
         // Assign an adapter to the list
         mListView.setAdapter(new Adapter(this, mListAppInfo, getPackageManager()));
 
@@ -148,13 +146,11 @@ public class UserAppsSettingsActivity extends Activity
             TextView tvPkgSize = itemHolder.tvPkgSize;
             // replace text contents
             ApplicationInfo entry = (ApplicationInfo) mListAppInfo.get(position);
-            if ((entry.flags & ApplicationInfo.FLAG_INSTALLED) != 0) {
-                ivAppIcon.setImageDrawable(entry.loadIcon(mPm));
-                tvAppName.setText(entry.loadLabel(mPm));
-                tvPkgSize.setText("");
-                // replace list item's metadata
-                holder.itemView.setTag(position);
-            }
+            ivAppIcon.setImageDrawable(entry.loadIcon(mPm));
+            tvAppName.setText(entry.loadLabel(mPm));
+            tvPkgSize.setText("");
+            // replace list item's metadata
+            holder.itemView.setTag(position);
         }
 
         // Return the size of your dataset
@@ -187,7 +183,7 @@ public class UserAppsSettingsActivity extends Activity
                     Thread.sleep(1000);
                 } catch (InterruptedException ignored) {
                 }
-                List listAppInfo = Utils.getInstalledApps(mContext);
+                List listAppInfo = Utils.getDisabledSystemApps(mContext);
                 if (listAppInfo.size() > 0) {
                     for (int n = 0; n < mListAppInfo.size(); n++) {
                         if (!((ApplicationInfo) mListAppInfo.get(n)).packageName.equals(

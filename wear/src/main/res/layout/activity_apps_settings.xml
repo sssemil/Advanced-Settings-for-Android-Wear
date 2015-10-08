@@ -38,7 +38,16 @@
             <android.support.wearable.view.WearableListView
                 android:id="@+id/wearable_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/noapps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/noapps"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:visibility="invisible" />
         </FrameLayout>
     </android.support.wearable.view.BoxInsetLayout>
 </RelativeLayout>

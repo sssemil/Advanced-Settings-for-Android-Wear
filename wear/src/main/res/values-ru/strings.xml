@@ -69,5 +69,7 @@
     <string name="lang_input">Язык системы</string>
     <string name="screen_saver_timeout">Время отключения экрана заставки</string>
     <string name="unpair">Разъединить</string>
+    <string name="dis_apps">Отключённые</string>
+    <string name="noapps">Нет приложений</string>
 
 </resources>
