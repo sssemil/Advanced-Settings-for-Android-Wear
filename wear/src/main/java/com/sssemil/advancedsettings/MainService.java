@@ -26,11 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.hardware.display.DisplayManager;
 import android.os.Environment;
 import android.os.IBinder;
@@ -58,14 +54,16 @@ public class MainService extends Service
         implements DisplayManager.DisplayListener, View.OnTouchListener {
 
     private static final String TAG = "MainService";
+
     private DisplayManager mDisplayManager;
     private SharedPreferences mSharedPreferences;
     private NotificationManager mNotificationManager;
+
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            int id = R.mipmap.ic_cloud_outline_off_black_48dp;
+            int id = R.mipmap.ic_cloud_outline_red;
             if (mSharedPreferences.contains("alert_on_disconnect")
                     && mSharedPreferences.getBoolean("alert_on_disconnect", true)) {
                 if (action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {

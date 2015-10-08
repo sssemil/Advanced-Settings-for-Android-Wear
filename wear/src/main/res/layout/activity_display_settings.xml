@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
 
      This program is free software; you can redistribute it and/or
@@ -36,11 +35,11 @@
     <com.sssemil.advancedsettings.util.preference.ButtonAppPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pref_package_name="sssemil.com.screensavertimeoutplugin"
         app:pref_activity="sssemil.com.screensavertimeoutplugin.MainActivity"
         app:pref_icon="@mipmap/ic_timelapse"
         app:pref_key="screen_saver_timeout_settings"
-        app:pref_title="@string/screen_saver_timeout"/>
+        app:pref_package_name="sssemil.com.screensavertimeoutplugin"
+        app:pref_title="@string/screen_saver_timeout" />
 
     <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"

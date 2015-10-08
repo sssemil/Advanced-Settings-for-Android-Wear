@@ -75,7 +75,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                 }
             } else if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
                     .equals("screen_saver_timeout_settings")) {
-                if(Utils.isPackageInstalled("sssemil.com.screensavertimeoutplugin", this, 1)) {
+                if (Utils.isPackageInstalled("sssemil.com.screensavertimeoutplugin", this, 1)) {
                     loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
                 }
             } else {

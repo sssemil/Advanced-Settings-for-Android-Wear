@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,7 +14,7 @@ import com.sssemil.advancedsettings.util.DeviceCfg;
 import com.sssemil.advancedsettings.util.Utils;
 
 public class BrightnessActivity extends Activity
-        implements SharedPreferences.OnSharedPreferenceChangeListener{
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private int mCurrentBrightness;
     private TextView mNum;
@@ -123,7 +122,7 @@ public class BrightnessActivity extends Activity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals("brightness_settings")) {
+        if (key.equals("brightness_settings")) {
             mNum.setText(mCurrentBrightness + "/" + maxBrightness);
         }
     }

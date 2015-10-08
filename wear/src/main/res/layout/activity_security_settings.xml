@@ -17,8 +17,7 @@
      MA  02110-1301, USA.
 -->
 
-<com.sssemil.advancedsettings.util.preference.PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sssemil.advancedsettings.util.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -38,10 +37,10 @@
     <com.sssemil.advancedsettings.util.preference.ButtonAppPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pref_package_name="sssemil.com.screensavertimeoutplugin"
         app:pref_activity="sssemil.com.screensavertimeoutplugin.UnpairActivity"
         app:pref_icon="@mipmap/ic_disconnect"
         app:pref_key="unpair_settings"
-        app:pref_title="@string/unpair"/>
+        app:pref_package_name="sssemil.com.screensavertimeoutplugin"
+        app:pref_title="@string/unpair" />
 
 </com.sssemil.advancedsettings.util.preference.PreferenceScreen>

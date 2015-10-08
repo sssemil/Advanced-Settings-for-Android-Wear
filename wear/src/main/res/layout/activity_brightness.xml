@@ -3,28 +3,28 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/num"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:text="244" />
+        android:layout_centerVertical="true"
+        android:text="244"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageButton
+        android:id="@+id/up"
         android:layout_width="50dp"
         android:layout_height="40dp"
-        android:id="@+id/up"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@mipmap/up" />
 
     <ImageButton
+        android:id="@+id/down"
         android:layout_width="50dp"
         android:layout_height="40dp"
-        android:id="@+id/down"
-        android:background="@mipmap/down"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/down" />
 
 </RelativeLayout>

@@ -3,7 +3,6 @@ package com.sssemil.advancedsettings.util.preference;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
-import android.util.Log;
 
 
 public class ButtonAppPreference extends Preference {
@@ -24,14 +23,14 @@ public class ButtonAppPreference extends Preference {
 
     @Override
     public void onPreferenceClick() {
-            if (!super.getActivity().equals("null")) {
-                Intent intent = new Intent();
-                intent
-                        .setAction(Intent.ACTION_VIEW)
-                        .setClassName(String.valueOf(super.getPackageName()),
-                                String.valueOf(super.getActivity()));
-                mContext.startActivity(intent);
-            }
+        if (!super.getActivity().equals("null")) {
+            Intent intent = new Intent();
+            intent
+                    .setAction(Intent.ACTION_VIEW)
+                    .setClassName(String.valueOf(super.getPackageName()),
+                            String.valueOf(super.getActivity()));
+            mContext.startActivity(intent);
+        }
 
     }
 }

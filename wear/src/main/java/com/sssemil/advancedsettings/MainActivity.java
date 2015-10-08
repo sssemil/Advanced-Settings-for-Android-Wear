@@ -22,12 +22,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.View;
 
 import com.sssemil.advancedsettings.util.Utils;
@@ -35,7 +32,6 @@ import com.sssemil.advancedsettings.util.preference.Preference;
 import com.sssemil.advancedsettings.util.preference.PreferenceScreen;
 import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -73,7 +69,7 @@ public class MainActivity extends WearPreferenceActivity
                 loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
             } else if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
                     .equals("system_language")) {
-                if(Utils.isPackageInstalled("sssemil.com.languagesettingsprovider", this, 1)) {
+                if (Utils.isPackageInstalled("sssemil.com.languagesettingsprovider", this, 1)) {
                     loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
                 }
             } else {

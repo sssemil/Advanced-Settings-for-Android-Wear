@@ -28,19 +28,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Build;
 import android.os.RemoteException;
-import android.os.UserManager;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.android.app.IActivityManager;
-import com.sssemil.advancedsettings.R;
-import com.sssemil.advancedsettings.locale.ActivityManagerNative;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -74,9 +65,24 @@ public abstract class Utils {
     }
 
     public static List getRunningServices(Context context) {
-        return ((ActivityManager) context
+        List<ActivityManager.RunningServiceInfo> listInitial = ((ActivityManager) context
                 .getSystemService(Context.ACTIVITY_SERVICE))
-                .getRunningServices(100);
+                .getRunningServices(1000);
+        List<ActivityManager.RunningServiceInfo> listNew = new ArrayList<>();
+
+        for(int i = 0; i<listInitial.size(); i++) {
+            boolean do_add = true;
+            for(int n = 0; n<listNew.size(); n++) {
+                if(listNew.get(n).service.getPackageName().equals(listInitial.get(i).service.getPackageName())) {
+                    do_add = false;
+                }
+            }
+            if(do_add) {
+                listNew.add(listInitial.get(i));
+            }
+        }
+
+        return listNew;
     }
 
     public static List getSystemApps(Context context) {
@@ -240,6 +246,16 @@ public abstract class Utils {
         }
     }
 
+    public static boolean isPackageInstalled(String packageName, Context context, int version) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            return pi.versionCode >= version;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
     private void setTiltToWake(boolean paramBoolean, Context paramContext) {
         SharedPreferences localSharedPreferences = paramContext.getSharedPreferences("home_preferences", 0);
         boolean bool = tiltToWakeEnabled(paramContext);
@@ -250,39 +266,5 @@ public abstract class Utils {
         SharedPreferences.Editor localEditor = localSharedPreferences.edit();
         localEditor.putBoolean("tilt_to_wake", paramBoolean);
         localEditor.apply();
-    }
-
-    /**
-     * Requests the system to update the system locale. Note that the system looks halted
-     * for a while during the Locale migration, so the caller need to take care of it.
-     *
-     * Requires android.permission.CHANGE_CONFIGURATION
-     */
-    public static void updateLocale(Locale locale) {
-        try {
-            IActivityManager am = ActivityManagerNative.getDefault();
-
-            Configuration config = am.getConfiguration();
-
-            // Will set userSetLocale to indicate this isn't some passing default - the user
-            // wants this remembered
-            config.setLocale(locale);
-
-            am.updateConfiguration(config);
-            // Trigger the dirty bit for the Settings Provider.
-            BackupManager.dataChanged("com.android.providers.settings");
-        } catch (RemoteException e) {
-            // Intentionally left blank
-        }
-    }
-
-    public static boolean isPackageInstalled(String packageName, Context context, int version) {
-        PackageManager pm = context.getPackageManager();
-        try {
-            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-            return pi.versionCode >= version;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
     }
 }

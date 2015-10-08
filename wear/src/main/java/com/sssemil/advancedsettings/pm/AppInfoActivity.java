@@ -111,14 +111,14 @@ public class AppInfoActivity extends Activity {
             }
             mIcon.setBackground(mPackageManager.getApplicationIcon(mApplicationInfo));
             mAppNameView.setText(mPackageManager.getApplicationLabel(mApplicationInfo));
-            mVersionView.setText("version " + mPackageInfo.versionName);
+            mVersionView.setText(getString(R.string.ver).toLowerCase() + " " + mPackageInfo.versionName);
             Iterable<PermissionInfo> permissions
                     = Utils.getPermissionsForPackage(mPackageManager, mPackageName);
             boolean did = false;
             for (PermissionInfo permission : permissions) {
-                if(permission.name.contains("android.permission")) {
+                if (permission.name.contains("android.permission")) {
                     permissions_list.append(
-                            (permission.name.split("android.permission.")[1]).replace("_", " ")+ "\n");
+                            (permission.name.split("android.permission.")[1]).replace("_", " ") + "\n");
                 } else {
                     permissions_list.append(permission.name + "\n");
                 }

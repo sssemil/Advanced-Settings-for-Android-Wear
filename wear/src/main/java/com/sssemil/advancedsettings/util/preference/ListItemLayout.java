@@ -180,7 +180,7 @@ public class ListItemLayout extends FrameLayout implements WearableListView.OnCe
         if (icon != null) {
             icon.setImageResource(iconId);
         }
-        if(icon != null && !iconVis) {
+        if (icon != null && !iconVis) {
             icon.setVisibility(GONE);
         }
         if (title != null) {
