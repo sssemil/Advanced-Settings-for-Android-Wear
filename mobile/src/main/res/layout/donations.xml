@@ -9,26 +9,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/regular"
-        android:id="@+id/regular"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/great"
-        android:id="@+id/great"
-        android:layout_below="@+id/regular"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/giant"
-        android:id="@+id/giant"
-        android:layout_below="@+id/great"
+        android:text="@string/usd_donation"
+        android:id="@+id/usd"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
@@ -37,9 +19,9 @@
         android:layout_height="wrap_content"
         android:text="@string/btc_donation"
         android:id="@+id/btc"
-        android:layout_below="@+id/giant"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:onClick="onClick" />
+        android:onClick="onClick"
+        android:layout_below="@+id/usd" />
 
 </RelativeLayout>

@@ -4,9 +4,7 @@
     <string name="text">Busque la aplicación en el reloj. Si aún no se ha instalado espere un poco o fuerce la sincronización desde la app de Android Wear. Gracias :)</string>
     <string name="donate">DONAR</string>
     <string name="rate">CALIFICAR</string>
-    <string name="regular">Pequeña donación de 1$</string>
-    <string name="great">Gran donación de 3$</string>
-    <string name="giant">Mega donación de 7$</string>
     <string name="btc_donation">Donar en bitcoins</string>
     <string name="hide">Ocultar icono en launcher del teléfono</string>
+    <string name="usd_donation">Donación de 3$</string>
 </resources>

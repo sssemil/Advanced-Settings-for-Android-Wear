@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="entries_screen_timeout">
+    <item>5 秒</item>
+    <item>10 秒</item>
+    <item>30 秒</item>
+    <item>1 分</item>
+    <item>2 分</item>
+    <item>5 分</item>
+    <item>10 分</item>
+    <item>30 分</item>
+  </string-array>
+  <string-array name="entries_month">
+    <item>一月</item>
+    <item>二月</item>
+    <item>三月</item>
+    <item>四月</item>
+    <item>五月</item>
+    <item>六月</item>
+    <item>七月</item>
+    <item>八月</item>
+    <item>九月</item>
+    <item>十月</item>
+    <item>十一月</item>
+    <item>十二月</item>
+  </string-array>
+</resources>

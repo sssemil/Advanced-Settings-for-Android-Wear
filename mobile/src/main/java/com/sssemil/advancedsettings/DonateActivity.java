@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class DonateActivity extends Activity implements Button.OnClickListener {
 
@@ -20,13 +19,9 @@ public class DonateActivity extends Activity implements Button.OnClickListener {
 
         final View promptsView = layoutInflater.inflate(R.layout.donations, null);
 
-        Button regular = (Button) promptsView.findViewById(R.id.regular);
-        Button great = (Button) promptsView.findViewById(R.id.great);
-        Button giant = (Button) promptsView.findViewById(R.id.giant);
+        Button usd = (Button) promptsView.findViewById(R.id.usd);
 
-        regular.setOnClickListener(this);
-        great.setOnClickListener(this);
-        giant.setOnClickListener(this);
+        usd.setOnClickListener(this);
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
 
@@ -42,18 +37,8 @@ public class DonateActivity extends Activity implements Button.OnClickListener {
         Uri uri;
         Intent intent;
         switch (button.getId()) {
-            case (R.id.regular):
-                uri = Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6J9K4Y42PT3ZE");
-                intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-                break;
-            case (R.id.great):
-                uri = Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7C7EL6ENPJ2NU");
-                intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-                break;
-            case (R.id.giant):
-                uri = Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DU9MXS8HEQE6G");
+            case (R.id.usd):
+                uri = Uri.parse("https://play.google.com/store/apps/details?id=sssemil.com.donation");
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
                 break;

@@ -58,14 +58,14 @@ public class MainService extends Service
     private DisplayManager mDisplayManager;
     private SharedPreferences mSharedPreferences;
     private NotificationManager mNotificationManager;
+    private boolean mShuttingDown = false;
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             int id = R.mipmap.ic_cloud_outline_red;
-            if (mSharedPreferences.contains("alert_on_disconnect")
-                    && mSharedPreferences.getBoolean("alert_on_disconnect", true)) {
+            if (mSharedPreferences.getBoolean("alert_on_disconnect", false)) {
                 if (action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(MainService.this)
@@ -76,11 +76,25 @@ public class MainService extends Service
                     Vibrator v = (Vibrator) MainService.this.getApplicationContext()
                             .getSystemService(Context.VIBRATOR_SERVICE);
                     long[] pattern = {100, 600, 100, 600};
-                    v.vibrate(pattern, -1);
-                    mNotificationManager.notify(id, mBuilder.build());
+                    if(!mShuttingDown) {
+                        v.vibrate(pattern, -1);
+                        mNotificationManager.notify(id, mBuilder.build());
+                    }
                 } else if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
                     mNotificationManager.cancel(id);
                 }
+            }
+        }
+    };
+
+    private final BroadcastReceiver mReceiverOnPowerOff = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (action.equals("android.intent.action.ACTION_SHUTDOWN")) {
+                int id = R.mipmap.ic_cloud_outline_red;
+                mNotificationManager.cancel(id);
+                mShuttingDown = true;
             }
         }
     };
@@ -139,6 +153,10 @@ public class MainService extends Service
         filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
         registerReceiver(mReceiver, filter);
 
+        filter = new IntentFilter();
+        filter.addAction("android.intent.action.ACTION_SHUTDOWN");
+        registerReceiver(mReceiverOnPowerOff, filter);
+
         int timeout = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this)
                 .getString("screen_timeout_settings",
                         String.valueOf(Settings.System.getInt(getContentResolver(),
@@ -167,8 +185,9 @@ public class MainService extends Service
             @Override
             public void run() {
                 try {
+                    //TODO update versionCode when it's updated
                     if (!Utils.isPackageInstalled("sssemil.com.languagesettingsprovider",
-                            MainService.this, 3)) {
+                            MainService.this, 4)) {
                         File apk = new File(Environment.getExternalStorageDirectory(),
                                 "wear_languagesettingsprovider-release.apk");
 

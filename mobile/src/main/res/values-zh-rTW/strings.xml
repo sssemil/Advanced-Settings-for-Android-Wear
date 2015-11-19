@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="app_name">Advanced Settings</string>
+  <string name="welcome">歡迎</string>
+  <string name="text">檢查你的手錶app。 如果他還沒準備好，請在稍等一下直到同步完成。感恩 :)</string>
+  <string name="donate">捐贈</string>
+  <string name="rate">評分</string>
+  <string name="usd_donation">捐贈3美元</string>
+  <string name="btc_donation">捐贈比特幣</string>
+  <string name="hide">隱藏手機端圖示</string>
+</resources>

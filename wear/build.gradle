@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     lintOptions {
         abortOnError false
@@ -14,8 +14,8 @@ android {
         applicationId "com.sssemil.advancedsettings"
         minSdkVersion 20
         targetSdkVersion 23
-        versionCode 30
-        versionName "1.6.8"
+        versionCode 32
+        versionName "1.6.9"
     }
     buildTypes {
         release {
