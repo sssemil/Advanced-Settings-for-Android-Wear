@@ -59,7 +59,7 @@
         app:pref_key="manage_screen_saver_brightness_settings"
         app:pref_summaryOff="Off"
         app:pref_summaryOn="On"
-        app:pref_title="Manage screen saver brightness" />
+        app:pref_title="@string/manage_screen_saver_br" />
 
     <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"

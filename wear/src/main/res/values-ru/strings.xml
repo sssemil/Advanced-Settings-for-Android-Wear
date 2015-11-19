@@ -71,5 +71,6 @@
     <string name="unpair">Разъединить</string>
     <string name="dis_apps">Отключённые</string>
     <string name="noapps">Нет приложений</string>
+    <string name="manage_screen_saver_br">Управлять яркостью экрана</string>
 
 </resources>
