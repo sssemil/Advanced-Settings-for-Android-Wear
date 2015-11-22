@@ -24,7 +24,7 @@
   <string name="display">Anzeige</string>
   <string name="apps">Apps</string>
   <string name="about">Über</string>
-  <string name="launch_by_default">AKTIONEN AUF STANDART ZURÜCKSETZEN</string>
+  <string name="launch_by_default">AKTIONEN AUF STANDARD ZURÜCKSETZEN</string>
   <string name="screen_timeout">Ruhezustand</string>
   <string name="brightness">Helligkeitsstuffe</string>
   <string name="install">Installieren</string>
@@ -38,14 +38,14 @@
   <string name="security">Sicherheit</string>
   <string name="alert_on_disconnect">Alarmton beim Trennen</string>
   <string name="forgot_device">Haben Sie Ihr Gerät vergessen?</string>
-  <string name="screen_saver_brightness">Bildschirmschoner Helligkeit</string>
+  <string name="screen_saver_brightness">Bildschirmschoner-Helligkeit</string>
   <string name="vibrator">Vibration</string>
   <string name="vibration_intensity">Vibrationsintensität</string>
   <string name="sys_apps">System</string>
   <string name="usr_apps">Installiert</string>
   <string name="all_apps">Alle</string>
   <string name="running_services">Laufende</string>
-  <string name="system_uninstall_warning">SIE SIND DABEI, EINE SYSTEM APP ZU DEINSTALLIEREN! DAS KÖNNTE ERNSTHAFTEN SCHADEN VERURSACHEN UND KANN NICHT WIEDER RÜCKGÄNGIG GEMACHT WERDEN! SIE WURDEN GEWARNT!</string>
+  <string name="system_uninstall_warning">SIE SIND DABEI, EINE SYSTEM-APP ZU DEINSTALLIEREN! DAS KÖNNTE ERNSTHAFTEN SCHADEN VERURSACHEN UND KANN NICHT WIEDER RÜCKGÄNGIG GEMACHT WERDEN! SIE WURDEN GEWARNT!</string>
   <string name="normal_uninstall_warning">SIE SIND DABEI, EINE APP ZU DEINSTALLIEREN! DIESE AKTION KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN! SIE WURDEN GEWARNT!</string>
   <string name="wait_till_sys">Bitte warten Sie einen Moment, bis das System die App-Liste aktualisiert hat, um die Änderungen zu sehen</string>
   <string name="wifi">Wi-Fi</string>
@@ -53,7 +53,7 @@
   <string name="dev_options">Entwickleroptionen</string>
   <string name="poweroff">Ausschalten</string>
   <string name="reboot">Neu starten</string>
-  <string name="recovery">Auf Werkszustand zurück</string>
+  <string name="recovery">Recovery</string>
   <string name="bootloader">Bootloader</string>
   <string name="warn_no_root">Es sieht aus, als sei Ihre Uhr nicht gerooted. Root-Berechtigungen sind erforderlich, um alle Funktionen richtig nutzen zu können.</string>
   <string name="touch_to_wake">Zum Wecken berühren</string>
