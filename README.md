@@ -1,6 +1,8 @@
 # wear_AdvancedSettings [![Build Status](https://travis-ci.org/sssemil/wear_AdvancedSettings.png)](https://travis-ci.org/sssemil/wear_AdvancedSettings)
 Advanced Settings for android wear devices. Root access is required for some features to work. 
 
+Here is transifex page for translating - https://www.transifex.com/sssemil/advanced-settings/
+
 ### What you get (marked with R require root access):
 + Vibration intensity changing (R)
 + Installed apps information
