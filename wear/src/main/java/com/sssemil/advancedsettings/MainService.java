@@ -49,6 +49,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
 public class MainService extends Service
         implements DisplayManager.DisplayListener, View.OnTouchListener {
@@ -187,7 +188,7 @@ public class MainService extends Service
                 try {
                     //TODO update versionCode when it's updated
                     if (!Utils.isPackageInstalled("sssemil.com.languagesettingsprovider",
-                            MainService.this, 4)) {
+                            MainService.this, 5)) {
                         File apk = new File(Environment.getExternalStorageDirectory(),
                                 "wear_languagesettingsprovider-release.apk");
 
