@@ -1,4 +1,21 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8'?><!--
+     Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License
+     as published by the Free Software Foundation; either version 3
+     of the License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+     MA  02110-1301, USA.
+-->
 <resources>
   <string name="app_name">Advanced Settings</string>
   <string name="default_summary_on">On</string>
@@ -68,7 +85,7 @@
   <string name="will_reboot_now">Se reiniciará ahora…</string>
   <string name="lang_input">Idioma del sistema</string>
   <string name="screen_saver_timeout">Tiempo de espera del protector de pantalla</string>
-  <string name="unpair">Desenparejar</string>
+  <string name="unpair">Desemparejar</string>
   <string name="dis_apps">Desactivadas</string>
   <string name="noapps">No hay apps</string>
   <string name="manage_screen_saver_br">Administrar brillo del protector de pantalla</string>
