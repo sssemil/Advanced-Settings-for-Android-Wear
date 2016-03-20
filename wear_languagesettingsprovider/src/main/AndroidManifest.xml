@@ -3,6 +3,7 @@
     package="sssemil.com.languagesettingsprovider" >
 
     <uses-feature android:name="android.hardware.type.watch" />
+
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 

@@ -113,7 +113,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
 
     public boolean isTouchToWakeEnabled() {
         try {
-            File idc = new File(mCfg.getTouchIdcPath());
+            File idc = new File(mCfg.getTouchIdcPath(this));
             if (idc.exists() && idc.canRead()) {
                 Scanner scanner = new Scanner(idc);
                 while (scanner.hasNextLine()) {
@@ -133,7 +133,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String touch_idc_path = mCfg.getTouchIdcPath();
+                String touch_idc_path = mCfg.getTouchIdcPath(DisplaySettingsActivity.this);
                 try {
                     if (isTouchToWakeEnabled() != enable) {
                         Runtime.getRuntime().exec("su -c mount -o remount,rw /system").waitFor();
@@ -146,7 +146,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                             Scanner scanner = new Scanner(idc);
                             while (scanner.hasNextLine()) {
                                 String line = scanner.nextLine();
-                                if (line.contains("touch.wake =")) {
+                                if (line.contains("touch.wake")) {
                                     if (enable) {
                                         writer.println("touch.wake = 1");
                                     } else {
@@ -161,7 +161,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                             Runtime.getRuntime().exec("su -c cp /sdcard/tmp.idc " + touch_idc_path).waitFor();
                             Runtime.getRuntime().exec("su -c chmod 644 " + touch_idc_path).waitFor();
                             Runtime.getRuntime().exec("su -c sync").waitFor();
-                            if (!(new File(mCfg.getTouchIdcPath()).exists())) {
+                            if (!(new File(mCfg.getTouchIdcPath(DisplaySettingsActivity.this)).exists())) {
                                 Runtime.getRuntime().exec("su -c cp /sdcard/backup.idc " + touch_idc_path).waitFor();
                             }
                             runOnUiThread(new Runnable() {
@@ -191,42 +191,46 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("screen_timeout_settings")
-                && (Settings.System.getInt(getContentResolver(),
-                Settings.System.SCREEN_OFF_TIMEOUT, 0)
-                != Integer.parseInt(sharedPreferences.getString(key, null)))) {
-            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
-                    Integer.parseInt(sharedPreferences.getString(key, null)));
-        } else if (key.equals("brightness_settings")
-                && (Settings.System.getInt(getContentResolver(),
-                Settings.System.SCREEN_BRIGHTNESS, 0)
-                != Integer.parseInt(sharedPreferences.getString(key, null)))) {
-            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
-                    Integer.parseInt(sharedPreferences.getString(key, null)));
-        } else if (key.equals("touch_to_wake_screen")) {
-            setTouchToWake(sharedPreferences.getBoolean("touch_to_wake_screen", true));
-        } else if (key.equals("manage_screen_saver_brightness_settings")) {
-            final View prefsRoot = inflater.inflate(R.layout.activity_display_settings, null);
+        try {
+            if (key.equals("screen_timeout_settings")
+                    && (Settings.System.getInt(getContentResolver(),
+                    Settings.System.SCREEN_OFF_TIMEOUT, 0)
+                    != Integer.parseInt(sharedPreferences.getString(key, null)))) {
+                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
+                        Integer.parseInt(sharedPreferences.getString(key, null)));
+            } else if (key.equals("brightness_settings")
+                    && (Settings.System.getInt(getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS, 0)
+                    != Integer.parseInt(sharedPreferences.getString(key, null)))) {
+                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
+                        Integer.parseInt(sharedPreferences.getString(key, null)));
+            } else if (key.equals("touch_to_wake_screen")) {
+                setTouchToWake(sharedPreferences.getBoolean("touch_to_wake_screen", true));
+            } else if (key.equals("manage_screen_saver_brightness_settings")) {
+                final View prefsRoot = inflater.inflate(R.layout.activity_display_settings, null);
 
-            if (!(prefsRoot instanceof PreferenceScreen)) {
-                throw new IllegalArgumentException("Preferences resource must use" +
-                        " preference.PreferenceScreen as its root element");
-            }
+                if (!(prefsRoot instanceof PreferenceScreen)) {
+                    throw new IllegalArgumentException("Preferences resource must use" +
+                            " preference.PreferenceScreen as its root element");
+                }
 
-            final List<Preference> loadedPreferences = new ArrayList<>();
-            for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
-                if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
-                        .equals("screen_saver_brightness_settings")) {
-                    if (sharedPreferences.getBoolean(key, false)) {
+                final List<Preference> loadedPreferences = new ArrayList<>();
+                for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
+                    if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
+                            .equals("screen_saver_brightness_settings")) {
+                        if (sharedPreferences.getBoolean(key, false)) {
+                            loadedPreferences.add(parsePreference(((PreferenceScreen)
+                                    prefsRoot).getChildAt(i)));
+                        }
+                    } else {
                         loadedPreferences.add(parsePreference(((PreferenceScreen)
                                 prefsRoot).getChildAt(i)));
                     }
-                } else {
-                    loadedPreferences.add(parsePreference(((PreferenceScreen)
-                            prefsRoot).getChildAt(i)));
                 }
+                addPreferences(loadedPreferences);
             }
-            addPreferences(loadedPreferences);
+        } catch (SecurityException e) {
+            e.printStackTrace();
         }
     }
 }

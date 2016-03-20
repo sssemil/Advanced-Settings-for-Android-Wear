@@ -22,16 +22,18 @@
     <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 
@@ -52,7 +54,20 @@
         </activity>
         <activity android:name=".DisplaySettingsActivity" />
         <activity android:name=".LanguageInputSettingsActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".LicenseActivity" />
+        <activity android:name=".BluetoothActivity" />
+        <activity android:name=".WiFiActivity" />
+        <activity android:name=".SecuritySettingsActivity" />
+        <activity android:name=".VibratorActivity" />
+        <activity android:name=".PowerActivity" />
+        <activity android:name=".DevActivity" />
+        <activity android:name=".DateTimeSettingsActivity" />
+        <activity android:name=".BrightnessActivity" />
+        <activity android:name=".ScreenSaverBrightnessActivity" />
+
         <activity android:name=".util.preference.ListChooserActivity" />
+
         <activity android:name=".pm.AppsSettingsActivity" />
         <activity android:name=".pm.AllAppsSettingsActivity" />
         <activity android:name=".pm.SystemAppsSettingsActivity" />
@@ -94,15 +109,6 @@
                 <data android:scheme="package" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".LicenseActivity" />
-        <activity android:name=".BluetoothActivity" />
-        <activity android:name=".WiFiActivity" />
-        <activity android:name=".SecuritySettingsActivity" />
-        <activity android:name=".VibratorActivity" />
-        <activity android:name=".PowerActivity" />
-        <activity android:name=".DevActivity" />
-        <activity android:name=".DateTimeSettingsActivity" />
 
         <receiver
             android:name=".receivers.OnBootReceiver"
@@ -119,9 +125,6 @@
             android:name=".MainService"
             android:enabled="true"
             android:exported="true" />
-
-        <activity android:name=".BrightnessActivity" />
-        <activity android:name=".ScreenSaverBrightnessActivity" />
 
     </application>
 

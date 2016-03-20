@@ -1,5 +1,8 @@
 package com.sssemil.advancedsettings.util;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
@@ -24,26 +27,33 @@ public class DeviceCfg {
     public int brightnessMax = 254;
     private String touchIdcPath = "/system/usr/idc/sec_touchscreen.idc";
 
-    public String getTouchIdcPath() {
-        File idc = new File(touchIdcPath);
-        if (!idc.exists()) {
-            File dir = new File("/system/usr/idc/");
-            try {
-                Runtime.getRuntime().exec("su -c chmod 644 /system/usr/idc/*").waitFor();
-            } catch (InterruptedException | IOException e) {
-                e.printStackTrace();
-            }
-            ArrayList<String> files = new ArrayList<>();
-            try {
-                files = searchFiles(dir, "touch.wake =", files);
-                Log.i("FILES", files.toString());
-                touchIdcPath = "/system/usr/idc/" + files.get(0);
-                return "/system/usr/idc/" + files.get(0);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+    public String getTouchIdcPath(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if(sharedPreferences.getString("idc_path", null) !=null){
+            return sharedPreferences.getString("idc_path", null);
         } else {
-            return touchIdcPath;
+            File idc = new File(touchIdcPath);
+            if (!idc.exists()) {
+                File dir = new File("/system/usr/idc/");
+                try {
+                    Runtime.getRuntime().exec("su -c chmod 644 /system/usr/idc/*").waitFor();
+                } catch (InterruptedException | IOException e) {
+                    e.printStackTrace();
+                }
+                ArrayList<String> files = new ArrayList<>();
+                try {
+                    files = searchFiles(dir, "touch.wake =", files);
+                    Log.i("FILES", files.toString());
+                    touchIdcPath = "/system/usr/idc/" + files.get(0);
+                    sharedPreferences.edit().putString("idc_path", "/system/usr/idc/" + files.get(0)).apply();
+                    return "/system/usr/idc/" + files.get(0);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                sharedPreferences.edit().putString("idc_path", touchIdcPath).apply();
+                return touchIdcPath;
+            }
         }
         return null;
     }

@@ -28,6 +28,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.hardware.display.DisplayManager;
+import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -61,12 +63,33 @@ public class MainService extends Service
     private NotificationManager mNotificationManager;
     private boolean mShuttingDown = false;
 
+    public static boolean isPhonePluggedIn(Context context){
+        boolean charging = false;
+
+        final Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        int status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        boolean batteryCharge = status==BatteryManager.BATTERY_STATUS_CHARGING;
+
+        int chargePlug = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+        boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+
+        if (batteryCharge) charging=true;
+        if (usbCharge) charging=true;
+        if (acCharge) charging=true;
+
+        return charging;
+    }
+
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             int id = R.mipmap.ic_cloud_outline_red;
-            if (mSharedPreferences.getBoolean("alert_on_disconnect", false)) {
+            if (mSharedPreferences.getBoolean("alert_on_disconnect", false)
+                    && !isPhonePluggedIn(MainService.this)) {
+                Vibrator v = (Vibrator) MainService.this.getApplicationContext()
+                        .getSystemService(Context.VIBRATOR_SERVICE);
                 if (action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(MainService.this)
@@ -74,14 +97,12 @@ public class MainService extends Service
                                     .setContentText(getString(R.string.forgot_device))
                                     .setLargeIcon(BitmapFactory.decodeResource(
                                             getResources(), R.drawable.notif_background));
-                    Vibrator v = (Vibrator) MainService.this.getApplicationContext()
-                            .getSystemService(Context.VIBRATOR_SERVICE);
-                    long[] pattern = {100, 600, 100, 600};
                     if(!mShuttingDown) {
-                        v.vibrate(pattern, -1);
+                        v.vibrate(new long[]{100, 600, 100, 600}, -1);
                         mNotificationManager.notify(id, mBuilder.build());
                     }
                 } else if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
+                    v.vibrate(new long[]{100, 100, 100, 100}, -1);
                     mNotificationManager.cancel(id);
                 }
             }
@@ -163,7 +184,9 @@ public class MainService extends Service
                         String.valueOf(Settings.System.getInt(getContentResolver(),
                                 Settings.System.SCREEN_OFF_TIMEOUT, 0))));
 
-        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, timeout);
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, timeout);
+        }
 
         new Thread(new Runnable() {
             @Override
@@ -173,11 +196,16 @@ public class MainService extends Service
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(MainService.this)
-                        .getString("screen_timeout_settings",
-                                String.valueOf(Settings.System.getInt(getContentResolver(),
-                                        Settings.System.SCREEN_OFF_TIMEOUT, 0)))));
+                try {
+                    Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
+                            Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(MainService.this)
+                            .getString("screen_timeout_settings",
+                                    String.valueOf(Settings.System.getInt(getContentResolver(),
+                                            Settings.System.SCREEN_OFF_TIMEOUT, 0)))));
 
+                } catch (SecurityException e){
+                    e.printStackTrace();
+                }
             }
         }).start();
 
@@ -188,7 +216,7 @@ public class MainService extends Service
                 try {
                     //TODO update versionCode when it's updated
                     if (!Utils.isPackageInstalled("sssemil.com.languagesettingsprovider",
-                            MainService.this, 5)) {
+                            MainService.this, 6)) {
                         File apk = new File(Environment.getExternalStorageDirectory(),
                                 "wear_languagesettingsprovider-release.apk");
 
@@ -307,10 +335,10 @@ public class MainService extends Service
                         }
                     }
 
-                    PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+                    /*PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                             "WakeLock");
-                    wakeLock.acquire();
+                    wakeLock.acquire();*/
                     break;
                 default:
                     break;

@@ -18,12 +18,16 @@
  */
 package com.sssemil.advancedsettings;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
@@ -39,9 +43,121 @@ import java.util.Locale;
 public class MainActivity extends WearPreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    private static final int REQUEST = 123;
+    //private AlertDialog mAlertDialog;
+    //private boolean mContinue = false;
+    //private boolean mContinueActivity = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    while (ContextCompat.checkSelfPermission(MainActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                REQUEST);
+
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    while (ContextCompat.checkSelfPermission(MainActivity.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                REQUEST);
+
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    while (ContextCompat.checkSelfPermission(MainActivity.this,
+                            Manifest.permission.WRITE_SETTINGS)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[]{Manifest.permission.WRITE_SETTINGS},
+                                REQUEST);
+
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    while (ContextCompat.checkSelfPermission(MainActivity.this,
+                            Manifest.permission.SYSTEM_ALERT_WINDOW)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW},
+                                REQUEST);
+
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    /*if (!android.provider.Settings.System.canWrite(MainActivity.this)) {
+                        mContinue = false;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAlertDialog = new AlertDialog.Builder(MainActivity.this)
+                                        .setMessage(getString(R.string.grant_access_settings))
+                                        .setPositiveButton(getString(android.R.string.ok),
+                                                new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        mContinue = true;
+                                                    }
+                                                })
+                                        .create();
+                                mAlertDialog.show();
+                            }
+                        });
+
+                        while (!mContinue) {
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        Intent intent = new Intent();
+                        intent.setAction(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                        intent.setData(Uri.parse("package:" + getPackageName()));
+
+                        // Start Activity
+                        startActivityForResult(intent, REQUEST);
+
+                        while (!mContinueActivity) {
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }*/
+                }
+            }
+    }).start();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 

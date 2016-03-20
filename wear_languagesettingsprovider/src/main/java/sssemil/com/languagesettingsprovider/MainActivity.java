@@ -118,7 +118,11 @@ public class MainActivity extends WearPreferenceActivity
         ShellUtils.CommandResult result = ShellUtils.execCommand(
                 "pm grant " + package_name + " android.permission.CHANGE_CONFIGURATION", true);
 
-        Log.i("RESULTsuccessMsg:", result.successMsg);
-        Log.i("RESULTerrorMsg:", result.errorMsg);
+        try {
+            Log.i("RESULTsuccessMsg:", result.successMsg);
+            Log.i("RESULTerrorMsg:", result.errorMsg);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 }

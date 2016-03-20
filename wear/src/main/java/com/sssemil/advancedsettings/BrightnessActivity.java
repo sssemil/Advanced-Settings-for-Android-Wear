@@ -116,8 +116,12 @@ public class BrightnessActivity extends Activity
     private void set(int value, SharedPreferences sharedPreferences) {
         sharedPreferences.edit().putString("brightness_settings",
                 String.valueOf(value)).apply();
-        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
-                value);
+        try {
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
+                    value);
+        } catch (SecurityException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
