@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-import com.sssemil.advancedsettings.util.IabException;
 import com.sssemil.advancedsettings.util.IabHelper;
 import com.sssemil.advancedsettings.util.IabResult;
 import com.sssemil.advancedsettings.util.Inventory;
@@ -23,22 +22,26 @@ public class DonateActivity extends Activity implements Button.OnClickListener {
     String Base64EncodedPublicKey =
             "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqWiRHT9nfqRW4Yh4pfhk/cTQ5LvOnzQFpbAhNTl+sHqmPV6PkyMCtXErUg8alqVgAFJWMJnmBSS08gtCIHifo6TFHIMP0HBZPoPH674g02bPYBpdlN7Nymx4t9yVnswv/Auf1Lqvvdwrm4EM8fjRCEQjzds4KTYDPmrcgYhT8lyRRrqjD+jjkkwDSWTz/iDuhDAclS0J0Vnd63CywJIg6FkNNIzAn473mOSz/HilIkY5GFKTwKChsAGIZAFVO/mKeeX3WT7CDv8FMD4Kec8fCkOD40Uc5LldVf2j76bxb72rGPXWBUhpcllQTHxUkVMooaArJCutzPXf5yvUdoSPlwIDAQAB";
 
-    static final String ITEM_SKU = "great_donation";
-    private Button usd;
+    static final String ITEM_SKU$3 = "great_donation";
+    static final String ITEM_SKU$7 = "usd7";
+    static final String ITEM_SKU$16 = "usd16";
+    static final String ITEM_SKU$32 = "usd32";
+    private Button usd3, usd7, usd16, usd32;
 
-    public void consumeItem() {
+    private String CURRENT_SKU;
+
+    public void consumeItem(String sku) {
+        CURRENT_SKU = sku;
         mHelper.queryInventoryAsync(mReceivedInventoryListener);
     }
 
     IabHelper.QueryInventoryFinishedListener mReceivedInventoryListener
             = new IabHelper.QueryInventoryFinishedListener() {
-        public void onQueryInventoryFinished(IabResult result,
-                                             Inventory inventory) {
-
+        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
             if (result.isFailure()) {
                 // Handle failure
             } else {
-                mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
+                mHelper.consumeAsync(inventory.getPurchase(CURRENT_SKU),
                         mConsumeFinishedListener);
             }
         }
@@ -47,18 +50,23 @@ public class DonateActivity extends Activity implements Button.OnClickListener {
 
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
             = new IabHelper.OnIabPurchaseFinishedListener() {
-        public void onIabPurchaseFinished(IabResult result,
-                                          Purchase purchase)
-        {
+        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
             if (result.isFailure()) {
                 // Handle error
                 return;
+            } else if (purchase.getSku().equals(ITEM_SKU$3)) {
+                consumeItem(purchase.getSku());
+                usd3.setEnabled(false);
+            } else if (purchase.getSku().equals(ITEM_SKU$7)) {
+                consumeItem(purchase.getSku());
+                usd7.setEnabled(false);
+            } else if (purchase.getSku().equals(ITEM_SKU$16)) {
+                consumeItem(purchase.getSku());
+                usd16.setEnabled(false);
+            } else if (purchase.getSku().equals(ITEM_SKU$32)) {
+                consumeItem(purchase.getSku());
+                usd32.setEnabled(false);
             }
-            else if (purchase.getSku().equals(ITEM_SKU)) {
-                consumeItem();
-                usd.setEnabled(false);
-            }
-
         }
     };
 
@@ -66,9 +74,11 @@ public class DonateActivity extends Activity implements Button.OnClickListener {
             new IabHelper.OnConsumeFinishedListener() {
                 public void onConsumeFinished(Purchase purchase,
                                               IabResult result) {
-
                     if (result.isSuccess()) {
-                        usd.setEnabled(true);
+                        usd3.setEnabled(true);
+                        usd7.setEnabled(true);
+                        usd16.setEnabled(true);
+                        usd32.setEnabled(true);
                     } else {
                         // handle error
                     }
@@ -90,9 +100,15 @@ public class DonateActivity extends Activity implements Button.OnClickListener {
 
         final View promptsView = layoutInflater.inflate(R.layout.donations, null);
 
-        usd = (Button) promptsView.findViewById(R.id.usd);
+        usd3 = (Button) promptsView.findViewById(R.id.usd3);
+        usd7 = (Button) promptsView.findViewById(R.id.usd7);
+        usd16 = (Button) promptsView.findViewById(R.id.usd16);
+        usd32 = (Button) promptsView.findViewById(R.id.usd32);
 
-        usd.setOnClickListener(this);
+        usd3.setOnClickListener(this);
+        usd7.setOnClickListener(this);
+        usd16.setOnClickListener(this);
+        usd32.setOnClickListener(this);
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
 
@@ -131,12 +147,21 @@ public class DonateActivity extends Activity implements Button.OnClickListener {
         Uri uri;
         Intent intent;
         switch (button.getId()) {
-            case (R.id.usd):
-                mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
-                        mPurchaseFinishedListener, "great_donation");
-                /*uri = Uri.parse("https://play.google.com/store/apps/details?id=sssemil.com.donation");
-                intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);*/
+            case (R.id.usd3):
+                mHelper.launchPurchaseFlow(this, ITEM_SKU$3, 10001,
+                        mPurchaseFinishedListener, ITEM_SKU$3);
+                break;
+            case (R.id.usd7):
+                mHelper.launchPurchaseFlow(this, ITEM_SKU$7, 10001,
+                        mPurchaseFinishedListener, ITEM_SKU$7);
+                break;
+            case (R.id.usd16):
+                mHelper.launchPurchaseFlow(this, ITEM_SKU$16, 10001,
+                        mPurchaseFinishedListener, ITEM_SKU$16);
+                break;
+            case (R.id.usd32):
+                mHelper.launchPurchaseFlow(this, ITEM_SKU$32, 10001,
+                        mPurchaseFinishedListener, ITEM_SKU$32);
                 break;
             case (R.id.btc):
                 uri = Uri.parse("http://sssemil.github.io/Donate/btc.html");

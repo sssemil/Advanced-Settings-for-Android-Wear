@@ -66,6 +66,14 @@
     <com.sssemil.advancedsettings.util.preference.ButtonPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.TasksActivity"
+        app:pref_icon="@mipmap/ic_clock"
+        app:pref_key="tasks"
+        app:pref_title="@string/tasks" />
+
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:pref_activity="com.sssemil.advancedsettings.VibratorActivity"
         app:pref_icon="@mipmap/ic_vibrate"
         app:pref_key="vibrator_settings"

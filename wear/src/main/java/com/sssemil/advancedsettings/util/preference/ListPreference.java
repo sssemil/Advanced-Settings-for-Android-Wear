@@ -12,8 +12,8 @@ import com.sssemil.advancedsettings.R;
 
 public class ListPreference extends Preference {
 
-    protected final CharSequence[] entries, entryValues;
-    protected final boolean useEntryAsSummary;
+    public CharSequence[] entries, entryValues;
+    public boolean useEntryAsSummary;
 
     public ListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -89,4 +89,5 @@
   <string name="dis_apps">Desactivadas</string>
   <string name="noapps">No hay apps</string>
   <string name="manage_screen_saver_br">Administrar brillo del protector de pantalla</string>
+  <string name="change_dpi">Densidad del LCD</string>
 </resources>

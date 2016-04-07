@@ -8,4 +8,7 @@
   <string name="usd_donation">捐贈3美元</string>
   <string name="btc_donation">捐贈比特幣</string>
   <string name="hide">隱藏手機端圖示</string>
+  <string name="usd_donation16">捐贈16美元</string>
+  <string name="usd_donation32">捐贈32美元</string>
+  <string name="usd_donation7">捐贈7美元</string>
 </resources>

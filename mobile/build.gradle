@@ -13,8 +13,8 @@ android {
         applicationId "com.sssemil.advancedsettings"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 42
-        versionName "1.6.12"
+        versionCode 45
+        versionName "1.7.1"
     }
     buildTypes {
         release {

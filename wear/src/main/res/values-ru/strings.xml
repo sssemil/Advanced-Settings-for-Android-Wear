@@ -89,5 +89,7 @@
     <string name="dis_apps">Отключённые</string>
     <string name="noapps">Нет приложений</string>
     <string name="manage_screen_saver_br">Управлять яркостью экрана</string>
+    <string name="change_dpi">Плотность экрана</string>
+    <string name="on_theatre_mode_launch_app">При театральном режиме запускать приложение</string>
 
 </resources>

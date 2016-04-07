@@ -76,6 +76,14 @@ public abstract class WearPreferenceActivity extends Activity implements Wearabl
         throw new IllegalArgumentException("Preferences layout resource may only contain Views extending preference.Preference");
     }
 
+    public ListPreference parseListPreference(View preferenceView) {
+        //if (preferenceView instanceof ListPreference) {
+            return (ListPreference) preferenceView;
+        //}
+
+        //throw new IllegalArgumentException("Preferences layout resource may only contain Views extending preference.Preference");
+    }
+
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
         final Preference clickedPreference = preferences.get(viewHolder.getPosition());

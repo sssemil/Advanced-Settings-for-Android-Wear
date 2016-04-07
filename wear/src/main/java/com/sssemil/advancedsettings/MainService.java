@@ -22,15 +22,18 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.ContentObserver;
 import android.graphics.BitmapFactory;
 import android.hardware.display.DisplayManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.Vibrator;
@@ -67,10 +70,16 @@ public class MainService extends Service
         boolean charging = false;
 
         final Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        int status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        int status = 0;
+        if (batteryIntent != null) {
+            status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        }
         boolean batteryCharge = status==BatteryManager.BATTERY_STATUS_CHARGING;
 
-        int chargePlug = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        int chargePlug = 0;
+        if (batteryIntent != null) {
+            chargePlug = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        }
         boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
         boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
 
@@ -188,6 +197,12 @@ public class MainService extends Service
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, timeout);
         }
 
+        String app = mSharedPreferences.getString("on_theatre_mode_launch_app", "null");
+
+        if(!app.equals("null") && !Utils.isPackageInstalled(app, this, 0)) {
+            mSharedPreferences.edit().putString("on_theatre_mode_launch_app", "null").apply();
+        }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -269,6 +284,68 @@ public class MainService extends Service
             pb.start().waitFor();
         } catch (InterruptedException | IOException | NullPointerException e) {
             Log.d(TAG, "catch " + e.toString() + " hit in run", e);
+        }
+
+        /*new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                        int i = Settings.Global.getInt(getContentResolver(), "theater_mode_on");
+
+                        Log.i("theater_mode_on", String.valueOf(i));
+                    } catch (Settings.SettingNotFoundException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();*/
+
+        GlobalContentObserver contentObserver = new GlobalContentObserver(new Handler());
+        this.getApplicationContext().getContentResolver().registerContentObserver(
+                android.provider.Settings.Global.CONTENT_URI, true,
+                contentObserver );
+    }
+
+    class GlobalContentObserver extends ContentObserver {
+
+        private int THEATRE_MODE;
+
+        public GlobalContentObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public boolean deliverSelfNotifications() {
+            return super.deliverSelfNotifications();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            try {
+                int i = Settings.Global.getInt(getContentResolver(), "theater_mode_on");
+                if(i != THEATRE_MODE) {
+                    THEATRE_MODE = i;
+                    if(i == 1) {
+                        Log.i("theater_mode", "on");
+
+                        String packageName = mSharedPreferences.getString("on_theatre_mode_launch_app", "null");
+
+                        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
+                        String className = launchIntent.getComponent().getClassName();
+
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.setComponent(
+                                ComponentName.unflattenFromString(packageName + "/" + className));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 

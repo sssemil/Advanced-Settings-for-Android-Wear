@@ -7,6 +7,9 @@
     <string name="rate">ОЦЕНИТЬ </string>
     <string name="btc_donation">Пожертвование биткоинами</string>
     <string name="hide">Спрятать иконку </string>
-    <string name="usd_donation">Пожертвовать 3$</string>
+    <string name="usd_donation">Пожертвовать $3</string>
+    <string name="usd_donation16">Пожертвовать $16</string>
+    <string name="usd_donation32">Пожертвовать $32</string>
+    <string name="usd_donation7">Пожертвовать 7$</string>
 
 </resources>

@@ -190,7 +190,7 @@ public class AppInfoActivity extends Activity {
     }
 
     public void onUninstallSysClick(View view) {
-        Intent intent = new Intent(Intent.ACTION_DELETE);
+        Intent intent = new Intent(this, UninstallAppActivity.class);
         intent.setData(Uri.parse("package:" + mPackageName));
         startActivity(intent);
     }

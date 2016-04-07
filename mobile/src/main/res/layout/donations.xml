@@ -10,18 +10,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/usd_donation"
-        android:id="@+id/usd"
+        android:id="@+id/usd3"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btc_donation"
         android:id="@+id/btc"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
         android:onClick="onClick"
-        android:layout_below="@+id/usd" />
+        android:layout_below="@+id/usd32"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/usd32"
+        android:layout_alignEnd="@+id/usd32" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usd_donation7"
+        android:id="@+id/usd7"
+        android:layout_below="@+id/usd3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/usd3"
+        android:layout_alignEnd="@+id/usd3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usd_donation16"
+        android:id="@+id/usd16"
+        android:layout_below="@+id/usd7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/usd7"
+        android:layout_alignEnd="@+id/usd7" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usd_donation32"
+        android:id="@+id/usd32"
+        android:layout_below="@+id/usd16"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

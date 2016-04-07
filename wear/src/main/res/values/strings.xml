@@ -96,4 +96,7 @@
     <string name="manage_screen_saver_br">Manage screen saver brightness</string>
 
     <string name="grant_access_settings">"You need to grant access to Write Settings. Enable or re-enable it in the window."</string>
+    <string name="change_dpi">LCD density</string>
+    <string name="tasks">Tasks</string>
+    <string name="on_theatre_mode_launch_app">On theatre mode launch app</string>
 </resources>

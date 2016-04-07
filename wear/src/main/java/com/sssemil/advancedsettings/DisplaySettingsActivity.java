@@ -66,7 +66,31 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
 
         final List<Preference> loadedPreferences = new ArrayList<>();
         for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
-            if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
+            switch((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())) {
+                case "screen_saver_brightness_settings":
+                    if (sharedPreferences.getBoolean(
+                            "manage_screen_saver_brightness_settings", false)) {
+                        loadedPreferences.add(parsePreference(((PreferenceScreen)
+                                prefsRoot).getChildAt(i)));
+                    }
+                    break;
+                case "screen_saver_timeout_settings":
+                    if (Utils.isPackageInstalled("sssemil.com.screensavertimeoutplugin", this, 1)) {
+                        loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+                    }
+                    break;
+                case "dpi_settings":
+                    if (Utils.isPackageInstalled("sssemil.com.screensavertimeoutplugin", this, 5)) {
+                        loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+                    }
+                    break;
+                default:
+                    loadedPreferences.add(parsePreference(((PreferenceScreen)
+                            prefsRoot).getChildAt(i)));
+                    break;
+            }
+
+            /*if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
                     .equals("screen_saver_brightness_settings")) {
                 if (sharedPreferences.getBoolean(
                         "manage_screen_saver_brightness_settings", false)) {
@@ -78,10 +102,15 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                 if (Utils.isPackageInstalled("sssemil.com.screensavertimeoutplugin", this, 1)) {
                     loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
                 }
+            } else if ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())
+                    .equals("dpi_settings")) {
+                if (Utils.isPackageInstalled("sssemil.com.screensavertimeoutplugin", this, 5)) {
+                    loadedPreferences.add(parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)));
+                }
             } else {
                 loadedPreferences.add(parsePreference(((PreferenceScreen)
                         prefsRoot).getChildAt(i)));
-            }
+            }*/
         }
         addPreferences(loadedPreferences);
 

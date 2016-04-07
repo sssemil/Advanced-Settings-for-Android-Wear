@@ -89,4 +89,6 @@
   <string name="dis_apps">Deaktiviert</string>
   <string name="noapps">Keine Apps hier</string>
   <string name="manage_screen_saver_br">Verwalten Bildschirmschoner-Helligkeit</string>
+  <string name="change_dpi">Pixeldichte</string>
+  <string name="on_theatre_mode_launch_app">Am Theater-Modus Start app</string>
 </resources>

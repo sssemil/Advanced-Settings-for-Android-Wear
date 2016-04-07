@@ -52,7 +52,6 @@ public class MainActivity extends WearPreferenceActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -157,7 +156,7 @@ public class MainActivity extends WearPreferenceActivity
                     }*/
                 }
             }
-    }).start();
+        }).start();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
