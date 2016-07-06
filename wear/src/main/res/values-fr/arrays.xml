@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="entries_screen_timeout">
+    <item>5 secondes</item>
+    <item>10 secondes</item>
+    <item>30 secondes</item>
+    <item>1 minute</item>
+    <item>2 minutes</item>
+    <item>5 minutes</item>
+    <item>10 minutes</item>
+    <item>30 minutes</item>
+  </string-array>
+  <string-array name="entries_month">
+    <item>Janvier</item>
+    <item>Février</item>
+    <item>Mars</item>
+    <item>Avril</item>
+    <item>Mai</item>
+    <item>Juin</item>
+    <item>Juillet</item>
+    <item>Août</item>
+    <item>Septembre</item>
+    <item>Octobre</item>
+    <item>Novembre</item>
+    <item>Décembre</item>
+  </string-array>
+</resources>
