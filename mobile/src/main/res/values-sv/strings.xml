@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="app_name">Avancerade Inställningar</string>
+  <string name="welcome">Välkommen</string>
+  <string name="text">Titta på klockan efter appen. Om den inte finns där, vänta tills synkroniseringen är avslutad. Tack :)</string>
+  <string name="donate">DONERA</string>
+  <string name="rate">BETYGSÄTT</string>
+  <string name="usd_donation">Donera 3$</string>
+  <string name="usd_donation7">Donera 7$</string>
+  <string name="usd_donation16">Donera 16$</string>
+  <string name="usd_donation32">Donera 32$</string>
+  <string name="btc_donation">Donera Bitcoin</string>
+  <string name="hide">Dölj ikonen från telefonens program meny</string>
+  <string name="no_app">Kan inte hitta Android Wear appen! Den här appen kommer inte installeras på Android Wear klockan om du inte installerar Android Wear appen och ansluter till klockan! Notera att den här appen inte är för telefoner eller surfplattor, den är för klockor!</string>
+</resources>

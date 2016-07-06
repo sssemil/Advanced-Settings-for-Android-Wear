@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="app_name">Advanced Settings</string>
+  <string name="action_settings">セッティング</string>
+  <string name="force_stop">強制終了</string>
+  <string name="uninstallU">アンインストール</string>
+  <string name="finish">終了</string>
+  <string name="screen_timeout">スクリーンタイムアウト</string>
+  <string name="brightness">明るさ</string>
+  <string name="install">インストール</string>
+  <string name="disable">無効</string>
+  <string name="enable">有効</string>
+  <string name="bluetooth">Bluetooth</string>
+  <string name="turning_off">offにする</string>
+  <string name="turning_on">onにする</string>
+  <string name="security">セキュリティ</string>
+  <string name="screen_saver_brightness">スクリーンセーバーの輝度</string>
+  <string name="vibrator">バイブレーション</string>
+  <string name="vibration_intensity">バイブレーションの強度</string>
+  <string name="sys_apps">システム</string>
+  <string name="usr_apps">インストール済み</string>
+  <string name="running_services">実行中</string>
+  <string name="wifi">Wi-Fi</string>
+  <string name="year">年</string>
+  <string name="month">月</string>
+  <string name="day">日</string>
+  <string name="hour">時</string>
+  <string name="minute">分</string>
+  <string name="secs">秒</string>
+  <string name="lang_input">システム言語</string>
+</resources>

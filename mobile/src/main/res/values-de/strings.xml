@@ -2,13 +2,13 @@
 <resources>
   <string name="app_name">Erweiterte Einstellungen</string>
   <string name="welcome">Willkommen</string>
-  <string name="text">Prüfen Sie Ihre Uhr nach der App. Wenn sie nocht nicht verfügbar ist, warten Sie einen Moment, bis die Synchronisation abgeschlossen ist. Danke :)</string>
+  <string name="text">Prüfen Sie Ihre Uhr nach der App. Wenn sie noch nicht verfügbar ist, warten Sie einen Moment, bis die Synchronisation abgeschlossen ist. Danke :)</string>
   <string name="donate">SPENDEN</string>
   <string name="rate">BEWERTEN</string>
   <string name="usd_donation">$3 spenden</string>
-  <string name="btc_donation">Bitcoin spenden</string>
-  <string name="hide">Telefon-Icon verstecken</string>
+  <string name="usd_donation7">$7 spenden</string>
   <string name="usd_donation16">$16 spenden</string>
   <string name="usd_donation32">$32 spenden</string>
-  <string name="usd_donation7">$7 spenden</string>
+  <string name="btc_donation">Bitcoin spenden</string>
+  <string name="hide">Telefon-Icon verstecken</string>
 </resources>

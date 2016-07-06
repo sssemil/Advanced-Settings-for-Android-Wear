@@ -10,4 +10,5 @@
     <string name="usd_donation32">Donate $32</string>
     <string name="btc_donation">Donate Bitcoins</string>
     <string name="hide">Hide phone side icon</string>
+    <string name="no_app">Looks like you don\'t have Android Wear app installed! This app will not install on your Android Wear watch unless you install Android Wear app and connect it with your watch! Keep in mind that this app is NOT for phones or tablets, it is for watch!</string>
 </resources>

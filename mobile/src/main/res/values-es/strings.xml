@@ -1,13 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <string name="app_name">Advanced Settings</string>
-    <string name="welcome">Bienvenido</string>
-    <string name="text">Busque la aplicación en el reloj. Si aún no se ha instalado espere un poco o fuerce la sincronización desde la app de Android Wear. Gracias :)</string>
-    <string name="donate">DONAR</string>
-    <string name="rate">CALIFICAR</string>
-    <string name="btc_donation">Donar en bitcoins</string>
-    <string name="hide">Ocultar icono en launcher del teléfono</string>
-    <string name="usd_donation">Donar $3</string>
-    <string name="usd_donation16">Donar $16</string>
-    <string name="usd_donation32">Donar $32</string>
-    <string name="usd_donation7">Donar $7</string>
+  <string name="app_name">Advanced Settings</string>
+  <string name="welcome">Bienvenido</string>
+  <string name="text">Busque la aplicación en el reloj. Si aún no se ha instalado espere un poco o fuerce la sincronización desde la app de Android Wear. Gracias :)</string>
+  <string name="donate">DONAR</string>
+  <string name="rate">CALIFICAR</string>
+  <string name="usd_donation">Donar $3</string>
+  <string name="usd_donation7">Donar $7</string>
+  <string name="usd_donation16">Donar $16</string>
+  <string name="usd_donation32">Donar $32</string>
+  <string name="btc_donation">Donar en bitcoins</string>
+  <string name="hide">Ocultar icono en launcher del teléfono</string>
 </resources>

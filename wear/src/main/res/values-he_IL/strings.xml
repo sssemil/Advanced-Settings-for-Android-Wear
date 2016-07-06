@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="app_name">הגדרות מתקדמות</string>
+  <string name="default_summary_on">דלוק</string>
+  <string name="default_summary_off">כבוי</string>
+  <string name="action_settings">הגדרות</string>
+  <string name="force_stop">אלץ עצירה</string>
+  <string name="uninstallU">הסרת התקנה</string>
+  <string name="permissions">הרשאות</string>
+  <string name="finish">סיום</string>
+  <string name="open">פתח</string>
+  <string name="failed">נכשל!</string>
+  <string name="done">הסתיים!</string>
+  <string name="no_perm">אין הרשאות</string>
+  <string name="working">עובד.../nn
+</string>
+  <string name="license">רשיון</string>
+  <string name="license1">זכויות יוצרים © 2015 אמיל סולימאנוב</string>
+  <string name="license2">הפצה תחת GNU GPL V3</string>
+  <string name="license3">קוד מקור נמצא ב 
+https://github.com/sssemil/wear_AdvancedSettings.</string>
+  <string name="small_info">הגדרות מתקדמות למכשירי אנדרואיד wear</string>
+  <string name="ver">גרסה</string>
+  <string name="display">תצוגה</string>
+  <string name="apps">אפיליקציות</string>
+  <string name="about">אודות</string>
+  <string name="launch_by_default">הפעל כברירת מחדל</string>
+  <string name="screen_timeout">תזמון מסך</string>
+  <string name="brightness">בהירות</string>
+  <string name="install">התקנה</string>
+  <string name="disable">נטרל</string>
+  <string name="enable">אפשר</string>
+  <string name="bluetooth">בלוטוט\'</string>
+  <string name="off">כבוי</string>
+  <string name="turning_off">מכבה...</string>
+  <string name="on">דלוק</string>
+  <string name="turning_on">מדליק...</string>
+  <string name="security">אבטחה</string>
+  <string name="alert_on_disconnect">התראה בניתוק</string>
+  <string name="forgot_device">שכחת את המכשיר?</string>
+  <string name="screen_saver_brightness">בהירות שומר מסך</string>
+  <string name="vibrator">רטט</string>
+  <string name="vibration_intensity">עוצמת רטט</string>
+  <string name="lang_input">שפת מערכת
+</string>
+  <string name="screen_saver_timeout">זמן שומר מסך</string>
+</resources>

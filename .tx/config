@@ -1,0 +1,22 @@
+[main]
+host = https://www.transifex.com
+
+[advanced-settings.stringsxml]
+file_filter = wear/src/main/res/values-<lang>/strings.xml
+source_file = wear/src/main/res/values/strings.xml
+source_lang = en
+
+[advanced-settings.arraysxml]
+file_filter = wear/src/main/res/values-<lang>/arrays.xml
+source_file = wear/src/main/res/values/arrays.xml
+source_lang = en
+
+[advanced-settings.strings_langxml]
+file_filter = wear_languagesettingsprovider/src/main/res/values-<lang>/strings.xml
+source_file = wear_languagesettingsprovider/src/main/res/values/strings.xml
+source_lang = en
+
+[advanced-settings.strings_mobilexml]
+file_filter = mobile/src/main/res/values-<lang>/strings.xml
+source_file = mobile/src/main/res/values/strings.xml
+source_lang = en

@@ -333,14 +333,16 @@ public class MainService extends Service
 
                         String packageName = mSharedPreferences.getString("on_theatre_mode_launch_app", "null");
 
-                        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
-                        String className = launchIntent.getComponent().getClassName();
+                        if(!packageName.equals("null")) {
+                            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
+                            String className = launchIntent.getComponent().getClassName();
 
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.setComponent(
-                                ComponentName.unflattenFromString(packageName + "/" + className));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.setComponent(
+                                    ComponentName.unflattenFromString(packageName + "/" + className));
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
                     }
                 }
             } catch (Settings.SettingNotFoundException e) {
