@@ -15,7 +15,7 @@
   <string name="no_perm">Keine Berechtigungen.</string>
   <string name="working">Arbeite...\n</string>
   <string name="license">Lizenz</string>
-  <string name="license1">Copyright © 2015 Emil Suleymanov</string>
+  <string name="license1">Copyright © 2015–2016 Emil Suleymanov</string>
   <string name="license2">Unter der GNU GPL v3 verteilt</string>
   <string name="license3">Source code ist auf https://github.com/sssemil/wear_AdvancedSettings erhältlich.</string>
   <string name="license4">Mit WearPreferenceActivity von Denley Bihari(@denley) (https://github.com/denley/WearPreferenceActivity).</string>

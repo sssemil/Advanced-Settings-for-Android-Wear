@@ -61,6 +61,9 @@ public class MainService extends Service
 
     private static final String TAG = "MainService";
 
+    //TODO update versionCode when it's updated
+    private static final int LANG_PROVIDER_VERSION_CODE = 7;
+
     private DisplayManager mDisplayManager;
     private SharedPreferences mSharedPreferences;
     private NotificationManager mNotificationManager;
@@ -229,9 +232,8 @@ public class MainService extends Service
             @Override
             public void run() {
                 try {
-                    //TODO update versionCode when it's updated
                     if (!Utils.isPackageInstalled("sssemil.com.languagesettingsprovider",
-                            MainService.this, 6)) {
+                            MainService.this, LANG_PROVIDER_VERSION_CODE)) {
                         File apk = new File(Environment.getExternalStorageDirectory(),
                                 "wear_languagesettingsprovider-release.apk");
 

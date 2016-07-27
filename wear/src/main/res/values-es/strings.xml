@@ -1,77 +1,92 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8'?><!--
+     Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License
+     as published by the Free Software Foundation; either version 3
+     of the License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+     MA  02110-1301, USA.
+-->
 <resources>
-  <string name="app_name">Erweiterte Einstellungen</string>
-  <string name="default_summary_on">Ein</string>
-  <string name="default_summary_off">Aus</string>
-  <string name="action_settings">Einstellungen</string>
-  <string name="force_stop">Beenden erzwingen</string>
-  <string name="uninstallU">Deinstallieren</string>
-  <string name="permissions">Berechtigungen</string>
-  <string name="language_input_settings">Sprache/Eingabe</string>
-  <string name="finish">Fertig</string>
-  <string name="open">Geöffnet</string>
-  <string name="failed">FEHLGESCHLAGEN!</string>
-  <string name="done">FERTIG!</string>
-  <string name="no_perm">Keine Berechtigungen.</string>
-  <string name="working">Arbeite...\n</string>
-  <string name="license">Lizenz</string>
+  <string name="app_name">Advanced Settings</string>
+  <string name="default_summary_on">On</string>
+  <string name="default_summary_off">Off</string>
+  <string name="action_settings">Configuración</string>
+  <string name="force_stop">Detener</string>
+  <string name="uninstallU">Desinstalar</string>
+  <string name="permissions">Permisos</string>
+  <string name="language_input_settings">Idioma y entrada</string>
+  <string name="finish">Acabar</string>
+  <string name="open">Abrir</string>
+  <string name="failed">¡NO SE PUDO!</string>
+  <string name="done">¡HECHO!</string>
+  <string name="no_perm">Sin permisos.</string>
+  <string name="working">Trabajando…\n</string>
+  <string name="license">Licencia</string>
   <string name="license1">Copyright © 2015 Emil Suleymanov</string>
-  <string name="license2">Unter der GNU GPL v3 verteilt</string>
-  <string name="license3">Source code ist auf https://github.com/sssemil/wear_AdvancedSettings erhältlich.</string>
-  <string name="license4">Mit WearPreferenceActivity von Denley Bihari(@denley) (https://github.com/denley/WearPreferenceActivity).</string>
-  <string name="small_info">Erweiterte Einstellungen für Android Wear</string>
-  <string name="ver">Version</string>
-  <string name="display">Anzeige</string>
+  <string name="license2">Distribuido bajo GNU GPL v3</string>
+  <string name="license3">El código fuente se puede descargar en https://github.com/sssemil/wear_AdvancedSettings .</string>
+  <string name="license4">Usa WearPreferenceActivity desarrollado por Denley Bihari(@denley) (https://github.com/denley/WearPreferenceActivity).</string>
+  <string name="small_info">Configuración avanzada para dispositivos con Android Wear</string>
+  <string name="ver">Versión</string>
+  <string name="display">Pantalla</string>
   <string name="apps">Apps</string>
-  <string name="about">Über</string>
-  <string name="launch_by_default">AKTIONEN AUF STANDARD ZURÜCKSETZEN</string>
-  <string name="screen_timeout">Ruhezustand</string>
-  <string name="brightness">Helligkeitsstuffe</string>
-  <string name="install">Installieren</string>
-  <string name="disable">Deaktivieren</string>
-  <string name="enable">Aktivieren</string>
+  <string name="about">Acerca de</string>
+  <string name="launch_by_default">LANZAMIENTO POR DEFECTO</string>
+  <string name="screen_timeout">Tiempo de espera</string>
+  <string name="brightness">Brillo</string>
+  <string name="install">Instalar</string>
+  <string name="disable">Desabilitar</string>
+  <string name="enable">Habilitar</string>
   <string name="bluetooth">Bluetooth</string>
-  <string name="off">Aus</string>
-  <string name="turning_off">Ausschalten…</string>
-  <string name="on">Ein</string>
-  <string name="turning_on">Einschalten…</string>
-  <string name="security">Sicherheit</string>
-  <string name="alert_on_disconnect">Alarmton beim Trennen</string>
-  <string name="forgot_device">Haben Sie Ihr Gerät vergessen?</string>
-  <string name="screen_saver_brightness">Bildschirmschoner-Helligkeit</string>
-  <string name="vibrator">Vibration</string>
-  <string name="vibration_intensity">Vibrationsintensität</string>
-  <string name="sys_apps">System</string>
-  <string name="usr_apps">Installiert</string>
-  <string name="all_apps">Alle</string>
-  <string name="running_services">Laufende</string>
-  <string name="system_uninstall_warning">SIE SIND DABEI, EINE SYSTEM-APP ZU DEINSTALLIEREN! DAS KÖNNTE ERNSTHAFTEN SCHADEN VERURSACHEN UND KANN NICHT WIEDER RÜCKGÄNGIG GEMACHT WERDEN! SIE WURDEN GEWARNT!</string>
-  <string name="normal_uninstall_warning">SIE SIND DABEI, EINE APP ZU DEINSTALLIEREN! DIESE AKTION KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN! SIE WURDEN GEWARNT!</string>
-  <string name="wait_till_sys">Bitte warten Sie einen Moment, bis das System die App-Liste aktualisiert hat, um die Änderungen zu sehen</string>
+  <string name="off">Off</string>
+  <string name="turning_off">Apagando…</string>
+  <string name="on">On</string>
+  <string name="turning_on">Encendiendo…</string>
+  <string name="security">Seguridad</string>
+  <string name="alert_on_disconnect">Alartar si se desconecta</string>
+  <string name="forgot_device">¿Ha olvidado su dispositivo?</string>
+  <string name="screen_saver_brightness">Brillo del protector de pantalla</string>
+  <string name="vibrator">Vibración</string>
+  <string name="vibration_intensity">Intensidad de la vibración</string>
+  <string name="sys_apps">Sistema</string>
+  <string name="usr_apps">Instaladas</string>
+  <string name="all_apps">Todas</string>
+  <string name="running_services">En ejecución</string>
+  <string name="system_uninstall_warning">SE VA A DESINSTALAR UNA APLICACIÓN DE SISTEMA. ESTO PUEDE PROVOCAR GRAVES DAÑOS Y NO SE PUEDE DESHACER. ¡NO DIGAS QUE NO TE HEMOS AVISADO!</string>
+  <string name="normal_uninstall_warning">SE VA A DESINSTALAR UNA APLICACIÓN. ESTA ACCIÓN NO SE PUEDE DESHACER. ¡NO DIGAS QUE NO TE HEMOS AVISADO!</string>
+  <string name="wait_till_sys">Espere un poco hasta que el sistema actualice la lista de aplicaciones</string>
   <string name="wifi">Wi-Fi</string>
-  <string name="power_menu">Power-Menü</string>
-  <string name="dev_options">Entwickleroptionen</string>
-  <string name="poweroff">Ausschalten</string>
-  <string name="reboot">Neu starten</string>
+  <string name="power_menu">Menu de encendido</string>
+  <string name="dev_options">Opciones de desarrollo</string>
+  <string name="poweroff">Apagar</string>
+  <string name="reboot">Reiniciar</string>
   <string name="recovery">Recovery</string>
   <string name="bootloader">Bootloader</string>
-  <string name="warn_no_root">Es sieht aus, als sei Ihre Uhr nicht gerooted. Root-Berechtigungen sind erforderlich, um alle Funktionen richtig nutzen zu können.</string>
-  <string name="touch_to_wake">Zum Wecken berühren</string>
-  <string name="clear_data">Daten löschen</string>
-  <string name="datetime"><![CDATA[Datum & Zeit]]></string>
-  <string name="year">Jahr</string>
-  <string name="month">Monat</string>
-  <string name="day">Tag</string>
-  <string name="hour">Stunde</string>
-  <string name="minute">Minute</string>
-  <string name="secs">Sekunde</string>
-  <string name="will_reboot_now">Wird nun neugestartet…</string>
-  <string name="lang_input">Systemsprache</string>
-  <string name="screen_saver_timeout">Verzögerung für Bildschirmschoner</string>
-  <string name="unpair">Trennen</string>
-  <string name="dis_apps">Deaktiviert</string>
-  <string name="noapps">Keine Apps hier</string>
-  <string name="manage_screen_saver_br">Verwalten Bildschirmschoner-Helligkeit</string>
-  <string name="change_dpi">Pixeldichte</string>
-  <string name="on_theatre_mode_launch_app">Am Theater-Modus Start app</string>
+  <string name="warn_no_root">Parece que el dispositivo no está rooteado. Algunas de las características sólo funcionan en dispositivos rooteados</string>
+  <string name="touch_to_wake">Toque para despertar</string>
+  <string name="clear_data">Borrar datos</string>
+  <string name="datetime"><![CDATA[Fecha y hora]]></string>
+  <string name="year">Año</string>
+  <string name="month">Mes</string>
+  <string name="day">Día</string>
+  <string name="hour">Hora</string>
+  <string name="minute">Minuto</string>
+  <string name="secs">Segundo</string>
+  <string name="will_reboot_now">Se reiniciará ahora…</string>
+  <string name="lang_input">Idioma del sistema</string>
+  <string name="screen_saver_timeout">Tiempo de espera del protector de pantalla</string>
+  <string name="unpair">Desemparejar</string>
+  <string name="dis_apps">Desactivadas</string>
+  <string name="noapps">No hay apps</string>
+  <string name="manage_screen_saver_br">Administrar brillo del protector de pantalla</string>
 </resources>

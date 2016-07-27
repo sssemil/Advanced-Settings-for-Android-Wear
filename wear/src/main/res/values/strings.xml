@@ -35,7 +35,7 @@
 
     <string name="license">License</string>
 
-    <string name="license1">Copyright © 2015 Emil Suleymanov</string>
+    <string name="license1">Copyright © 2015–2016 Emil Suleymanov</string>
     <string name="license2">Distributed under the GNU GPL v3</string>
     <string name="license3">Source code is available at https://github.com/sssemil/wear_AdvancedSettings .</string>
     <string name="license4">Using WearPreferenceActivity by Denley Bihari(@denley) (https://github.com/denley/WearPreferenceActivity).</string>

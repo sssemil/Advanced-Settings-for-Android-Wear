@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,9 +33,13 @@ import com.sssemil.advancedsettings.util.preference.Preference;
 import com.sssemil.advancedsettings.util.preference.PreferenceScreen;
 import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +49,12 @@ import java.util.Scanner;
 public class DisplaySettingsActivity extends WearPreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    private static final String TAG = "DisplaySettingsActivity";
     private DeviceCfg mCfg;
     private Context mContext;
+
+    private SharedPreferences mSharedPreferences;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +64,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
 
         mContext = this;
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         final View prefsRoot = inflater.inflate(R.layout.activity_display_settings, null);
 
@@ -68,7 +77,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
         for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
             switch((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())) {
                 case "screen_saver_brightness_settings":
-                    if (sharedPreferences.getBoolean(
+                    if (mSharedPreferences.getBoolean(
                             "manage_screen_saver_brightness_settings", false)) {
                         loadedPreferences.add(parsePreference(((PreferenceScreen)
                                 prefsRoot).getChildAt(i)));
@@ -114,17 +123,17 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
         }
         addPreferences(loadedPreferences);
 
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-        sharedPreferences.edit().putString("screen_timeout_settings",
+        mSharedPreferences.edit().putString("screen_timeout_settings",
                 String.valueOf(Settings.System.getInt(getContentResolver(),
                         Settings.System.SCREEN_OFF_TIMEOUT, 0))).apply();
 
-        sharedPreferences.edit().putString("brightness_settings",
+        mSharedPreferences.edit().putString("brightness_settings",
                 String.valueOf(Settings.System.getInt(getContentResolver(),
                         Settings.System.SCREEN_BRIGHTNESS, 0))).apply();
 
-        sharedPreferences.edit().putBoolean("touch_to_wake_screen",
+        mSharedPreferences.edit().putBoolean("touch_to_wake_screen",
                 isTouchToWakeEnabled()).apply();
 
         /*try {
@@ -200,7 +209,9 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                                 }
                             });
                             Thread.sleep(3000);
-                            Runtime.getRuntime().exec("su -c reboot").waitFor();
+                            //Runtime.getRuntime().exec("su -c reboot").waitFor();
+                            setupBin();
+                            busybox(mContext, "killall zygote");
                         }
                     }
                 } catch (IOException e) {
@@ -217,6 +228,65 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
             }
         }).start();
     }
+
+    public static String busybox(Context context, String command)
+            throws IOException, InterruptedException {
+        File busybox = new File(context.getApplicationInfo().dataDir, "busybox");
+        Runtime rt = Runtime.getRuntime();
+        String[] commands = {"su", "-c", busybox.getPath() + " busybox " + command};
+        Process proc = rt.exec(commands);
+
+        BufferedReader stdInput = new BufferedReader(new
+                InputStreamReader(proc.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new
+                InputStreamReader(proc.getErrorStream()));
+
+        String s;
+        while ((s = stdInput.readLine()) != null) {
+            Log.i("busybox", s);
+        }
+        while ((s = stdError.readLine()) != null) {
+            Log.e("busybox", s);
+        }
+
+        proc.waitFor();
+
+        return null;
+    }
+
+    public void setupBin() {
+        try {
+            File busybox = new File(getApplicationInfo().dataDir, "busybox");
+
+            if (mSharedPreferences.getInt("ver", 0) != BuildConfig.VERSION_CODE) {
+                Log.i(TAG, "Updating binaries due to apk update!");
+                mSharedPreferences.edit().putInt("ver", BuildConfig.VERSION_CODE).apply();
+                busybox.delete();
+            }
+
+            if (!busybox.exists()) {
+                InputStream inputStream = getAssets().open("busybox");
+
+                FileOutputStream file = new FileOutputStream(busybox);
+                byte buf[] = new byte[4096];
+
+                int len = inputStream.read(buf);
+                while (len > 0) {
+                    file.write(buf, 0, len);
+                    len = inputStream.read(buf);
+                }
+                file.close();
+
+                if (!busybox.setExecutable(true)) {
+                    Log.e(TAG, "setExecutable() failed");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
