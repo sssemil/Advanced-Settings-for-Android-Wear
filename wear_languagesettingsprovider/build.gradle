@@ -15,6 +15,13 @@ android {
         targetSdkVersion 24
         versionCode 7
         versionName "7"
+        jackOptions {
+            enabled true
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
     buildTypes {
         release {

@@ -17,6 +17,13 @@ android {
         versionName "1.7.5"
         // Enabling multidex support.
         multiDexEnabled true
+        jackOptions {
+            enabled true
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
     buildTypes {
         release {
