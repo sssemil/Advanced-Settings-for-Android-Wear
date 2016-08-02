@@ -35,7 +35,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -54,7 +53,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Locale;
 
 public class MainService extends Service
         implements DisplayManager.DisplayListener, View.OnTouchListener {
@@ -68,31 +66,6 @@ public class MainService extends Service
     private SharedPreferences mSharedPreferences;
     private NotificationManager mNotificationManager;
     private boolean mShuttingDown = false;
-
-    public static boolean isPhonePluggedIn(Context context){
-        boolean charging = false;
-
-        final Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        int status = 0;
-        if (batteryIntent != null) {
-            status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        }
-        boolean batteryCharge = status==BatteryManager.BATTERY_STATUS_CHARGING;
-
-        int chargePlug = 0;
-        if (batteryIntent != null) {
-            chargePlug = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-        }
-        boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
-        boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
-
-        if (batteryCharge) charging=true;
-        if (usbCharge) charging=true;
-        if (acCharge) charging=true;
-
-        return charging;
-    }
-
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -109,7 +82,7 @@ public class MainService extends Service
                                     .setContentText(getString(R.string.forgot_device))
                                     .setLargeIcon(BitmapFactory.decodeResource(
                                             getResources(), R.drawable.notif_background));
-                    if(!mShuttingDown) {
+                    if (!mShuttingDown) {
                         v.vibrate(new long[]{100, 600, 100, 600}, -1);
                         mNotificationManager.notify(id, mBuilder.build());
                     }
@@ -120,7 +93,6 @@ public class MainService extends Service
             }
         }
     };
-
     private final BroadcastReceiver mReceiverOnPowerOff = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -134,6 +106,30 @@ public class MainService extends Service
     };
 
     public MainService() {
+    }
+
+    public static boolean isPhonePluggedIn(Context context) {
+        boolean charging = false;
+
+        final Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        int status = 0;
+        if (batteryIntent != null) {
+            status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        }
+        boolean batteryCharge = status == BatteryManager.BATTERY_STATUS_CHARGING;
+
+        int chargePlug = 0;
+        if (batteryIntent != null) {
+            chargePlug = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        }
+        boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+        boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+
+        if (batteryCharge) charging = true;
+        if (usbCharge) charging = true;
+        if (acCharge) charging = true;
+
+        return charging;
     }
 
     //Useful stuff for feature stuff :P
@@ -196,13 +192,13 @@ public class MainService extends Service
                         String.valueOf(Settings.System.getInt(getContentResolver(),
                                 Settings.System.SCREEN_OFF_TIMEOUT, 0))));
 
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, timeout);
         }
 
         String app = mSharedPreferences.getString("on_theatre_mode_launch_app", "null");
 
-        if(!app.equals("null") && !Utils.isPackageInstalled(app, this, 0)) {
+        if (!app.equals("null") && !Utils.isPackageInstalled(app, this, 0)) {
             mSharedPreferences.edit().putString("on_theatre_mode_launch_app", "null").apply();
         }
 
@@ -217,11 +213,11 @@ public class MainService extends Service
                 try {
                     Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
                             Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(MainService.this)
-                            .getString("screen_timeout_settings",
-                                    String.valueOf(Settings.System.getInt(getContentResolver(),
-                                            Settings.System.SCREEN_OFF_TIMEOUT, 0)))));
+                                    .getString("screen_timeout_settings",
+                                            String.valueOf(Settings.System.getInt(getContentResolver(),
+                                                    Settings.System.SCREEN_OFF_TIMEOUT, 0)))));
 
-                } catch (SecurityException e){
+                } catch (SecurityException e) {
                     e.printStackTrace();
                 }
             }
@@ -307,50 +303,7 @@ public class MainService extends Service
         GlobalContentObserver contentObserver = new GlobalContentObserver(new Handler());
         this.getApplicationContext().getContentResolver().registerContentObserver(
                 android.provider.Settings.Global.CONTENT_URI, true,
-                contentObserver );
-    }
-
-    class GlobalContentObserver extends ContentObserver {
-
-        private int THEATRE_MODE;
-
-        public GlobalContentObserver(Handler handler) {
-            super(handler);
-        }
-
-        @Override
-        public boolean deliverSelfNotifications() {
-            return super.deliverSelfNotifications();
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
-            try {
-                int i = Settings.Global.getInt(getContentResolver(), "theater_mode_on");
-                if(i != THEATRE_MODE) {
-                    THEATRE_MODE = i;
-                    if(i == 1) {
-                        Log.i("theater_mode", "on");
-
-                        String packageName = mSharedPreferences.getString("on_theatre_mode_launch_app", "null");
-
-                        if(!packageName.equals("null")) {
-                            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
-                            String className = launchIntent.getComponent().getClassName();
-
-                            Intent intent = new Intent(Intent.ACTION_MAIN);
-                            intent.setComponent(
-                                    ComponentName.unflattenFromString(packageName + "/" + className));
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
-                    }
-                }
-            } catch (Settings.SettingNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+                contentObserver);
     }
 
     @Override
@@ -426,6 +379,49 @@ public class MainService extends Service
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
+        }
+    }
+
+    class GlobalContentObserver extends ContentObserver {
+
+        private int THEATRE_MODE;
+
+        public GlobalContentObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public boolean deliverSelfNotifications() {
+            return super.deliverSelfNotifications();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            try {
+                int i = Settings.Global.getInt(getContentResolver(), "theater_mode_on");
+                if (i != THEATRE_MODE) {
+                    THEATRE_MODE = i;
+                    if (i == 1) {
+                        Log.i("theater_mode", "on");
+
+                        String packageName = mSharedPreferences.getString("on_theatre_mode_launch_app", "null");
+
+                        if (!packageName.equals("null")) {
+                            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
+                            String className = launchIntent.getComponent().getClassName();
+
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.setComponent(
+                                    ComponentName.unflattenFromString(packageName + "/" + className));
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    }
+                }
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

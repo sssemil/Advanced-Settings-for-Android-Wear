@@ -78,7 +78,7 @@ public abstract class WearPreferenceActivity extends Activity implements Wearabl
 
     public ListPreference parseListPreference(View preferenceView) {
         //if (preferenceView instanceof ListPreference) {
-            return (ListPreference) preferenceView;
+        return (ListPreference) preferenceView;
         //}
 
         //throw new IllegalArgumentException("Preferences layout resource may only contain Views extending preference.Preference");

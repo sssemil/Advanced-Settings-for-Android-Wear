@@ -20,7 +20,7 @@ public abstract class Preference extends View {
     protected final String activity;
     protected final String package_name;
 
-    protected final String defaultValue;
+    public String defaultValue;
 
     public Preference(Context context, AttributeSet attrs) {
         super(context, attrs);

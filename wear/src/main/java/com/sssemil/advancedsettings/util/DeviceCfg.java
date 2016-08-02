@@ -29,7 +29,7 @@ public class DeviceCfg {
 
     public String getTouchIdcPath(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if(sharedPreferences.getString("idc_path", null) !=null){
+        if (sharedPreferences.getString("idc_path", null) != null) {
             return sharedPreferences.getString("idc_path", null);
         } else {
             File idc = new File(touchIdcPath);

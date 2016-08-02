@@ -119,7 +119,7 @@ public class BrightnessActivity extends Activity
         try {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                     value);
-        } catch (SecurityException e){
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
     }

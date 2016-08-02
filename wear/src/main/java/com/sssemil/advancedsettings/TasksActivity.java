@@ -24,24 +24,16 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.view.View;
-import android.widget.Toast;
 
-import com.sssemil.advancedsettings.util.DeviceCfg;
 import com.sssemil.advancedsettings.util.Utils;
 import com.sssemil.advancedsettings.util.preference.ListPreference;
 import com.sssemil.advancedsettings.util.preference.Preference;
 import com.sssemil.advancedsettings.util.preference.PreferenceScreen;
 import com.sssemil.advancedsettings.util.preference.WearPreferenceActivity;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class TasksActivity extends WearPreferenceActivity
@@ -66,18 +58,18 @@ public class TasksActivity extends WearPreferenceActivity
 
         final List<Preference> loadedPreferences = new ArrayList<>();
         for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
-            switch((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())) {
+            switch ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())) {
                 case "on_theatre_mode_launch_app":
                     ListPreference p = parseListPreference(((PreferenceScreen)
                             prefsRoot).getChildAt(i));
                     List listAppInfo = Utils.getAllApps(this);
                     PackageManager mPm = getPackageManager();
-                    CharSequence[] entryValues = new CharSequence[listAppInfo.size()+1];
-                    CharSequence[] entries = new CharSequence[listAppInfo.size()+1];
+                    CharSequence[] entryValues = new CharSequence[listAppInfo.size() + 1];
+                    CharSequence[] entries = new CharSequence[listAppInfo.size() + 1];
                     entryValues[0] = "null";
                     entries[0] = "null";
-                    for(int n = 1; n < listAppInfo.size()+1; n++) {
-                        ApplicationInfo entry = (ApplicationInfo) listAppInfo.get(n-1);
+                    for (int n = 1; n < listAppInfo.size() + 1; n++) {
+                        ApplicationInfo entry = (ApplicationInfo) listAppInfo.get(n - 1);
                         entries[n] = entry.loadLabel(mPm);
                         entryValues[n] = entry.packageName;
                     }

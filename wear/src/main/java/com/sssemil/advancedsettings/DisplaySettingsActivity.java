@@ -55,6 +55,30 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
 
     private SharedPreferences mSharedPreferences;
 
+    public static String busybox(Context context, String command)
+            throws IOException, InterruptedException {
+        File busybox = new File(context.getApplicationInfo().dataDir, "busybox");
+        Runtime rt = Runtime.getRuntime();
+        String[] commands = {"su", "-c", busybox.getPath() + " busybox " + command};
+        Process proc = rt.exec(commands);
+
+        BufferedReader stdInput = new BufferedReader(new
+                InputStreamReader(proc.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new
+                InputStreamReader(proc.getErrorStream()));
+
+        String s;
+        while ((s = stdInput.readLine()) != null) {
+            Log.i("busybox", s);
+        }
+        while ((s = stdError.readLine()) != null) {
+            Log.e("busybox", s);
+        }
+
+        proc.waitFor();
+
+        return null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +99,7 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
 
         final List<Preference> loadedPreferences = new ArrayList<>();
         for (int i = 0; i < ((PreferenceScreen) prefsRoot).getChildCount(); i++) {
-            switch((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())) {
+            switch ((parsePreference(((PreferenceScreen) prefsRoot).getChildAt(i)).getKey())) {
                 case "screen_saver_brightness_settings":
                     if (mSharedPreferences.getBoolean(
                             "manage_screen_saver_brightness_settings", false)) {
@@ -229,31 +253,6 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
         }).start();
     }
 
-    public static String busybox(Context context, String command)
-            throws IOException, InterruptedException {
-        File busybox = new File(context.getApplicationInfo().dataDir, "busybox");
-        Runtime rt = Runtime.getRuntime();
-        String[] commands = {"su", "-c", busybox.getPath() + " busybox " + command};
-        Process proc = rt.exec(commands);
-
-        BufferedReader stdInput = new BufferedReader(new
-                InputStreamReader(proc.getInputStream()));
-        BufferedReader stdError = new BufferedReader(new
-                InputStreamReader(proc.getErrorStream()));
-
-        String s;
-        while ((s = stdInput.readLine()) != null) {
-            Log.i("busybox", s);
-        }
-        while ((s = stdError.readLine()) != null) {
-            Log.e("busybox", s);
-        }
-
-        proc.waitFor();
-
-        return null;
-    }
-
     public void setupBin() {
         try {
             File busybox = new File(getApplicationInfo().dataDir, "busybox");
@@ -285,7 +284,6 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
             e.printStackTrace();
         }
     }
-
 
 
     @Override
