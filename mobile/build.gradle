@@ -13,21 +13,14 @@ android {
         applicationId "com.sssemil.advancedsettings"
         minSdkVersion 10
         targetSdkVersion 24
-        versionCode 51
-        versionName "1.7.5"
+        versionCode 52
+        versionName "1.7.5.1"
         // Enabling multidex support.
         multiDexEnabled true
-        jackOptions {
-            enabled true
-        }
-    }
-    compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

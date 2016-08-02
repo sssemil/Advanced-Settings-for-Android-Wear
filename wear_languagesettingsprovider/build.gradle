@@ -13,19 +13,12 @@ android {
         applicationId "sssemil.com.languagesettingsprovider"
         minSdkVersion 20
         targetSdkVersion 24
-        versionCode 7
-        versionName "7"
-        jackOptions {
-            enabled true
-        }
-    }
-    compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        versionCode 8
+        versionName "8"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -34,5 +27,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.android.support:wearable:1.1.0'
-    compile 'com.google.android.gms:play-services-wearable:9.2.1'
+    compile 'com.google.android.gms:play-services-wearable:9.4.0'
 }

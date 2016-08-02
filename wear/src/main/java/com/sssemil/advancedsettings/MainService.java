@@ -60,7 +60,7 @@ public class MainService extends Service
     private static final String TAG = "MainService";
 
     //TODO update versionCode when it's updated
-    private static final int LANG_PROVIDER_VERSION_CODE = 7;
+    private static final int LANG_PROVIDER_VERSION_CODE = 8;
 
     private DisplayManager mDisplayManager;
     private SharedPreferences mSharedPreferences;
