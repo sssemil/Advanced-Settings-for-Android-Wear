@@ -8,7 +8,7 @@
     <vibro_intensity_min>10</vibro_intensity_min>
     <vibro_intensity_default>120</vibro_intensity_default>
     <vibro_intensity_max>150</vibro_intensity_max>
-    <brightness_path>/sys/module/drv2605/parameters/vibrator_volt</brightness_path>
+    <brightness_path>/sys/class/leds/lcd-backlight/brightness</brightness_path>
     <brightness_min>0</brightness_min>
     <brightness_max>254</brightness_max>
     <touch_idc_path>/system/usr/idc/synaptics_dsx.idc</touch_idc_path>

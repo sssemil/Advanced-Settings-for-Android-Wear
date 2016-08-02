@@ -1,7 +1,19 @@
-# wear_AdvancedSettings [![Build Status](https://travis-ci.org/sssemil/wear_AdvancedSettings.png)](https://travis-ci.org/sssemil/wear_AdvancedSettings)
+# Advanced Settings for Android Wear [![Build Status](https://travis-ci.org/sssemil/Advanced-Settings-for-Android-Wear.png)](https://travis-ci.org/sssemil/Advanced-Settings-for-Android-Wear)
 Advanced Settings for android wear devices. Root access is required for some features to work. 
 
-Here is transifex page for translating - https://www.transifex.com/sssemil/advanced-settings/
+Here is transifex page for translation - https://www.transifex.com/sssemil/advanced-settings/
+
+How to build
+------------
+
+1. Install the [Android Studio](https://developer.android.com/studio/index.html) 
+2. Clone this repo
+3. Open it within Android Studio
+
+Adding new device
+-----------------
+
+In wear/src/main/assets you can see some config files, just copy any of them and name it after your device name (you can find it in /system/build.prop). After that explore your watch and change values to fit your it.
 
 ### What you get (marked with R require root access):
 + Vibration intensity changing (R)
