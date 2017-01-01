@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Расширенные Настройки</string>
   <string name="default_summary_on">Вкл.</string>
   <string name="default_summary_off">Выкл.</string>
   <string name="action_settings">Настройки</string>
@@ -15,7 +14,6 @@
   <string name="no_perm">Никаких привелегий.</string>
   <string name="working">Работаю…\n</string>
   <string name="license">Лицензия</string>
-  <string name="license1">Copyright © 2015 Emil Suleymanov</string>
   <string name="license2">Распространяется под GNU GPL v3</string>
   <string name="license3">Исходный код доступен на https://github.com/sssemil/wear_AdvancedSettings .</string>
   <string name="license4">Используется WearPreferenceActivity от Denley Bihari(@denley) (https://github.com/denley/WearPreferenceActivity).</string>

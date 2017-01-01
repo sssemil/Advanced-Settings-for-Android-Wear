@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Paramètres avancés</string>
   <string name="default_summary_on">Activé</string>
   <string name="default_summary_off">Désactivé</string>
   <string name="action_settings">Paramètres</string>

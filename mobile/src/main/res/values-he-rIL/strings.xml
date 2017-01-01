@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">הגדרות מתקדמות</string>
   <string name="welcome">ברוך הבא</string>
   <string name="text">בדוק האם האפליקציה מופיעה בשעונך. אם היא איננה מופיעה, חכה קצת לסינכרון להסתיים. תודה :)</string>
   <string name="donate">תרום</string>

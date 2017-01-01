@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">הגדרות מתקדמות</string>
   <string name="default_summary_on">דלוק</string>
   <string name="default_summary_off">כבוי</string>
   <string name="action_settings">הגדרות</string>
@@ -15,7 +14,6 @@
   <string name="working">עובד.../nn
 </string>
   <string name="license">רשיון</string>
-  <string name="license1">זכויות יוצרים © 2015 אמיל סולימאנוב</string>
   <string name="license2">הפצה תחת GNU GPL V3</string>
   <string name="license3">קוד מקור נמצא ב 
 https://github.com/sssemil/wear_AdvancedSettings.</string>

@@ -14,15 +14,33 @@ public class ListPreference extends Preference {
 
     public CharSequence[] entries, entryValues;
     public boolean useEntryAsSummary;
+    public AttributeSet attrs;
 
     public ListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.attrs = attrs;
 
         TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ListPreference, 0, 0);
         try {
             entries = array.getTextArray(R.styleable.ListPreference_pref_entries);
             entryValues = array.getTextArray(R.styleable.ListPreference_pref_entryValues);
             useEntryAsSummary = array.getBoolean(R.styleable.ListPreference_pref_entryAsSummary, true);
+            //checkRequiredAttributes();
+        } finally {
+            array.recycle();
+        }
+    }
+
+    public ListPreference(Context context, AttributeSet attrs, CharSequence[] entries, CharSequence[] entryValues, String defaultValue, boolean useEntryAsSummary) {
+        super(context, attrs);
+        this.attrs = attrs;
+
+        TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ListPreference, 0, 0);
+        try {
+            this.entries = entries;
+            this.entryValues = entryValues;
+            this.useEntryAsSummary = useEntryAsSummary;
+            this.defaultValue = defaultValue;
             checkRequiredAttributes();
         } finally {
             array.recycle();

@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     lintOptions {
         abortOnError false
@@ -12,12 +12,13 @@ android {
     defaultConfig {
         applicationId "com.sssemil.advancedsettings"
         minSdkVersion 10
-        targetSdkVersion 24
-        versionCode 52
-        versionName "1.7.5.1"
+        targetSdkVersion 25
+        versionCode 54
+        versionName "1.7.6.1"
         // Enabling multidex support.
         multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -29,6 +30,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     wearApp project(':wear')
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.google.android.gms:play-services:9.4.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.google.android.gms:play-services:10.0.1'
 }

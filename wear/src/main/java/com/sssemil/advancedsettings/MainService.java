@@ -44,6 +44,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.sssemil.advancedsettings.util.DeviceCfg;
 import com.sssemil.advancedsettings.util.ShellUtils;
 import com.sssemil.advancedsettings.util.Utils;
 
@@ -54,13 +55,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static com.sssemil.advancedsettings.PerformanceSettingsActivity.GOVERNOR_PREF;
+import static com.sssemil.advancedsettings.PerformanceSettingsActivity.MAX_FREQ_PREF;
+import static com.sssemil.advancedsettings.PerformanceSettingsActivity.MIN_FREQ_PREF;
+
 public class MainService extends Service
         implements DisplayManager.DisplayListener, View.OnTouchListener {
 
     private static final String TAG = "MainService";
 
     //TODO update versionCode when it's updated
-    private static final int LANG_PROVIDER_VERSION_CODE = 8;
+    private static final int LANG_PROVIDER_VERSION_CODE = 9;
 
     private DisplayManager mDisplayManager;
     private SharedPreferences mSharedPreferences;
@@ -211,13 +216,17 @@ public class MainService extends Service
                     e.printStackTrace();
                 }
                 try {
+                    ShellUtils.CommandResult result = ShellUtils.execCommand(
+                            "su adb -c pm grant " + getPackageName() + " android.permission.WRITE_SETTINGS", true);
+                    Log.i("GRANT", result.successMsg);
+                    Log.i("GRANT", result.errorMsg);
                     Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
                             Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(MainService.this)
                                     .getString("screen_timeout_settings",
                                             String.valueOf(Settings.System.getInt(getContentResolver(),
                                                     Settings.System.SCREEN_OFF_TIMEOUT, 0)))));
 
-                } catch (SecurityException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -280,6 +289,15 @@ public class MainService extends Service
                     amp + ">",
                     Utils.getDeviceCfg(MainService.this).vibroIntensetyPath);
             pb.start().waitFor();
+        } catch (InterruptedException | IOException | NullPointerException e) {
+            Log.d(TAG, "catch " + e.toString() + " hit in run", e);
+        }
+
+        //cpu stuff
+        try {
+            DeviceCfg.setCurrentGovernor(mSharedPreferences.getString(GOVERNOR_PREF, null));
+            DeviceCfg.setMinFrequency(mSharedPreferences.getString(MIN_FREQ_PREF, null));
+            DeviceCfg.setMaxFrequency(mSharedPreferences.getString(MAX_FREQ_PREF, null));
         } catch (InterruptedException | IOException | NullPointerException e) {
             Log.d(TAG, "catch " + e.toString() + " hit in run", e);
         }

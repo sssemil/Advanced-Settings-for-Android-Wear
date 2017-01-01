@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Расширенные Настройки</string>
   <string name="welcome">Добро пожаловать</string>
   <string name="text">Проверьте часы на наличие приложения. Если его там нет, то просто дождитесь завершения синхронизации. Спасибо :)</string>
   <string name="donate">ПОЖЕРТВОВАТЬ</string>

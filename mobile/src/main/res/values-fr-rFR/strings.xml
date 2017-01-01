@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Paramètres avancés</string>
   <string name="welcome">Bienvenue</string>
   <string name="text">Vérifiez votre montre pour accéder à l\'application. Si elle n\'est pas présente, patientez un peu jusqu\'à la fin de la synchronisation. Merci :)</string>
   <string name="donate">DONATION</string>

@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Advanced Settings</string>
   <string name="welcome">Bienvenido</string>
   <string name="text">Busque la aplicación en el reloj. Si aún no se ha instalado espere un poco o fuerce la sincronización desde la app de Android Wear. Gracias :)</string>
   <string name="donate">DONAR</string>

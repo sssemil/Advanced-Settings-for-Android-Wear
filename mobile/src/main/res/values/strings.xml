@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Advanced Settings</string>
+    <string name="app_name" translatable="false">Advanced Settings</string>
     <string name="welcome">Welcome</string>
     <string name="text">Check your watch for app. If it\'s not there yet, then just wait a bit for synchronisation to finish. Thanks :)</string>
     <string name="donate">DONATE</string>

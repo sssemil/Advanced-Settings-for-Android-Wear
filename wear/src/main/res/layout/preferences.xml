@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
      Copyright (c) 2015 Emil Suleymanov <suleymanovemil8@gmail.com>
 
      This program is free software; you can redistribute it and/or
@@ -45,6 +46,14 @@
         app:pref_icon="@mipmap/ic_display_settings"
         app:pref_key="display_settings"
         app:pref_title="@string/display" />
+
+    <com.sssemil.advancedsettings.util.preference.ButtonPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pref_activity="com.sssemil.advancedsettings.PerformanceSettingsActivity"
+        app:pref_icon="@mipmap/ic_chip"
+        app:pref_key="performance_settings"
+        app:pref_title="@string/performance_settings" />
 
     <com.sssemil.advancedsettings.util.preference.ButtonAppPreference
         android:layout_width="wrap_content"

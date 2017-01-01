@@ -46,6 +46,36 @@ import java.util.Objects;
 public abstract class Utils {
     private static final String TAG = "A.S. Utils";
 
+    //used to execute commands as root, returns list of command output
+    public static ArrayList<String> exec(String command) {
+        try {
+            Process proc = Runtime.getRuntime().exec(new String[]{command});
+
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(proc.getInputStream()));
+
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(proc.getErrorStream()));
+
+            ArrayList<String> list = new ArrayList<>();
+
+            String s;
+            while ((s = stdInput.readLine()) != null) {
+                list.add(s);
+                Log.i("EXEC", s);
+            }
+
+            while ((s = stdError.readLine()) != null) {
+                list.add(s);
+                Log.e("EXEC", s);
+            }
+            return list;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static boolean tiltToWakeEnabled(Context paramContext) {
         return paramContext.getSharedPreferences("home_preferences", 0).getBoolean("tilt_to_wake", false);
     }
@@ -222,19 +252,10 @@ public abstract class Utils {
     }
 
     public static boolean isDeviceRooted() {
-        return checkRootMethod1() || checkRootMethod2() || checkRootMethod3() || checkRootMethod4();
+        return checkRootMethod1() || checkRootMethod2() || checkRootMethod3();
     }
 
     private static boolean checkRootMethod1() {
-        String buildTags = android.os.Build.TAGS;
-        return buildTags != null && buildTags.contains("test-keys");
-    }
-
-    private static boolean checkRootMethod2() {
-        return new File("/system/app/Superuser.apk").exists();
-    }
-
-    private static boolean checkRootMethod3() {
         String[] paths = {"/sbin/su", "/system/bin/su", "/system/xbin/su", "/data/local/xbin/su", "/data/local/bin/su", "/system/sd/xbin/su",
                 "/system/bin/failsafe/su", "/data/local/su"};
         for (String path : paths) {
@@ -243,12 +264,26 @@ public abstract class Utils {
         return false;
     }
 
-    private static boolean checkRootMethod4() {
+    private static boolean checkRootMethod2() {
         Process process = null;
         try {
             process = Runtime.getRuntime().exec(new String[]{"/system/xbin/which", "su"});
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
             return in.readLine() != null;
+        } catch (Throwable t) {
+            return false;
+        } finally {
+            if (process != null) process.destroy();
+        }
+    }
+
+    private static boolean checkRootMethod3() {
+        Process process = null;
+        try {
+            process = Runtime.getRuntime().exec(new String[]{"su", "-c", "id", "-u"});
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = in.readLine();
+            return line !=null && line.equals("0");
         } catch (Throwable t) {
             return false;
         } finally {

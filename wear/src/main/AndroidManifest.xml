@@ -54,6 +54,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DisplaySettingsActivity" />
+        <activity android:name=".PerformanceSettingsActivity" />
         <activity android:name=".LanguageInputSettingsActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".LicenseActivity" />

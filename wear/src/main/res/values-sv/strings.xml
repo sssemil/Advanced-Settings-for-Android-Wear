@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Avancerade Inställningar</string>
   <string name="default_summary_on">På</string>
   <string name="default_summary_off">Av</string>
   <string name="action_settings">Inställningar</string>
@@ -15,7 +14,6 @@
   <string name="no_perm">Inga behörigheter.</string>
   <string name="working">Arbetar...\n</string>
   <string name="license">Licens</string>
-  <string name="license1">Copyright © 2015 Emil Suleymanov</string>
   <string name="license2">Distribuerad under GNU GPL v3</string>
   <string name="license3">Källkoden är tillgänglig här https://github.com/sssemil/wear_AdvancedSettings .</string>
   <string name="license4">Använder WearPreferenceActivity av Denley Bihari(@denley) (https://github.com/denley/WearPreferenceActivity).</string>
@@ -42,9 +40,9 @@
   <string name="vibrator">Vibration</string>
   <string name="vibration_intensity">Vibrationsintensitet</string>
   <string name="sys_apps">System</string>
-  <string name="usr_apps">Installerad</string>
+  <string name="usr_apps">Installerade</string>
   <string name="all_apps">Alla</string>
-  <string name="running_services">Springer</string>
+  <string name="running_services">Kör</string>
   <string name="system_uninstall_warning">DU KOMMER AVINSTALLERA EN SYSTEM APP! DETTA KAN ORSAKA ALLVARLIG SKADA OCH KAN INTE ÅNGRAS! DU HAR BLIVIT VARNAD!</string>
   <string name="normal_uninstall_warning">DU KOMMER AVINSTALLERA EN APP! DENNA HANDLING KAN INTE ÅNGRAS! DU HAR BLIVIT VARNAD!</string>
   <string name="wait_till_sys">Vänta lite tills Systemet uppdaterar appar listan för att se förändringar</string>
@@ -69,7 +67,7 @@
   <string name="lang_input">System språk</string>
   <string name="screen_saver_timeout">Skärmsläckare timeout</string>
   <string name="unpair">Ta bort parkoppling</string>
-  <string name="dis_apps">Avaktiverad</string>
+  <string name="dis_apps">Avaktiverade</string>
   <string name="noapps">Inga appar här</string>
   <string name="manage_screen_saver_br">Hantera ljusstyrka för skärmsläckare </string>
   <string name="grant_access_settings">Du måste ge åtkomst till Skriv inställningar . Aktivera eller återaktivera den i fönstret.</string>

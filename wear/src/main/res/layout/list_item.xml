@@ -26,8 +26,9 @@
         android:id="@+id/ivIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginRight="5dip"
-        android:scaleType="center" />
+        android:layout_marginEnd="5dip"
+        android:scaleType="center"
+        android:contentDescription="@string/items_icon" />
 
     <LinearLayout
         android:layout_width="0dip"
@@ -48,7 +49,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 

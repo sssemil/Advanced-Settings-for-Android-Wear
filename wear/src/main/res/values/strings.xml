@@ -17,7 +17,7 @@
      MA  02110-1301, USA.
 -->
 <resources>
-    <string name="app_name">Advanced Settings</string>
+    <string name="app_name" translatable="false">Advanced Settings</string>
 
     <string name="default_summary_on">On</string>
     <string name="default_summary_off">Off</string>
@@ -35,7 +35,7 @@
 
     <string name="license">License</string>
 
-    <string name="license1">Copyright © 2015–2016 Emil Suleymanov</string>
+    <string name="license1">Copyright © 2015–2017 Emil Suleymanov</string>
     <string name="license2">Distributed under the GNU GPL v3</string>
     <string name="license3">Source code is available at https://github.com/sssemil/wear_AdvancedSettings .</string>
     <string name="license4">Using WearPreferenceActivity by Denley Bihari(@denley) (https://github.com/denley/WearPreferenceActivity).</string>
@@ -99,4 +99,10 @@
     <string name="change_dpi">LCD density</string>
     <string name="tasks">Tasks</string>
     <string name="on_theatre_mode_launch_app">On theatre mode launch app</string>
+
+    <string name="performance_settings">Performance</string>
+    <string name="governor">Governor</string>
+    <string name="min_freq">Min Frequency</string>
+    <string name="max_freq">Max Frequency</string>
+    <string name="items_icon">Item\'s icon</string>
 </resources>

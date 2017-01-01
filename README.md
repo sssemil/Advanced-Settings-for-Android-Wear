@@ -15,6 +15,18 @@ Adding new device
 
 In wear/src/main/assets you can see some config files, just copy any of them and name it after your device name (you can find it in /system/build.prop). After that explore your watch and change values to fit your it.
 
+How to build
+------------
+
+1. Install the [Android Studio](https://developer.android.com/studio/index.html) 
+2. Clone this repo
+3. Open it within Android Studio
+
+Adding new device
+-----------------
+
+In wear/src/main/assets you can see some config files, just copy any of them and rename it after your device (you can find device name in /system/build.prop). After that explore your watch and change values to fit your watch.
+
 ### What you get (marked with R require root access):
 + Vibration intensity changing (R)
 + Installed apps information

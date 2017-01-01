@@ -180,7 +180,9 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
                 Scanner scanner = new Scanner(idc);
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-                    if (line.contains("touch.wake = 1")) {
+                    if (line.contains("touch.wake = 0")) {
+                        return false;
+                    } else if(line.contains("touch.wake = 1")) {
                         return true;
                     }
                 }
@@ -195,58 +197,60 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String touch_idc_path = mCfg.getTouchIdcPath(DisplaySettingsActivity.this);
+                File touch_idc = new File(mCfg.getTouchIdcPath(DisplaySettingsActivity.this));
                 try {
-                    if (isTouchToWakeEnabled() != enable) {
-                        Runtime.getRuntime().exec("su -c mount -o remount,rw /system").waitFor();
-                        Runtime.getRuntime().exec("su -c cp " + touch_idc_path
-                                + " /sdcard/backup.idc").waitFor();
+                    File disabledFile = new File("/data/disabled.idc");
 
-                        File idc = new File("/sdcard/backup.idc");
-                        if (idc.exists()) {
-                            PrintWriter writer = new PrintWriter("/sdcard/tmp.idc", "UTF-8");
-                            Scanner scanner = new Scanner(idc);
-                            while (scanner.hasNextLine()) {
-                                String line = scanner.nextLine();
-                                if (line.contains("touch.wake")) {
-                                    if (enable) {
-                                        writer.println("touch.wake = 1");
-                                    } else {
-                                        writer.println("touch.wake = 0");
-                                    }
-                                } else {
-                                    writer.println(line);
-                                }
+                    if (!disabledFile.exists()) {
+                        Scanner scanner = new Scanner(touch_idc);
+
+                        Runtime.getRuntime().exec(String.format("su -c echo \"\" > %s",
+                                disabledFile.getAbsoluteFile())).waitFor();
+
+                        while (scanner.hasNextLine()) {
+                            String line = scanner.nextLine();
+                            if (line.contains("touch.wake")) {
+                                Runtime.getRuntime().exec(String.format("su -c echo \"touch.wake = 0\" >> %s",
+                                        disabledFile.getAbsoluteFile())).waitFor();
+                            } else {
+                                Runtime.getRuntime().exec(String.format("su -c echo \"%s\" >> %s",
+                                        line, disabledFile.getAbsoluteFile())).waitFor();
                             }
-                            writer.close();
-                            Runtime.getRuntime().exec("su -c rm -rf " + touch_idc_path).waitFor();
-                            Runtime.getRuntime().exec("su -c cp /sdcard/tmp.idc " + touch_idc_path).waitFor();
-                            Runtime.getRuntime().exec("su -c chmod 644 " + touch_idc_path).waitFor();
-                            Runtime.getRuntime().exec("su -c sync").waitFor();
-                            if (!(new File(mCfg.getTouchIdcPath(DisplaySettingsActivity.this)).exists())) {
-                                Runtime.getRuntime().exec("su -c cp /sdcard/backup.idc " + touch_idc_path).waitFor();
-                            }
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(mContext, R.string.will_reboot_now, Toast.LENGTH_LONG).show();
-                                }
-                            });
-                            Thread.sleep(3000);
-                            //Runtime.getRuntime().exec("su -c reboot").waitFor();
-                            setupBin();
-                            busybox(mContext, "killall zygote");
                         }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    try {
-                        Runtime.getRuntime().exec("su -c rm -rf " + touch_idc_path).waitFor();
-                        Runtime.getRuntime().exec("su -c cp /sdcard/backup.idc " + touch_idc_path).waitFor();
-                    } catch (IOException | InterruptedException e1) {
-                        e1.printStackTrace();
+
+                    boolean wasEnabled = isTouchToWakeEnabled();
+
+                    if (!enable) {
+                        //unmounting in case something went wrong before
+                        //if we don't do it here we'll need to unmount multiple times
+                        Runtime.getRuntime().exec(String.format("su -c umount %s",
+                                touch_idc.getAbsoluteFile())).waitFor();
+                        Log.i("MOUNT", String.format("su -c mount -o bind %s %s",
+                                disabledFile.getAbsolutePath(), touch_idc.getAbsolutePath()));
+                        Runtime.getRuntime().exec(String.format("su -c mount -o bind %s %s",
+                                disabledFile.getAbsolutePath(), touch_idc.getAbsolutePath())
+                        ).waitFor();
+                    } else {
+                        Log.i("UMOUNT", String.format("su -c umount %s",
+                                touch_idc.getAbsoluteFile()));
+                        Runtime.getRuntime().exec(String.format("su -c umount %s",
+                                touch_idc.getAbsoluteFile())).waitFor();
                     }
-                } catch (InterruptedException e) {
+
+                    if (wasEnabled != enable) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, R.string.will_reboot_now, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        Thread.sleep(3000);
+                        //Runtime.getRuntime().exec("su -c reboot").waitFor();
+                        setupBin();
+                        busybox(mContext, "killall zygote");
+                    }
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -290,10 +294,10 @@ public class DisplaySettingsActivity extends WearPreferenceActivity
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         try {
             if (key.equals("screen_timeout_settings")
-                    && (Settings.System.getInt(getContentResolver(),
+                    && (Settings.System.getLong(getContentResolver(),
                     Settings.System.SCREEN_OFF_TIMEOUT, 0)
                     != Integer.parseInt(sharedPreferences.getString(key, null)))) {
-                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
+                Settings.System.putLong(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
                         Integer.parseInt(sharedPreferences.getString(key, null)));
             } else if (key.equals("brightness_settings")
                     && (Settings.System.getInt(getContentResolver(),

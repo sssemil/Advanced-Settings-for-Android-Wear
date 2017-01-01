@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Avancerade Inställningar</string>
   <string name="welcome">Välkommen</string>
   <string name="text">Titta på klockan efter appen. Om den inte finns där, vänta tills synkroniseringen är avslutad. Tack :)</string>
   <string name="donate">DONERA</string>

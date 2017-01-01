@@ -32,7 +32,8 @@
         android:padding="24dp"
         app:circle_border_color="?android:attr/colorForeground"
         app:circle_border_width="1dp"
-        app:circle_color="@android:color/transparent" />
+        app:circle_color="@android:color/transparent"
+        android:scaleType="centerInside" />
 
     <LinearLayout
         android:layout_width="match_parent"
